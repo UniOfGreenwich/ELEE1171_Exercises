@@ -1,0 +1,52 @@
+name: deploy to github pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install segno
+
+      - name: Setup mdBook
+        uses: jontze/action-mdbook@v3
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          use-toc: true
+          use-admonish: true
+
+      - name: Show mdbook version
+        run: mdbook --version
+      - name: Show toc version
+        run: mdbook-toc --version
+      - name: Show admonish version
+        run: mdbook-admonish --version
+
+      - name: Generate QR code
+        env:
+          REPO_NAME: ${{ github.repository }}
+        run: python .github/qrgen.py
+
+      - run: mdbook build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: "./book"
