@@ -3,7 +3,7 @@ authors = ["Seb Blair (CompEng0001)"]
 language = "en"
 multilingual = false
 src = "content"
-title = "MD-Book Template for UoG"
+title = "Securing Technologies Exercises"
 
 [output.html.search]
 limit-results = 20
@@ -41,8 +41,8 @@ color = "#72879C"
 [output.html]
 mathjax-support = true
 input-404 = "404/404.md"
-git-repository-url = "https://github.com/uniofgreenwich/MD_Book_Template"
-edit-url-template = "https://github.com/uniofgreenwich/MD_Book_Template/edit/main/{path}"
+git-repository-url = "https://github.com/uniofgreenwich/ELEE1171_Execises"
+edit-url-template = "https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/{path}"
 additional-css = ["./theme/pagetoc.css", "./theme/css/mdbook-admonish.css", "./theme/css/code.css","./theme/css/terminal.css","./theme/css/output.css"]
 additional-js  = ["./theme/pagetoc.js"]
 

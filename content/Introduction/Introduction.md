@@ -1,13 +1,13 @@
 # Introduction 
 
-This mdBook will grow over the duration of this module with new labs/workshops and general content needed to test and increase your knowledge of ... . 
+This mdBook will grow over the duration of this module with new labs/workshops and general content needed to test and increase your knowledge of securing technologies. 
 
 <table>
 <tr>
 <td>
 
 The mdBook accessed outside of blackboard and is mobile and tablet friendly. :
-- [https://uniofgreenwich.github.io/MD_Book_Template/](https://uniofgreenwich.github.io/MD_Book_Template/Introduction.html)
+- [https://uniofgreenwich.github.io/ELEE1171_Execises/](https://uniofgreenwich.github.io/ELEE1171_Execises/Introduction.html)
 - Or scan the QR code on the right:
 </td>
 <td>
