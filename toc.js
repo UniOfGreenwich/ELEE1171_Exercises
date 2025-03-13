@@ -8,7 +8,7 @@ class MDBookSidebarScrollbox extends HTMLElement {
         super();
     }
     connectedCallback() {
-        this.innerHTML = '<ol class="chapter"><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item "><a href="Introduction/Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item "><a href="Integrity/Integrity.html"><strong aria-hidden="true">2.</strong> Integrity</a></li><li class="chapter-item "><a href="Cryptography/Cryptography.html"><strong aria-hidden="true">3.</strong> Cryptography</a></li></ol>';
+        this.innerHTML = '<ol class="chapter"><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item "><a href="Introduction/Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item affix "><li class="spacer"></li><li class="chapter-item "><a href="Integrity/Integrity.html"><strong aria-hidden="true">2.</strong> Integrity</a></li><li class="chapter-item "><a href="Cryptography/Cryptography.html"><strong aria-hidden="true">3.</strong> Cryptography</a></li><li class="chapter-item "><a href="RiskAssessment/RiskAssessment.html"><strong aria-hidden="true">4.</strong> Risk Assessment</a></li></ol>';
         // Set the current, active page, and reveal it if it's hidden
         let current_page = document.location.href.toString().split("#")[0];
         if (current_page.endsWith("/")) {
