@@ -35,7 +35,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
 
     ~~~
 
-    ~~~admonish output
+    ~~~admonish output collapsible=true
 
     ```sh
     4d0fcde63a0a3c82df0ddd2c403f340d34cfe5537133e5c48b0aca6ff44b7f47 *integrity_test.txt
@@ -64,7 +64,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
     
     ~~~
     
-    ~~~admonish output
+    ~~~admonish output collapsible=true
     
     ```
     4d0fcde63a0a3c82df0ddd2c403f340d34cfe5537133e5c48b0aca6ff44b7f4
@@ -120,7 +120,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
     
     ~~~
     
-    ~~~admonish output
+    ~~~admonish output collapsible=true
     
     ```
     1c1
@@ -159,7 +159,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
 
     ~~~
 
-    ~~~admonish output
+    ~~~admonish output collapsible=true
 
     ```ps1
     Algorithm       Hash                                                                   Path
@@ -212,7 +212,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
     
     ~~~
     
-    ~~~admonish output
+    ~~~admonish output collapsible=true
     
     ```
     InputObject                                                      SideIndicator
@@ -225,7 +225,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
 
 15. Notice that in both environments, Powershell and Bash, give same hash outputs:
 
-    ~~~admonish output title="Bash"
+    ~~~admonish output collapsible=true title="Bash"
 
     ```
     $ diff integrity_test_hash.txt integrity_test_hash_2.txt
@@ -237,7 +237,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
 
     ~~~
 
-    ~~~admonish output title="Powershell"
+    ~~~admonish output collapsible=true title="Powershell"
 
     ```
     $ Compare-Object (Get-Content integrity_test_hash_1.txt) (Get-Content integrity_test_hash_2.txt)
@@ -342,7 +342,7 @@ In a later exercise, will explore public and private keys. For now we only need 
 
     ~~~
 
-    ~~~admonish output
+    ~~~admonish output collapsible=true
     
     ```
     integrity_test.sig  integrity_test.txt  integrity_test_hash_2.txt
@@ -359,7 +359,7 @@ In a later exercise, will explore public and private keys. For now we only need 
     ```
     ~~~
     
-    ~~~admonish output
+    ~~~admonish output collapsible=true
     
     ```
     integrity_test.sig: application/octet-stream
@@ -427,7 +427,7 @@ In a later exercise, will explore public and private keys. For now we only need 
 
     ~~~
 
-    ~~~admonish output
+    ~~~admonish output collapsible=true
 
     ```
     gpg: Signature made Wed, Mar 12, 2025  8:01:35 PM GMTST
@@ -442,7 +442,7 @@ In a later exercise, will explore public and private keys. For now we only need 
 
 22. If you run the command again, you should get a simplified output:
 
-    ~~~admonish output
+    ~~~admonish output collapsible=true
 
     ```
     gpg: Signature made Wed, Mar 12, 2025  8:01:35 PM GMTST
@@ -464,7 +464,7 @@ In a later exercise, will explore public and private keys. For now we only need 
 
 24. GPG checks the file by running the key over it again to see if the same output is produced, it not then the integrity of the file is compromised.
 
-    ~~~admonish output
+    ~~~admonish output collapsible=true
 
     ```
     gpg: Signature made Wed, Mar 12, 2025  8:01:35 PM GMTST
@@ -472,4 +472,394 @@ In a later exercise, will explore public and private keys. For now we only need 
     gpg: BAD signature from "YourName (for lab on gpg integrity) <YourUsername@gre.ac.uk>" [ultimate]
     ```
 
+    ~~~
+
+## 3. Understanding the SHA256 algorithm
+
+In this section, we will construct the SHA-256 algorithm step by step, understanding the mathematical principles behind each operation.
+
+SHA-256 is a cryptographic hash function that takes an input and produces a fixed 256-bit hash output. The process involves:
+
+- Padding the message to a multiple of 512 bits.
+
+- Parsing the message into 512-bit chunks.
+
+- Processing each chunk using a sequence of bitwise operations.
+
+- Producing a final 256-bit hash.
+
+
+
+### 3.1 Padding the Message
+
+SHA-256 requires that the input length be a multiple of **512 bits**. We achieve this by:
+
+- Appending a 1-bit (`0x80` in hex) to the message.
+
+- Appending **zero bits** until the length is 448 bits (mod 512).
+
+- Appending the original message length as a 64-bit integer.
+
+    ~~~admonish important
+
+    If you see `...` in the code blocks this means that there is code before or after that has been hidden for brevity
+
+    ~~~
+
+25. Create a python script called `mysha256sum.py`
+
+26. Edit the file with application of your choice, here we are using `vim` via the command line:
+
+    ~~~admonish terminal
+
+    ```sh
+    vim mysha256sum.py
+    ```
+
+    ~~~
+
+    ~~~admonish code
+
+    ```py
+    import struct
+
+    def pad_message(message):
+        """Pads the message to fit SHA-256 specifications."""
+        message = bytearray(message, 'utf-8')
+        original_length = len(message) * 8  # Message length in bits
+        message.append(0x80)  # Append '1' bit
+        while (len(message) * 8 + 64) % 512 != 0:
+            message.append(0)  # Append '0' bits
+        message += struct.pack('>Q', original_length)  # Append length as 64-bit integer
+        return message
+
+    # Example
+    msg = "Hello, World!"
+    padded_msg = pad_message(msg)
+    print(f"Padded message: {padded_msg.hex()}")
+    ```
+
+    ~~~
+
+27. Once you have done experimenting with this fucntion remove the lines:
+    
+    ~~~admonish code
+
+    ```py
+    # Example
+    msg = "Hello, World!"
+    padded_msg = pad_message(msg)
+    print(f"Padded message: {padded_msg.hex()}")
+    ```
+
+    ~~~
+
+28. Test the program:
+
+    ~~~admonish terminal
+
+    ```sh
+    py mysha256sum.py
+    ```
+
+    ~~~
+
+    ~~~admonish output collapsible=true
+    
+    ```
+    Padded message: 48656c6c6f2c20576f726c6421800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000068
+    ```
+
+    ~~~
+
+### 3.2 Message Parsing and Processing
+
+The padded message is split into 512-bit chunks, each divided into 16 words (32-bit integers). These words are expanded into 64 words using bitwise operations.
+
+29. Reproduce the following code in directly after pad_message() definition:
+
+    ~~~admonish code
+
+    ```py
+    ....
+
+    def right_rotate(value, bits):
+        """Right rotate (circular shift) a 32-bit integer."""
+        return (value >> bits) | (value << (32 - bits)) & 0xFFFFFFFF
+
+    def message_schedule(chunk):
+        """Expands 16 words into 64 words for SHA-256 processing."""
+        w = [0] * 64
+        for i in range(16):
+            w[i] = struct.unpack('>I', chunk[i * 4:(i + 1) * 4])[0]
+        for i in range(16, 64):
+            s0 = right_rotate(w[i - 15], 7) ^ right_rotate(w[i - 15], 18) ^ (w[i - 15] >> 3)
+            s1 = right_rotate(w[i - 2], 17) ^ right_rotate(w[i - 2], 19) ^ (w[i - 2] >> 10)
+            w[i] = (w[i - 16] + s0 + w[i - 7] + s1) & 0xFFFFFFFF
+        return w
+
+    ...
+    ```
+
+    ~~~
+
+### 3.3 Understanding an Computing the SHA256  Constants
+
+~~~admonish important
+
+SHA-256 Constants Explained
+
+The SHA-256 constants used in the algorithm are derived from:
+- the first 32 bits of the fractional parts of the cube roots of the first 64 prime numbers.
+
+- the first 32 bits of the fractional parts of the square roots of the first 8 primes
+
+~~~
+
+30. Manually Computing a SHA-256 Constant using the cube root of the first prime number
+
+    ~~~admonish example
+
+    We take the cube root of a prime number, extract the fractional part, and convert it into a 32-bit binary integer.
+
+    - Compute the cub root of 2 (the first prime number):
+
+    \\[ 2^{1/3} = 1.2599210498948732\\]
+
+    - Extract the fractional part:
+
+    \\[0.2599210498948732\\]
+
+    - Convert to a 32-bit integer:
+
+    \\[ 1,116,352,408 = 2^{32}\cdot 0.2599210498948732\\]
+
+    - Convert to HEX representation
+        
+    \\[ 0x428A2F98_{16} \equiv 1,116,352,408_{10}\\]    
+
+    ~~~
+
+    ~~~admonish question title="What is the constant for the prime number 7?" collapsible=true
+
+    - Compute the cub root of 2 (the first prime number):
+
+        \\[ 7^{1/3} = 1.912931182772389\\]
+
+    - Extract the fractional part:
+
+        \\[0.9129311827723889\\]
+
+    - Convert to a 32-bit integer:
+
+        \\[ 3,921,009,573 = 2^{32}\cdot 0.9129311827723889\\]
+
+    - Convert to HEX representation
+        
+        \\[ 0xE9B5DBA5_{16} \equiv 3,921,009,573_{10}\\]    
+
+    ~~~
+
+
+31. Manually Computing a SHA-256 Constant
+
+    ~~~admonish example
+
+    We take the square root of a prime number, extract the fractional part, and convert it into a 32-bit binary integer.
+
+    - Compute the cub root of 2 (the first prime number):
+
+        \\[ \sqrt{2} = 1.4142135623730951\\]
+
+    - Extract the fractional part:
+
+        \\[0.41421356237309515\\]
+
+    - Convert to a 32-bit integer:
+
+        \\[ 1,779,033,703 = 2^{32}\cdot 0.41421356237309515\\]
+
+    - Convert to HEX representation
+        
+        \\[ 0x6A09E667_{16} \equiv 1,779,033,703_{10}\\]    
+
+    ~~~
+
+    ~~~admonish question title="What is the constant for the prime number 7?" collapsible=true
+
+    - Compute the cub root of 2 (the first prime number):
+
+        \\[ \sqrt{7} = 2.6457513110645907\\]
+
+    - Extract the fractional part:
+
+        \\[0.6457513110645907\\]
+
+    - Convert to a 32-bit integer:
+
+        \\[ 2,773,480,762 = 2^{32}\cdot 0.6457513110645907\\]
+
+    - Convert to HEX representation
+        
+        \\[ 0xA54FF53A_{16} \equiv 2,773,480,762_{10}\\]    
+
+    ~~~
+
+
+32. Add the following Constants to mysha256sum.py, place the following code directly underneath the `import struct` line:
+
+    ~~~admonish code 
+
+    ```py
+    ...
+
+    # SHA-256 Constants: First 32 bits of the fractional parts of the cube roots of the first 64 primes
+    K = [
+        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+        0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+        0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+        0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+        0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+        0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+        0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+        0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+        0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+    ]
+
+    # Initial Hash Values (First 32 bits of the fractional parts of the square roots of the first 8 primes)
+    H = [
+        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+        0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+    ]
+    ...
+    ```
+
+    ~~~
+
+
+### 3.3 Compression Function
+
+We can now use the SHA256 Constants perform 64 bitwise transformations on each chunk. These transformations include:
+
+- Right rotations to create diffusion.
+
+- Choice (ch) function to introduce non-linearity.
+
+- Majority (maj) function to ensure avalanche effects.
+
+33. After the last function in the `mysha256sum.py` place the following algorithm
+
+    ~~~admonish code
+
+    ```py
+    ...
+
+    def sha256_process_chunk(chunk, H):
+        """Processes a 512-bit chunk using SHA-256 compression rounds."""
+        w = message_schedule(chunk)
+        a, b, c, d, e, f, g, h = H
+
+        for i in range(64):
+            S1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25)
+            ch = (e & f) ^ (~e & g)
+            temp1 = (h + S1 + ch + K[i] + w[i]) & 0xFFFFFFFF
+            S0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22)
+            maj = (a & b) ^ (a & c) ^ (b & c)
+            temp2 = (S0 + maj) & 0xFFFFFFFF
+
+            h, g, f, e, d, c, b, a = g, f, e, (d + temp1) & 0xFFFFFFFF, c, b, a, (temp1 + temp2) & 0xFFFFFFFF
+
+        return [(x + y) & 0xFFFFFFFF for x, y in zip(H, [a, b, c, d, e, f, g, h])]
+
+    ...
+
+    ```
+
+    ~~~
+
+### 3.4 Producing the Final Hash
+
+Once all chunks are processed, the final 256-bit hash is constructed from the updated 8 hash values.
+
+34. Modify the end of the script:
+
+    ~~~admonish code
+
+    ```py
+    def sha256(data):
+        """Full implementation of SHA-256."""
+        data = pad_message(data)
+        hash_values = H.copy()
+        for chunk_start in range(0, len(data), 64):
+            hash_values = sha256_process_chunk(data[chunk_start:chunk_start + 64], hash_values)
+        return ''.join(f"{h:08x}" for h in hash_values)
+
+    input_data = input("Enter text to hash: ")
+    print(f"{sha256(input_data)}")
+    ```
+
+    ~~~
+
+### 3.5 Running and verify it works
+
+35. Now you need to verify that the algorithm works, 
+
+    - We can validate against the builtin sha256sum command in the shell
+  
+        ~~~admonish terminal
+
+        ```
+        $ py mysha256sum.py
+        Enter text to hash: test
+        ```
+
+        ~~~
+
+        ~~~admonish output collapsible=true
+
+        ```
+        9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+        ```
+
+        ~~~
+
+    - Run the builtin like this:
+    
+        ~~~admonish terminal
+
+        ```
+        echo -n test | sha256sum
+        ```
+
+        ~~~
+
+        ~~~admonish output collapsible=true
+
+        ```
+        9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 *-
+        ```
+
+        ~~~
+
+    If you have followed the instructions you should have exactly the same output!
+
+36. Try the following
+
+    ~~~admonish terminal
+
+    ```
+    sha256sum <<< test
+    ```
+
+    ~~~
+
+    ~~~admonish question title="Is the ouput different? If so why?"
+    
     ~~~
