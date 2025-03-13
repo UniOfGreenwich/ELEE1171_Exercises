@@ -994,7 +994,7 @@ print(f"Padded message: {padded_msg.hex()}")
 </details>
 </li>
 </ol>
-<h2 id="32-message-parsing-and-processing"><a class="header" href="#32-message-parsing-and-processing">3.2 Message Parsing and Processing</a></h2>
+<h3 id="32-message-parsing-and-processing"><a class="header" href="#32-message-parsing-and-processing">3.2 Message Parsing and Processing</a></h3>
 <p>The padded message is split into 512-bit chunks, each divided into 16 words (32-bit integers). These words are expanded into 64 words using bitwise operations.</p>
 <ol start="29">
 <li>
@@ -1030,7 +1030,7 @@ def message_schedule(chunk):
 </div>
 </li>
 </ol>
-<h2 id="33-understanding-an-computing-the-sha256--constants"><a class="header" href="#33-understanding-an-computing-the-sha256--constants">3.3 Understanding an Computing the SHA256  Constants</a></h2>
+<h3 id="33-understanding-an-computing-the-sha256--constants"><a class="header" href="#33-understanding-an-computing-the-sha256--constants">3.3 Understanding an Computing the SHA256  Constants</a></h3>
 <div id="admonition-important-2" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-2-title">
 <div class="admonition-title">
 <div id="admonition-important-2-title">
@@ -1213,7 +1213,7 @@ H = [
 </div>
 </li>
 </ol>
-<h2 id="33-compression-function"><a class="header" href="#33-compression-function">3.3 Compression Function</a></h2>
+<h3 id="33-compression-function"><a class="header" href="#33-compression-function">3.3 Compression Function</a></h3>
 <p>We can now use the SHA256 Constants perform 64 bitwise transformations on each chunk. These transformations include:</p>
 <ul>
 <li>
@@ -1263,7 +1263,7 @@ def sha256_process_chunk(chunk, H):
 </div>
 </li>
 </ol>
-<h2 id="34-producing-the-final-hash"><a class="header" href="#34-producing-the-final-hash">3.4 Producing the Final Hash</a></h2>
+<h3 id="34-producing-the-final-hash"><a class="header" href="#34-producing-the-final-hash">3.4 Producing the Final Hash</a></h3>
 <p>Once all chunks are processed, the final 256-bit hash is constructed from the updated 8 hash values.</p>
 <ol start="34">
 <li>
@@ -1291,7 +1291,7 @@ print(f"{sha256(input_data)}")
 </div>
 </li>
 </ol>
-<h2 id="35-running-and-verify-it-works"><a class="header" href="#35-running-and-verify-it-works">3.5 Running and verify it works</a></h2>
+<h3 id="35-running-and-verify-it-works"><a class="header" href="#35-running-and-verify-it-works">3.5 Running and verify it works</a></h3>
 <ol start="35">
 <li>
 <p>Now you need to verify that the algorithm works,</p>
