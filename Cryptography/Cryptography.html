@@ -1,0 +1,771 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cryptography - Securing Technologies Exercises</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href=".././theme/pagetoc.css">
+        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
+        <link rel="stylesheet" href=".././theme/css/code.css">
+        <link rel="stylesheet" href=".././theme/css/terminal.css">
+        <link rel="stylesheet" href=".././theme/css/output.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="burgundy">Burgundy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ecoFriend">EcoFriend</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="pinkrose">Pinkrose</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="space">Space</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="sustain">Sustain</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="tokyonight">Tokyonight</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Securing Technologies Exercises</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/Cryptography/Cryptography.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="cryptography"><a class="header" href="#cryptography">Cryptography</a></h1>
+<p>In this lab you are going to investigate digital sigatures and experiment with some asymmetric encryption</p>
+<h2 id="1-basic-digital-cert-analysis"><a class="header" href="#1-basic-digital-cert-analysis">1 Basic Digital Cert Analysis</a></h2>
+<ol>
+<li>
+<p>Using the current web page/url for this lab click on the <strong>padlock</strong>(🔒) or <strong>triangle</strong> sign next to the URL</p>
+</li>
+<li>
+<p>If connection is secure, click on <strong>connection is secure</strong>, and read what it says.</p>
+ <details id="admonition-example-of-text" class="admonition admonish-example" role="note" aria-labelledby="admonition-example-of-text-title">
+ <summary class="admonition-title">
+ <div id="admonition-example-of-text-title">
+<p>Example of text</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-example-of-text"></a>
+ </summary>
+ <div>
+<p>This site has a valid certificate, issued by a trusted authority.</p>
+<p>This means information (such as passwords or credit cards) will be securely sent to this site and cannot be intercepted.</p>
+<p>Always be sure you're on the intended site before entering any information.​</p>
+ </div>
+ </details>
+</li>
+<li>
+<p>Click the certifcate icon</p>
+</li>
+<li>
+<p>If certificate is valid, click on it, and go to details (see figure 1 below).</p>
+</li>
+<li>
+<p>Analyse the certificate by clicking on each field. Answer the questions below.</p>
+<div id="admonition-is-the-connection-secure" class="admonition admonish-question" role="note" aria-labelledby="admonition-is-the-connection-secure-title">
+<div class="admonition-title">
+<div id="admonition-is-the-connection-secure-title">
+<p>Is the connection secure?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-is-the-connection-secure"></a>
+</div>
+<div>
+</div>
+</div>
+<div id="admonition-why-do-you-think-the-connection-appears-as-securenot-secure" class="admonition admonish-question" role="note" aria-labelledby="admonition-why-do-you-think-the-connection-appears-as-securenot-secure-title">
+<div class="admonition-title">
+<div id="admonition-why-do-you-think-the-connection-appears-as-securenot-secure-title">
+<p>Why do you think the connection appears as secure/not secure?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-why-do-you-think-the-connection-appears-as-securenot-secure"></a>
+</div>
+<div>
+</div>
+</div>
+<div id="admonition-what-is-the-intended-purpose-for-the-digital-certificate" class="admonition admonish-question" role="note" aria-labelledby="admonition-what-is-the-intended-purpose-for-the-digital-certificate-title">
+<div class="admonition-title">
+<div id="admonition-what-is-the-intended-purpose-for-the-digital-certificate-title">
+<p>What is the intended purpose for the digital certificate?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-what-is-the-intended-purpose-for-the-digital-certificate"></a>
+</div>
+<div>
+</div>
+</div>
+<div id="admonition-can-you-find-the-public-key-for-the-website-what-is-it" class="admonition admonish-question" role="note" aria-labelledby="admonition-can-you-find-the-public-key-for-the-website-what-is-it-title">
+<div class="admonition-title">
+<div id="admonition-can-you-find-the-public-key-for-the-website-what-is-it-title">
+<p>Can you find the public key for the website? What is it?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-can-you-find-the-public-key-for-the-website-what-is-it"></a>
+</div>
+<div>
+</div>
+</div>
+<div id="admonition-what-algorithm-is-used-for-the-signature-hash" class="admonition admonish-question" role="note" aria-labelledby="admonition-what-algorithm-is-used-for-the-signature-hash-title">
+<div class="admonition-title">
+<div id="admonition-what-algorithm-is-used-for-the-signature-hash-title">
+<p>What algorithm is used for the signature hash?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-what-algorithm-is-used-for-the-signature-hash"></a>
+</div>
+<div>
+</div>
+</div>
+</li>
+</ol>
+<h2 id="2-creating-an-openssl-certifcate"><a class="header" href="#2-creating-an-openssl-certifcate">2 Creating an OpenSSL Certifcate</a></h2>
+<h3 id="21--install-openssl"><a class="header" href="#21--install-openssl">2.1  Install OpenSSL</a></h3>
+<p>The first step in creating a self-signed SSL certificate is to install the <code>OpenSSL</code> package, which provides the necessary tools for generating SSL certificates. On most Linux distributions, you can install <code>OpenSSL</code> using the package manager.</p>
+<ol start="6">
+<li>
+<p>Installation</p>
+ <div id="admonition-linux---ubuntu-or-debian-based" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-linux---ubuntu-or-debian-based-title">
+ <div class="admonition-title">
+ <div id="admonition-linux---ubuntu-or-debian-based-title">
+<p>Linux - Ubuntu or Debian based</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-linux---ubuntu-or-debian-based"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">sudo apt update 
+sudo apt install openssl 
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-macos" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-macos-title">
+ <div class="admonition-title">
+ <div id="admonition-macos-title">
+<p>macOS</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-macos"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">brew update
+brew install openssl
+echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-windows---terminal" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-windows---terminal-title">
+ <div class="admonition-title">
+ <div id="admonition-windows---terminal-title">
+<p>Windows - Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-windows---terminal"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">winget search openssl
+winget install --id=FireDaemon.OpenSSL -e
+$Env:PATH += ";C:\Program Files\FireDaemon OpenSSL 3\bin"
+</code></pre>
+ </div>
+ </div>
+</li>
+</ol>
+<h3 id="22-generate-a-private-key"><a class="header" href="#22-generate-a-private-key">2.2 Generate a Private Key</a></h3>
+<ol start="7">
+<li>
+<p>Once you have OpenSSL installed, the next step is to generate a private key.</p>
+<div id="admonition-important" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-title">
+<div class="admonition-title">
+<div id="admonition-important-title">
+<p>Important</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-important"></a>
+</div>
+<div>
+<p>The private key is an essential component of the SSL certificate, as it is used to sign and decrypt data.</p>
+</div>
+</div>
+</li>
+<li>
+<p>Run the following command to generate a 2048-bit RSA private key:</p>
+ <div id="admonition-terminal" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal"></a>
+ </div>
+ <div>
+<pre><code>openssl genrsa -out elee1171.key 2048 
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+ <div class="admonition-title">
+ <div id="admonition-warning-title">
+<p>Warning</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-warning"></a>
+ </div>
+ <div>
+<p>Replace elee1171.key” with your desired file name, if this was a real certifcate. Make sure to keep this private key secure, as it is critical for maintaining the security of your SSL certificate.</p>
+ </div>
+ </div>
+</li>
+<li>
+<p>Check the content of the generated key</p>
+ <div id="admonition-terminal-1" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-1-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-1-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-1"></a>
+ </div>
+ <div>
+<pre><code class="language-sh"> cat elee1171.key
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output"></a>
+ </summary>
+ <div>
+<pre><code>-----BEGIN PRIVATE KEY-----
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDtPoZbRFiznfR5
+pjKIlf5LQ8UfxAkLg+IE1piJ2BYIMzmgGDZiynuaQqS1KuCKFWCpflxd5clW3nsr
+VwDJr1eh8Ytz62EHnfth4qaT8xHxtNmT157yWZvixI3db1A2XXG+nkBKJIF7GVrz
+46aM5v5OAMVrzEIegWVJL2uoxOY6rMf8ciHWa+/v4lbDpY6oXRJwYURZdKTNgyZ2
+YYU1bgtN8A4VDMxctamuJa/P/jXSCiNO3HbV4cWTWGUa7qVMQuZI4bQGQsU51oPn
+EzFgn0sJRXLaxVG8l9LTkiUf8d90l1hG5+6ysrUFaGXmlTV835+7AuwXm+mPDLKw
+PtT5B8cxAgMBAAECggEAC0W7g2DNDc8X7jjHRrtJFMvrSkNZrQD5mgJqnIVrzzzE
+hJa/Qh89/g95EnzvTs2jD7fyjRPtkVxVrLKVVb/oUXLv4z81l3Ok8wVz0JdNzLbW
+WLfidEBC5SSIML4zfjsfPAVPvNtyWzDnpADMKX6R6jm5/PwnTxpAVQN1DCo7iIw/
+hyhyTkPcJIEyUn7XTO0m/fhOTlnISy0EICrUG00ifX2Si5oOIbwXVWDaiUkW7M4g
+D96TI778gOPpVGR0tq94Mn/Taozg7NBFf6xpv5GRrHQL0rTU1NnlRxAvjYLKX8S9
+dlu8LKQz49aa+8fPOtgMBujgb59xakorLvD3CUavDQKBgQD6jKDHsFhuX/SOngWt
+QkQLGmKiJqDiOB8YWqljRHpMcr5jmwOHgGwqZUSY3uPvYWtFmPdCxRyJ9VecDerr
+Trjf/ygBwX7ZLjCWEz+BMDMhoYh0+ExQoxYyQ5cp6r3jDCP/enW2GhqVklROGvA9
+7uUrA/g5ayctDxn9PwMpvl9IpQKBgQDyZ8wiex/IpS/YoNikzrWC6tIyMyYVRzPl
+O+psbY0kXtECcwa4xomaWTeVTaKXkGJli4gLEEKM/wpPh+W7K7vePWRJFQ0wNCKJ
+PT/85ODT0/clvIv287mk0DtUZ6jb8zwhMegMUlO/ZUfxJtdF1bZsOS8MU063mk+A
+HLpaFkgynQKBgCqxEahU/Qx5nzM569+03eFCcrIMgPdq9qlwsVIv1eL23kgcnsJU
++JlUvhaKTC563At04BTpf05mlrIJkRDdThUk5g0+ij25aB/6UaTSsLO3UYgU0vQe
+hea0q6pBzG9Gn0+l7y7DTepUj7brUipLbZMhzwcBoiBEZXpIZWKUhKndAoGAQWTf
+HS46FNb7YWWDDHL3ZKoUqpZB39ullGHli/rB6N3rZM3DMnXdCVaoOA8JnfnFkb9i
+pBlu2rqy/WGcCDJ0LDBDrbOQK0DlUEDF0mOsg3jbY8LJv4Vgv6WtW8fbNfsYbZwZ
+Dbnn/epEzjm8OYq9+9QxbRHMWpu2dslJPKRmNcECgYBPQvoBD6IDHQA1jPvqfDc9
+qkN2mkLV/pheOAmfW+auWn1RGpvqLI2+zhcYaKvNQRCgjdYwvEx0oig181NgaDY5
+7yXhCCzpIyzQKgS/RlKpW2Bo17hJxjQKFYaKw8pBObaoliQH4vC/bBKS2aZKnjlQ
+AFc24siCoKwkVXwM5ibhGA==
+-----END PRIVATE KEY-----
+</code></pre>
+ </div>
+ </details>
+</li>
+</ol>
+<h3 id="23-create-a-certificate-signing-request-csr"><a class="header" href="#23-create-a-certificate-signing-request-csr">2.3 Create a Certificate Signing Request (CSR)</a></h3>
+<p>Next, you’ll need to create a Certificate Signing Request (CSR) that includes information about your server and organization. The CSR is required to generate the SSL certificate.</p>
+<ol start="10">
+<li>
+<p>Run the following command to create a CSR:</p>
+<div id="admonition-terminal-2" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-2-title">
+<div class="admonition-title">
+<div id="admonition-terminal-2-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-2"></a>
+</div>
+<div>
+<pre><code class="language-sh">openssl req -new -key elee171.key -out elee171.csr 
+</code></pre>
+</div>
+</div>
+<div id="admonition-warning-1" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-1-title">
+<div class="admonition-title">
+<div id="admonition-warning-1-title">
+<p>Warning</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-warning-1"></a>
+</div>
+<div>
+<p>Replace elee171.key” with the name of your private key and elee171.csr” with your desired CSR file name, when deploying for real.</p>
+<p>You will be prompted to enter various details, such as your country, state, locality, organization name, common name (domain name), and email address.</p>
+<p>In real scenario you would feel out the details as to your company or as an individual</p>
+</div>
+</div>
+</li>
+<li>
+<p>Fill in these details accurately, as they will be used in your SSL certificate, with the following:</p>
+<div id="admonition-terminal-3" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-3-title">
+<div class="admonition-title">
+<div id="admonition-terminal-3-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-3"></a>
+</div>
+<div>
+<pre><code class="language-sh">$ openssl req -new -key elee1171.key -out elee1171.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:UK
+State or Province Name (full name) [Some-State]:Kent
+Locality Name (eg, city) []:Gillingham
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:ELEE1171
+Organizational Unit Name (eg, section) []:Engineering
+Common Name (e.g. server FQDN or YOUR name) []:elee1171.ac.uk
+Email Address []:elee1171@elee1171.ac.uk
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:123456789
+An optional company name []:ELEE1171
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the content of the generated Certificate Signing Request file</p>
+<div id="admonition-terminal-4" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-4-title">
+<div class="admonition-title">
+<div id="admonition-terminal-4-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-4"></a>
+</div>
+<div>
+<pre><code class="language-sh"> cat elee1171.csr
+</code></pre>
+</div>
+</div>
+<details id="admonition-output-1" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-1-title">
+<summary class="admonition-title">
+<div id="admonition-output-1-title">
+<p>Output</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-output-1"></a>
+</summary>
+<div>
+<pre><code>-----BEGIN CERTIFICATE REQUEST-----
+MIIDFDCCAfwCAQAwgZsxCzAJBgNVBAYTAlVLMQ0wCwYDVQQIDARLZW50MRMwEQYD
+VQQHDApHaWxsaW5naGFtMREwDwYDVQQKDAhFTEVFMTE3MTEUMBIGA1UECwwLRW5n
+aW5lZXJpbmcxFzAVBgNVBAMMDmVsZWUxMTcxLmFjLnVrMSYwJAYJKoZIhvcNAQkB
+FhdlbGVlMTE3MUBlbGVlMTE3MS5hYy51azCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBAL7v0RzkygL3Wc+PK436YYpflD8ahZCyOVW6/ndZCTjwAVzBsc5v
+6bOPmSOLc8M9autlCdDuWpLeCqBUpCx6YPiUxmNGIoq63fZY2VG68WHeHoMflRfJ
+ShZl+b6g09l9XHdnkT3gzPDrKDrJVzUJxVKdSdpfcjaBVQ9bPsIqX3bKZwb0gGqt
+/4Lwfq18zao2Rc9He7LNlDnXFezKXEy567RLahAgX37sMjcE8AJf1wh/iUR8K5Dn
+M1Ytj5Bn7yBldAQd8O/kTcpvqTU6ZEKdGjBUPydwUwoJ2FzWAskufgyVMB+AUHoF
+jpYn+yDiLKgyj9KRXWgTnSYY2wXfPGKLKc8CAwEAAaAzMBcGCSqGSIb3DQEJAjEK
+DAhFTEVFMTE3MTAYBgkqhkiG9w0BCQcxCwwJMTIzNDU2Nzg5MA0GCSqGSIb3DQEB
+CwUAA4IBAQC3ydjAoNY4D3UiON8SK+Y7NdpoprCzYiNOfVqjjvy5DCEFr7qK8ukD
+2zUtSAqUv0GZb2JIZTalLls6/27K1pz6SBh4FhOvzTB9diYKKCSYybViNucKXTpd
+kNzrYjZ8sCxJsckrvSJ6Jc2KmeRrnKGUlq8vyD0Lx2tPevDvNmOcZR/MahY51cog
+svjbEnEfLgvztxKmKZyY67VXqOvvGm0qzqMqvs+whbFO5kYNiTOIOkoN2M6KQWV6
+ih4UNM9stkhjStt6DbQ5W93Z4RyVvjDcxfiEptyS2YUtPyPJ9KR9eM5dwIX+f4fn
+4pvWxBMku/8N8I8oEkkGre36o0Oqge7H
+-----END CERTIFICATE REQUEST-----
+</code></pre>
+</div>
+</details>
+</li>
+</ol>
+<h3 id="24-generate-the-self-signed-ssl-certificate"><a class="header" href="#24-generate-the-self-signed-ssl-certificate">2.4 Generate the Self-Signed SSL Certificate</a></h3>
+<ol start="13">
+<li>
+<p>Now that you have a CSR, you can generate your self-signed SSL certificate using the following command:</p>
+<div id="admonition-terminal-5" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-5-title">
+<div class="admonition-title">
+<div id="admonition-terminal-5-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-5"></a>
+</div>
+<div>
+<pre><code class="language-sh">openssl x509 -req -days 365 -in elee1171.csr -signkey elee1171.key -out elee1171.crt 
+</code></pre>
+</div>
+</div>
+<details id="admonition-output-2" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-2-title">
+<summary class="admonition-title">
+<div id="admonition-output-2-title">
+<p>Output</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-output-2"></a>
+</summary>
+<div>
+<pre><code>Certificate request self-signature ok
+subject=C=UK, ST=Kent, L=Gillingham, O=ELEE1171, OU=Engineering, CN=elee1171.ac.uk, emailAddress=elee1171@elee1171.ac.uk
+</code></pre>
+</div>
+</details>
+<div id="admonition-warning-2" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-2-title">
+<div class="admonition-title">
+<div id="admonition-warning-2-title">
+<p>Warning</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-warning-2"></a>
+</div>
+<div>
+<p>Replace <code>elee1171.csr</code> with your CSR file name, <code>elee1171.key</code> with your private key file name, and <code>elee1171.crt</code> with your desired SSL certificate file name, when deploying for real</p>
+</div>
+</div>
+<div id="admonition-explanation" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-title">
+<div class="admonition-title">
+<div id="admonition-explanation-title">
+<p>Explanation</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-explanation"></a>
+</div>
+<div>
+<ul>
+<li>
+<p><code>x509</code>: The command used to perform <code>x509</code> certificate operations, such as signing, generating, and displaying information.</p>
+</li>
+<li>
+<p><code>-req</code>:	Specifies that the input file should be treated as a certificate signing request (CSR) rather than a certificate.</p>
+</li>
+<li>
+<p><code>-days 365</code>:	Sets the validity period of the certificate in days (in this case, 365 days). You can change this value as needed.</p>
+</li>
+<li>
+<p><code>-in</code>: Specifies the input file to be used, which is the CSR file (<code>elee1171.csr</code> in this case). Replace <code>elee1171.csr</code> with the appropriate file name.</p>
+</li>
+<li>
+<p><code>-signkey</code>:	Indicates the private key that will be used to sign the certificate. In this case, it is the <code>elee1171.key</code> file. Replace “example.key” with the appropriate file name.</p>
+</li>
+<li>
+<p><code>-out</code>:	Specifies the output file for the generated certificate. In this case, it is the <code>elee1171.crt</code> file. Replace <code>elee1171.crt</code> with the desired file name.</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+</ol>
+<h3 id="25-configure-a-web-server-to-use-the-ssl-certificate"><a class="header" href="#25-configure-a-web-server-to-use-the-ssl-certificate">2.5 Configure A Web Server to Use the SSL Certificate</a></h3>
+<p>In this exercise we are going to create a python web server to use our newly created self-signed SSL certificate.</p>
+<ol start="14">
+<li>
+<p>First we need to create a python virtual environment</p>
+<div id="admonition-terminal-6" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-6-title">
+<div class="admonition-title">
+<div id="admonition-terminal-6-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-6"></a>
+</div>
+<div>
+<pre><code class="language-sh"># Create a virtual environment
+&lt;python/py&gt; -m venv venv
+
+# Activate the virtual environment
+# On Windows:
+source venv\Scripts\activate
+
+# On macOS/Linux:
+source venv/bin/activate
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now you are in a virutal environment we can install so packages that will be isolated from the sytem wide python packages.</p>
+<div id="admonition-terminal-7" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-7-title">
+<div class="admonition-title">
+<div id="admonition-terminal-7-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-7"></a>
+</div>
+<div>
+<pre><code>$ pip install flask
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a python script called <code>server.py</code> and reproduce the following:</p>
+<div id="admonition-code" class="admonition admonish-code" role="note" aria-labelledby="admonition-code-title">
+<div class="admonition-title">
+<div id="admonition-code-title">
+<p>Code</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-code"></a>
+</div>
+<div>
+<pre><code class="language-py">from flask import Flask
+import ssl
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Secure Flask Web Server with OpenSSL Certificate!"
+
+if __name__ == "__main__":
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    context.load_cert_chain(certfile="elee1171.crt", keyfile="elee1171.key")
+
+    # Explicitly enable HTTPS
+    app.run(host="127.0.0.1", port=5000, ssl_context=context)
+
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the script:</p>
+<div id="admonition-terminal-8" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-8-title">
+<div class="admonition-title">
+<div id="admonition-terminal-8-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-8"></a>
+</div>
+<div>
+<pre><code class="language-sh">python server.py
+</code></pre>
+</div>
+</div>
+<details id="admonition-output-3" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-3-title">
+<summary class="admonition-title">
+<div id="admonition-output-3-title">
+<p>Output</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-output-3"></a>
+</summary>
+<div>
+<pre><code>* Serving Flask app 'server'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on https://127.0.0.1:5000
+</code></pre>
+</div>
+</details>
+</li>
+<li>
+<p>You can <code>curl</code> the url and see what it displays, open a second terminal and type:</p>
+<div id="admonition-terminal-9" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-9-title">
+<div class="admonition-title">
+<div id="admonition-terminal-9-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-9"></a>
+</div>
+<div>
+<pre><code>curl -k https://127.0.0.1:5000
+</code></pre>
+</div>
+</div>
+<details id="admonition-output-4" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-4-title">
+<summary class="admonition-title">
+<div id="admonition-output-4-title">
+<p>Output</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-output-4"></a>
+</summary>
+<div>
+<pre><code>Secure Flask Web Server with OpenSSL Certificate!
+</code></pre>
+</div>
+</details>
+</li>
+<li>
+<p>Navigate to your web browser of your choice, best to run incognito and go to the URL <code>https:127.0.0.1:5000</code></p>
+</li>
+<li>
+<p>Here is and example of the certificate</p>
+</li>
+</ol>
+<div align=center>
+<p><img src="./figures/elee1171_cert.png" alt="" /></p>
+</div>
+<h2 id="26-summary"><a class="header" href="#26-summary">2.6 Summary</a></h2>
+<p>Creating a self-signed SSL certificate using the terminal command line is a straightforward process that can be accomplished with just a few commands. While self-signed SSL certificates should not be used for production environments, they can be an invaluable tool for testing, development, or internal applications. By following this step-by-step guide, you can easily generate a self-signed SSL certificate and configure your web server to use it.</p>
+<p>Keep in mind that self-signed SSL certificates may trigger security warnings in web browsers, as they are not signed by a trusted Certificate Authority (CA). For production environments, it is highly recommended to use an SSL certificate issued by a trusted CA to ensure the best security and user experience.</p>
+<p>In summary, mastering the terminal command line to create self-signed SSL certificates is a valuable skill that can help you maintain the security and privacy of your applications during development and testing. By familiarising yourself with OpenSSL commands and understanding the importance of SSL certificates, you’ll be well-equipped to manage and secure your web services effectively</p>
+
+                    </main>
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Integrity/Integrity.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Integrity/Integrity.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src=".././theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>
