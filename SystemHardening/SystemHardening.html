@@ -1,0 +1,927 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Threats and Threat Actors | System Hardening  - Securing Technologies Exercises</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href=".././theme/pagetoc.css">
+        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
+        <link rel="stylesheet" href=".././theme/css/code.css">
+        <link rel="stylesheet" href=".././theme/css/terminal.css">
+        <link rel="stylesheet" href=".././theme/css/output.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="burgundy">Burgundy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ecoFriend">EcoFriend</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="pinkrose">Pinkrose</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="space">Space</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="sustain">Sustain</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="tokyonight">Tokyonight</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Securing Technologies Exercises</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/SystemHardening/SystemHardening.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="threats-and-threat-actors--system-hardening"><a class="header" href="#threats-and-threat-actors--system-hardening">Threats and Threat Actors | System Hardening</a></h1>
+<div id="admonition-important" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-title">
+<div class="admonition-title">
+<div id="admonition-important-title">
+<p>Important</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-important"></a>
+</div>
+<div>
+<p>There will be a quick demo on Linux terminal basics to acquaint those who are not familiar with the OS before the commencement of this lab.</p>
+<p>We will be using Kali linux image with on a Raspberry Pi 5 for the session only, this will be returned per session</p>
+</div>
+</div>
+<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title">
+<p>Warning</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-warning"></a>
+</div>
+<div>
+<p>Performing any of the attacks outside of this educational setting, outside of the network, <code>ELEE1171_Network</code>, the Raspberry Pis are connected to, is breaking the law.</p>
+</div>
+</div>
+<h2 id="exercises-1"><a class="header" href="#exercises-1">Exercises 1</a></h2>
+<p><strong>Basic ping command:</strong></p>
+<ol>
+<li>
+<p>Ping the IP address <code>192.168.1.169</code></p>
+ <div id="admonition-terminal" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal"></a>
+ </div>
+ <div>
+<pre><code>ping -c4 192.168.1.169 
+</code></pre>
+ </div>
+ </div>
+<ul>
+<li>Take note of the default packet size</li>
+</ul>
+ <details id="admonition-output" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/1_ping.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>Increase the packet size to [1024, 4098] and set the count to 4:</p>
+ <details id="admonition-output-1" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-1-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-1-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-1"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/2_ping.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>Try and go larger, use 65536 (\(2^{16}\)), did it succeed?</p>
+ <details id="admonition-output-2" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-2-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-2-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-2"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/3_ping.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>Try again using the maximum as suggested:</p>
+ <details id="admonition-output-3" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-3-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-3-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-3"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/4_ping.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li><details id="admonition-looking-at-the-packets-sent-across-all-pings-is-there-a-difference-between--the-same" class="admonition admonish-question" role="note" aria-labelledby="admonition-looking-at-the-packets-sent-across-all-pings-is-there-a-difference-between--the-same-title">
+<summary class="admonition-title">
+<div id="admonition-looking-at-the-packets-sent-across-all-pings-is-there-a-difference-between--the-same-title">
+<p>Looking at the packets sent across all pings, is there a difference between <code>##(##)</code> the same?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-looking-at-the-packets-sent-across-all-pings-is-there-a-difference-between--the-same"></a>
+</summary>
+<div>
+<p>Yes, that is because of the structure of a ping.</p>
+<p>28 Bytes, that is because each ping was using ICMP, and the header is a combination of IPv4 (20 Bytes)</p>
+<div align=center>
+<p><img src="https://1.bp.blogspot.com/-rl07hNsTE-w/Xi2ZmcTSnfI/AAAAAAAAido/558exlKy_0QioprNPaf8ovf6mIfXWMJkgCLcBGAsYHQ/s1600/wiki1.png" alt="" /></p>
+</div>
+</div>
+</details>
+ <div id="admonition-warning-1" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-1-title">
+ <div class="admonition-title">
+ <div id="admonition-warning-1-title">
+<p>Warning</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-warning-1"></a>
+ </div>
+ <div>
+<p>Hitting the target with heavier packets from multiple machines against a weak or already loaded server, it may crash.</p>
+<p>Doing this on a computing device to another computing device you do not own on a network you do not own is technically against the law.</p>
+ </div>
+ </div>
+</li>
+</ol>
+<h2 id="exercise-2"><a class="header" href="#exercise-2">Exercise 2</a></h2>
+<div id="admonition-important-1" class="admonition admonish-tip" role="note" aria-labelledby="admonition-important-1-title">
+<div class="admonition-title">
+<div id="admonition-important-1-title">
+<p>Important</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-important-1"></a>
+</div>
+<div>
+<p>Divide yourselves into groups of 3 for Exercise 2.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li>
+<p>1 person to be the user</p>
+</li>
+<li>
+<p>1 person to be the web admin</p>
+</li>
+<li>
+<p>1 person to be the attacker</p>
+</li>
+</ul>
+<p><strong>Roles:</strong></p>
+<ul>
+<li>
+<p>Web admin starts web service on their server</p>
+</li>
+<li>
+<p>User tries to access the website from their computer</p>
+</li>
+<li>
+<p>Attacker tries to take down the website by intentionally overloading the server with packets it cannot handle.</p>
+</li>
+</ul>
+</div>
+</div>
+<h3 id="21-web-admins"><a class="header" href="#21-web-admins">2.1 Web Admins</a></h3>
+<p>On your device you need to start your <code>apache2</code> server.</p>
+<ol>
+<li>
+<p>First check to see if it exists</p>
+<div id="admonition-terminal-1" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-1-title">
+<div class="admonition-title">
+<div id="admonition-terminal-1-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-1"></a>
+</div>
+<div>
+<pre><code class="language-sh">command -v apache2
+</code></pre>
+</div>
+</div>
+<div id="admonition-output-4" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-4-title">
+<div class="admonition-title">
+<div id="admonition-output-4-title">
+<p>Output</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-output-4"></a>
+</div>
+<div>
+<pre><code>/usr/sbin/apache2
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Then check the status of the service</p>
+ <div id="admonition-terminal-2" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-2-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-2-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-2"></a>
+ </div>
+ <div>
+<pre><code>systemctl status apache2
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-output-5" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-5-title">
+ <div class="admonition-title">
+ <div id="admonition-output-5-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-5"></a>
+ </div>
+ <div>
+ <div align=center>
+<p><img src="./figures/1_apache2_status.png" alt="" /></p>
+ </div>
+ </div>
+ </div>
+</li>
+<li>
+<p>Start the service, you will need to enter your root password.</p>
+ <div id="admonition-terminal-3" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-3-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-3-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-3"></a>
+ </div>
+ <div>
+<pre><code>  systemctl start apache2  
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-output-6" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-6-title">
+ <div class="admonition-title">
+ <div id="admonition-output-6-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-6"></a>
+ </div>
+ <div>
+ <div align=center>
+<p><img src="./figures/2_apache2_status.png" alt="" /></p>
+ </div>
+ </div>
+ </div>
+</li>
+<li>
+<p>Check the IP addrees of your service, i.e your devices IP on <code>wlan0</code></p>
+<div id="admonition-terminal-4" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-4-title">
+<div class="admonition-title">
+<div id="admonition-terminal-4-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-4"></a>
+</div>
+<div>
+<pre><code>ifconfig | grep wlan0 -A7
+</code></pre>
+</div>
+</div>
+<div id="admonition-output-7" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-7-title">
+<div class="admonition-title">
+<div id="admonition-output-7-title">
+<p>Output</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-output-7"></a>
+</div>
+<div>
+<p>Sample output, you need to find the <code>inet 192.168.1.[###]</code></p>
+<pre><code>wlan0: ....
+         inet 192.168.1.[###]  netmask...
+         ...
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><code>apache2</code> will launch a webpage located in <code>/var/www/html/index.html</code></p>
+</li>
+</ol>
+<h3 id="22-users"><a class="header" href="#22-users">2.2 Users</a></h3>
+<ol>
+<li>
+<p>Open a browser</p>
+</li>
+<li>
+<p>Enter the IP Address of the web server in the URL field and hit ENTER</p>
+ <div id="admonition-output-8" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-8-title">
+ <div class="admonition-title">
+ <div id="admonition-output-8-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-8"></a>
+ </div>
+ <div>
+ <div align=center>
+<p><img src="./figures/landingpage.png" alt="" /></p>
+ </div>
+ </div>
+ </div>
+</li>
+<li>
+<p>Refresh twice and take note of the loading speed/refresh rate, you can also bring up network status of the page in the url using <kbd>F12</kbd></p>
+ <div id="admonition-output-9" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-9-title">
+ <div class="admonition-title">
+ <div id="admonition-output-9-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-9"></a>
+ </div>
+ <div>
+ <div align=center>
+<p><img src="./figures/landingpage_normal_load.png" alt="" /></p>
+ </div>
+ </div>
+</li>
+<li>
+<p>Wait for the attacker to launch the first attack, then refresh and take note of the loading speed/refresh rate.</p>
+ <div id="admonition-output-10" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-10-title">
+ <div class="admonition-title">
+ <div id="admonition-output-10-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-10"></a>
+ </div>
+ <div>
+ <div align=center>
+<p><img src="./figures/landingpage_bad_load.png" alt="" /></p>
+ </div>
+ </div>
+</li>
+<li>
+<p>Reload the page when the attacker halts the first attack. Repeat the same process for the second attack.</p>
+</li>
+</ol>
+<h3 id="23-attackers"><a class="header" href="#23-attackers">2.3 Attackers</a></h3>
+<ol>
+<li>
+<p><code>hping3</code> can be used for launching mild DoS attacks.</p>
+<p>Regular SYN Flood attack against a web server.</p>
+<p>Make the source random i.e., attackers aim to be as untraceable as possible.</p>
+<p>The attack here is from a single source (DoS)</p>
+ <div id="admonition-terminal-5" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-5-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-5-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-5"></a>
+ </div>
+ <div>
+<pre><code>hping3 --flood --rand-source [target IP]
+</code></pre>
+ </div>
+ </div>
+<p>Note your observation on the server</p>
+ <details id="admonition-output-11" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-11-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-11-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-11"></a>
+ </summary>
+ <div>
+ </div>
+ </details>
+</li>
+<li>
+<p>Smurf attack, will broadcast to all machines on the subnet</p>
+ <div id="admonition-warning-2" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-2-title">
+ <div class="admonition-title">
+ <div id="admonition-warning-2-title">
+<p>Warning</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-warning-2"></a>
+ </div>
+ <div>
+<p>Get permission from the lab instructor before performing this as it may affect all machines on the LAN</p>
+ </div>
+ </div>
+ <div id="admonition-terminal-6" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-6-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-6-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-6"></a>
+ </div>
+ <div>
+<pre><code>hping3 --flood -a [target IP] 
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>You can check more <code>hping3</code> options/tags using:</p>
+ <div id="admonition-terminal-7" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-7-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-7-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-7"></a>
+ </div>
+ <div>
+<pre><code>hping3 –help
+</code></pre>
+ </div>
+ </div>
+</li>
+</ol>
+<h3 id="24-questions"><a class="header" href="#24-questions">2.4 Questions</a></h3>
+<details id="admonition-when-the-server-crashes-and-is-unreachable-this-leads-to-a-loss-of-which-leg-of-the-cia-triad" class="admonition admonish-question" role="note" aria-labelledby="admonition-when-the-server-crashes-and-is-unreachable-this-leads-to-a-loss-of-which-leg-of-the-cia-triad-title">
+<summary class="admonition-title">
+<div id="admonition-when-the-server-crashes-and-is-unreachable-this-leads-to-a-loss-of-which-leg-of-the-cia-triad-title">
+<p>When the server crashes and is unreachable, this leads to a loss of which leg of the CIA triad?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-when-the-server-crashes-and-is-unreachable-this-leads-to-a-loss-of-which-leg-of-the-cia-triad"></a>
+</summary>
+<div>
+</div>
+</details>
+<details id="admonition-can-you-list-3-impacts-the-crash-could-have-on-a-business" class="admonition admonish-question" role="note" aria-labelledby="admonition-can-you-list-3-impacts-the-crash-could-have-on-a-business-title">
+<summary class="admonition-title">
+<div id="admonition-can-you-list-3-impacts-the-crash-could-have-on-a-business-title">
+<p>Can you list 3 impacts the crash could have on a business.</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-can-you-list-3-impacts-the-crash-could-have-on-a-business"></a>
+</summary>
+<div>
+</div>
+</details>
+<details id="admonition-what-can-you-do-as-a-developerorganisationdefender-to-prevent-or-mitigate-the-impact-of-the-attacks-performed-above" class="admonition admonish-question" role="note" aria-labelledby="admonition-what-can-you-do-as-a-developerorganisationdefender-to-prevent-or-mitigate-the-impact-of-the-attacks-performed-above-title">
+<summary class="admonition-title">
+<div id="admonition-what-can-you-do-as-a-developerorganisationdefender-to-prevent-or-mitigate-the-impact-of-the-attacks-performed-above-title">
+<p>What can you do as a developer/organisation/defender to prevent or mitigate the impact of the attacks performed above?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-what-can-you-do-as-a-developerorganisationdefender-to-prevent-or-mitigate-the-impact-of-the-attacks-performed-above"></a>
+</summary>
+<div>
+</div>
+</details>
+<h2 id="execise-3"><a class="header" href="#execise-3">Execise 3</a></h2>
+<p>Discovering System Vulnerabilities and Hardening Systems</p>
+<p>[Target IP: Provided in the lab]
+[Target NW: Provided in the lab]</p>
+<ol>
+<li>
+<p>Using <code>Nmap</code> [network scanning tool]</p>
+ <div id="admonition-terminal-8" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-8-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-8-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-8"></a>
+ </div>
+ <div>
+<p>**Replace the IP addresses here with the appropriate IP address/Network address of your target.</p>
+<p>//Perform a Ping Scan (Ping Sweep or Network Scan or Discovery Scan)</p>
+<p>*this will scan the entire network for live hosts</p>
+<pre><code>nmap -sn  192.168.0.0/24 
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-12" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-12-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-12-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-12"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/1_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>A basic scan instead:</p>
+ <div id="admonition-terminal-9" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-9-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-9-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-9"></a>
+ </div>
+ <div>
+<pre><code>#nmap 192.168.0.64 
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-13" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-13-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-13-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-13"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/2_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>Try a Version Scan</p>
+<p>Now that you have ports that are open from the port scan, from the basic host scan, scan for version of services running on those ports</p>
+ <div id="admonition-terminal-10" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-10-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-10-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-10"></a>
+ </div>
+ <div>
+<pre><code>nmap 192.168.0.64 -sV -p 80  
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-14" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-14-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-14-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-14"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/3_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>Perform an Operating System Scan (Protocol Scan)</p>
+ <div id="admonition-terminal-11" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-11-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-11-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-11"></a>
+ </div>
+ <div>
+<pre><code>nmap 192.168.0.64 -O -p 80,445 
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-15" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-15-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-15-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-15"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/4_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+</ol>
+<h2 id="exercise-4"><a class="header" href="#exercise-4">Exercise 4</a></h2>
+<div id="admonition-tip" class="admonition admonish-tip" role="note" aria-labelledby="admonition-tip-title">
+<div class="admonition-title">
+<div id="admonition-tip-title">
+<p>Tip</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-tip"></a>
+</div>
+<div>
+<p>You can do this part if you wish to have more fun. The concepts in this section would be discussed in the Network Security Class.</p>
+<p>Targets to be used:</p>
+<ol>
+<li>Lab target machines on the lab network</li>
+</ol>
+</div>
+</div>
+<p>You are to manipulate flags to get different results from a victim machine</p>
+<ol>
+<li>
+<p>SYN Scan, Stealth Scan (Half-Open scan)</p>
+ <div id="admonition-terminal-12" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-12-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-12-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-12"></a>
+ </div>
+ <div>
+<pre><code>nmap -sS -p80,445 192.168.0.64  
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-16" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-16-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-16-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-16"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/5_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>FIN Scan, Stealth Scan (Finish Scan)</p>
+<p>On an Open Port Windows cannot understand this scan and therefore responds differently and with lots of flags, in
+comparison to Linux that does not respond.</p>
+ <div id="admonition-terminal-13" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-13-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-13-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-13"></a>
+ </div>
+ <div>
+<pre><code>nmap 192.168.0.64 -sF -p80,445
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-17" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-17-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-17-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-17"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/6_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>ACK Scan, Stealth Scan (Acknowledge Scan)</p>
+<p>This scan is not usually used for port scanning but rather to discover if the firewall is on (filtered) or off (unfiltered).</p>
+ <div id="admonition-terminal-14" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-14-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-14-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-14"></a>
+ </div>
+ <div>
+<pre><code>nmap 192.168.0.64 -sA -p80,445
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-18" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-18-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-18-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-18"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/7_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details>
+</li>
+<li>
+<p>XMas, Stealth Scan (XMas Scan)</p>
+ <div id="admonition-terminal-15" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-15-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-15-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-15"></a>
+ </div>
+ <div>
+<pre><code>nmap 192.168.0.64 -sX -p80,445 
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-19" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-19-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-19-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-19"></a>
+ </summary>
+ <div>
+ <div align=center>
+<p><img src="./figures/8_nmap.png" alt="" /></p>
+ </div>
+ </div>
+ </details></li>
+</ol>
+
+                    </main>
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../RiskAssessment/RiskAssessment.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../WebSecurity/WebSecurity.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../RiskAssessment/RiskAssessment.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../WebSecurity/WebSecurity.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src=".././theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

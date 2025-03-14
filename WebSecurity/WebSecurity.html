@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Risk Assessment - Securing Technologies Exercises</title>
+        <title>Web Security - Securing Technologies Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -139,7 +139,7 @@
                         <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/RiskAssessment/RiskAssessment.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/WebSecurity/WebSecurity.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -168,7 +168,7 @@
 
                 <div id="content" class="content">
                     <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
-                        <h1 id="risk-assessment"><a class="header" href="#risk-assessment">Risk Assessment</a></h1>
+                        <h1 id="web-security"><a class="header" href="#web-security">Web Security</a></h1>
 <div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
 <div class="admonition-title">
 <div id="admonition-note-title">
@@ -177,72 +177,75 @@
 <a class="admonition-anchor-link" href="#admonition-note"></a>
 </div>
 <div>
-<p><strong>Instruction</strong>: Group yourselves into 3s for this lab session.</p>
-<p>Discuss the below; <strong>upload</strong> your reports as a group.</p>
+<p>Do not attempt this on machines or targets you are not authorised to!</p>
+<p>You do not want to break the law!</p>
 </div>
 </div>
-<h2 id="1-company-profile"><a class="header" href="#1-company-profile">1. Company Profile:</a></h2>
-<p>IntelliTech Innovations is a cutting-edge technology company specialising in the development of Internet of Things (IoT) solutions and smart systems. They design and manufacture smart home devices, industrial
-IoT sensors, and provide cloud-based data analytics services. IntelliTech's innovative products are used in a wide range of applications, from home automation to industrial monitoring, and they collect and process a substantial amount of data. The company is committed to managing the risks associated with its IoT products and services effectively.</p>
-<h2 id="2-overview"><a class="header" href="#2-overview">2. Overview:</a></h2>
-<p>IntelliTech Innovations recognises the importance of managing security and privacy risks associated with IoT and smart systems. They have initiated a qualitative risk assessment project based on ISO 27005 Annex  E to evaluate these risks comprehensively. This scenario revolves around their efforts to conduct a qualitative risk assessment in their domain.</p>
-<h2 id="3-things-to-note"><a class="header" href="#3-things-to-note">3. Things to note:</a></h2>
+<p><strong>Password Capture</strong></p>
+<p>{Lab demo would be done by the instructor - Follow and ask questions as needed}</p>
+<div id="admonition-learning-outcome" class="admonition admonish-note" role="note" aria-labelledby="admonition-learning-outcome-title">
+<div class="admonition-title">
+<div id="admonition-learning-outcome-title">
+<p>Learning outcome:</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-learning-outcome"></a>
+</div>
+<div>
+<p>You will be able to see the importance of traffic encryption, understand sniffing and how to
+protect against them from design phase of any project, understand how HTML components work
+together to present a requested web page and accept input including sensitive information like
+passwords or credit card information. Overall, you will be able to better picture security from
+beyond a theoretical perspective.</p>
+</div>
+</div>
 <ol>
 <li>
-<p>Scope: The risk assessment project encompasses the entire range of IoT products and services offered
-by IntelliTech, including devices, data storage, data analytics, and communication channels.</p>
+<p>Start Wireshark and commence capture on the appropriate interface</p>
 </li>
 <li>
-<p>Objective: The primary goal is to identify, assess, and prioritise information security and privacy risks in
-accordance with ISO 27005 Annex E.</p>
+<p>On your machine, visit any of the websites on the target machine that has a login page</p>
 </li>
 <li>
-<p>Team: A multidisciplinary team consisting of IoT engineers, data scientists, cybersecurity experts, and
-legal advisors will collaborate to conduct the assessment.</p>
+<p>You or your team member can enter a random password and username (does not have to be the correct one) and hit enter/submit/login.</p>
 </li>
 <li>
-<p>Assets: Sensitive data collected by IoT devices, intellectual property, and customer trust are among the
-most critical assets IntelliTech seeks to safeguard.</p>
+<p>Go to Wireshark and use the filter to display only HTTP traffic.</p>
+</li>
+<li>
+<p>You will see GET requests and POST packets. We are more interested in the POST packets because that contains submissions that were 'posted' or sent to the website whereas GET is to display what you requested such as the Homepage.</p>
+</li>
+<li>
+<p>Double click on the POST packet(s) you see and investigate further. See if you can find the password you or your partner submitted.</p>
 </li>
 </ol>
-<h2 id="4-your-task-and-guide"><a class="header" href="#4-your-task-and-guide">4. Your Task (and guide):</a></h2>
-<p>Conduct a qualitative risk assessment as per the ISO 27005 Annex E guidelines, within the context of IoT
-and smart systems:</p>
-<ol>
-<li>
-<p>Identify Assets: List and categorise the information assets and resources that are integral to IntelliTech's IoT products and services.</p>
-</li>
-<li>
-<p>Identify Threats and Vulnerabilities: Identify/anticipate potential threats and vulnerabilities that could impact the identified assets.</p>
-</li>
-<li>
-<p>Determine Risk Likelihood and Impact: Utilising ISO 27005 Annex E guidelines, determine the likelihood and impact of each identified risk. Analyse how likely a threat is to occur and the potential consequences if it does.</p>
-</li>
-<li>
-<p>Assess Risk Severity: Evaluate and assign a severity level to each risk by considering the combination of  likelihood and impact.</p>
-</li>
-<li>
-<p>Prioritise Risks: Rank the risks based on their severity levels, with the goal of prioritising the allocation of resources for mitigation.</p>
-</li>
-<li>
-<p>Document Findings: Develop a clear and concise risk assessment report that documents the identified risks, their likelihood, impact, severity, and prioritisation.</p>
-</li>
-<li>
-<p>Recommend Mitigation Measures: Suggest potential mitigation measures and controls to address the identified risks. These should be tailored to the IoT and smart systems domain.</p>
-</li>
-</ol>
-<p><strong>Aim</strong>: gain practical experience in applying the principles and guidelines outlined in ISO 27005 Annex E to conduct a qualitative risk assessment within the unique context of IoT and smart systems.</p>
-
+<div id="admonition-success" class="admonition admonish-success" role="note" aria-labelledby="admonition-success-title">
+<div class="admonition-title">
+<div id="admonition-success-title">
+<p>Success</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-success"></a>
+</div>
+<div>
+<p>Congratulations on achieving your first ethical password sniffing attack!</p>
+</div>
+</div>
+<div id="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext" class="admonition admonish-question" role="note" aria-labelledby="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext-title">
+<div class="admonition-title">
+<div id="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext-title">
+<p>What security measures can be implemented to prevent the capture of the password or to prevent the capture of the password in plaintext?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext"></a>
+</div>
+<div>
+</div>
+</div>
                     </main>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../Cryptography/Cryptography.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../SystemHardening/SystemHardening.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../SystemHardening/SystemHardening.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -250,13 +253,10 @@ and smart systems:</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../Cryptography/Cryptography.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../SystemHardening/SystemHardening.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../SystemHardening/SystemHardening.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
