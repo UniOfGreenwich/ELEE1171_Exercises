@@ -12,3 +12,7 @@
 - [Cryptography](Cryptography/Cryptography.md)
 
 - [Risk Assessment](RiskAssessment/RiskAssessment.md)
+
+- [Threats and Threat Actors | System Hardening ](SystemHardening/SystemHardening.md)
+
+- [Web Security](WebSecurity/WebSecurity.md)
