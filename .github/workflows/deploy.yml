@@ -23,12 +23,18 @@ jobs:
         run: pip install segno
 
       - name: Setup mdBook
-        uses: CompEng0001/action-mdbook@V1.0.0
+        uses: jontze/action-mdbook@v3
         with:
           token: ${{secrets.GITHUB_TOKEN}}
           use-toc: true
           use-admonish: true
       
+      - name: Install mdbook-quiz
+        run: |
+          curl -sSL https://github.com/cognitive-engineering-lab/mdbook-quiz/releases/download/v0.3.10/mdbook-quiz_x86_64-unknown-linux-gnu_bare.tar.gz | tar -xz
+          chmod +x mdbook-quiz
+          mv mdbook-quiz ~/.cargo/bin/
+
       - name: Show mdbook version
         run: mdbook --version
       - name: Show toc version
