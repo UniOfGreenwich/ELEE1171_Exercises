@@ -80,20 +80,7 @@ Performing any of the attacks outside of this educational setting, outside of th
 
     ~~~
 
-5. ~~~admonish question title="Looking at the packets sent across all pings, is there a difference between `##(##)` the same?" collapsible=true
-
-   Yes, that is because of the structure of a ping.
-
-   28 Bytes, that is because each ping was using ICMP, and the header is a combination of IPv4 (20 Bytes)
-
-   <div align=center>
-
-   ![](https://1.bp.blogspot.com/-rl07hNsTE-w/Xi2ZmcTSnfI/AAAAAAAAido/558exlKy_0QioprNPaf8ovf6mIfXWMJkgCLcBGAsYHQ/s1600/wiki1.png)
-
-   </div>
-
-   ~~~
-
+5. {{#quiz ./quiz_1.toml}}
 
 
     ~~~admonish warning
@@ -313,17 +300,12 @@ On your device you need to start your `apache2` server.
 
 ### 2.4 Questions
 
-~~~admonish question title="When the server crashes and is unreachable, this leads to a loss of which leg of the CIA triad?" collapsible=true
+{{#quiz ./quiz_1.toml}}
 
-~~~
+{{#quiz ./quiz_2.toml}}
 
-~~~admonish question title="Can you list 3 impacts the crash could have on a business." collapsible=true
+{{#quiz ./quiz_3.toml}}
 
-~~~
-
-~~~admonish question title="What can you do as a developer/organisation/defender to prevent or mitigate the impact of the attacks performed above?" collapsible=true
-
-~~~
 
 ## Execise 3
 

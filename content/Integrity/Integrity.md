@@ -622,7 +622,7 @@ The SHA-256 constants used in the algorithm are derived from:
 
     We take the cube root of a prime number, extract the fractional part, and convert it into a 32-bit binary integer.
 
-    - Compute the cub root of 2 (the first prime number):
+    - Compute the cube root of 2 (the first prime number):
 
     \\[ 2^{1/3} = 1.2599210498948732\\]
 
@@ -640,25 +640,7 @@ The SHA-256 constants used in the algorithm are derived from:
 
     ~~~
 
-    ~~~admonish question title="What is the constant for the prime number 7?" collapsible=true
-
-    - Compute the cub root of 2 (the first prime number):
-
-        \\[ 7^{1/3} = 1.912931182772389\\]
-
-    - Extract the fractional part:
-
-        \\[0.9129311827723889\\]
-
-    - Convert to a 32-bit integer:
-
-        \\[ 3,921,009,573 = 2^{32}\cdot 0.9129311827723889\\]
-
-    - Convert to HEX representation
-        
-        \\[ 0xE9B5DBA5_{16} \equiv 3,921,009,573_{10}\\]    
-
-    ~~~
+    {{#quiz ./integrity_quiz_2.toml}}
 
 
 31. Manually Computing a SHA-256 Constant
@@ -667,7 +649,7 @@ The SHA-256 constants used in the algorithm are derived from:
 
     We take the square root of a prime number, extract the fractional part, and convert it into a 32-bit binary integer.
 
-    - Compute the cub root of 2 (the first prime number):
+    - Compute the square root of 2 (the first prime number):
 
         \\[ \sqrt{2} = 1.4142135623730951\\]
 
@@ -685,26 +667,7 @@ The SHA-256 constants used in the algorithm are derived from:
 
     ~~~
 
-    ~~~admonish question title="What is the constant for the prime number 7?" collapsible=true
-
-    - Compute the cub root of 2 (the first prime number):
-
-        \\[ \sqrt{7} = 2.6457513110645907\\]
-
-    - Extract the fractional part:
-
-        \\[0.6457513110645907\\]
-
-    - Convert to a 32-bit integer:
-
-        \\[ 2,773,480,762 = 2^{32}\cdot 0.6457513110645907\\]
-
-    - Convert to HEX representation
-        
-        \\[ 0xA54FF53A_{16} \equiv 2,773,480,762_{10}\\]    
-
-    ~~~
-
+    {{#quiz ./integrity_quiz_1.toml}}
 
 32. Add the following Constants to mysha256sum.py, place the following code directly underneath the `import struct` line:
 

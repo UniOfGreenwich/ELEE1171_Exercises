@@ -1,0 +1,30 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Select all of the following impacts that a Denial-of-Service (DoS) attack could have on a business:
+"""
+prompt.distractors = [
+  "Increased website speed and performance.",
+  "Improved customer trust and reputation.",
+  "Enhanced security posture.",
+  "Only affects the website, not internal operations.",
+  "Leads to complete data loss due to server crash.",
+  "Legal protection against future cyber threats.",
+  "Provides an opportunity to test incident response without real consequences."
+]
+answer.answer = [
+  "Financial losses due to downtime.",
+  "Loss of customer trust and reputation damage.",
+  "Disruption of critical business operations.",
+  "Increased remediation costs to restore service."
+]
+context = """
+A DoS attack can significantly impact a business by causing financial losses, damaging its reputation, and disrupting essential operations. Businesses often need to invest in security measures and mitigation strategies to recover from an attack.
+
+### **Why the distractors are wrong?**
+- **"Only affects the website, not internal operations."** → DoS attacks can impact internal systems, APIs, and cloud services, not just a website.
+- **"Leads to complete data loss due to server crash."** → DoS attacks do not usually cause data loss; they disrupt access, but the data remains intact.
+- **"Legal protection against future cyber threats."** → Suffering a DoS attack does not provide legal immunity or protection.
+- **"Provides an opportunity to test incident response without real consequences."** → While response teams may improve from handling an attack, DoS attacks **always** have real financial and reputational consequences.
+"""
+id = "02d913c0-67ce-42e8-b74f-0e2eefb88882"

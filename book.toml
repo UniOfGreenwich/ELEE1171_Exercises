@@ -5,6 +5,17 @@ multilingual = false
 src = "content"
 title = "Securing Technologies Exercises"
 
+[output.html]
+mathjax-support = true
+input-404 = "404/404.md"
+git-repository-url = "https://github.com/uniofgreenwich/ELEE1171_Execises"
+edit-url-template = "https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/{path}"
+additional-css = ["./theme/pagetoc.css", "./theme/css/mdbook-admonish.css", "./theme/css/code.css","./theme/css/terminal.css","./theme/css/output.css"]
+additional-js  = ["./theme/pagetoc.js"]
+
+[output.html.print]
+enable = false
+
 [output.html.search]
 limit-results = 20
 use-boolean-and = true
@@ -38,13 +49,7 @@ icon = "./theme/output.svg"
 color = "#72879C"
 
 [preprocessor.pagetoc]
-[output.html]
-mathjax-support = true
-input-404 = "404/404.md"
-git-repository-url = "https://github.com/uniofgreenwich/ELEE1171_Execises"
-edit-url-template = "https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/{path}"
-additional-css = ["./theme/pagetoc.css", "./theme/css/mdbook-admonish.css", "./theme/css/code.css","./theme/css/terminal.css","./theme/css/output.css"]
-additional-js  = ["./theme/pagetoc.js"]
 
-[output.html.print]
-enable = false
+[preprocessor.quiz]
+fullscreen = false
+show-bug-reporter = true

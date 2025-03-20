@@ -1,0 +1,20 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the SHA-256 Constant for the square root of the prime number 7?
+"""
+prompt.distractors = [
+    "`0x6a073bb5 ≡ 1,778,858,933`",
+    "`0x6a17c642 ≡ 1,779,942,978`",
+    "`0x6a18aee6 ≡ 1,780,002,534`",
+    "`0x69fc557d ≡ 1,778,144,637`",
+    "`0x6a04b99e ≡ 1,778,694,558`"
+]
+answer.answer = """
+
+`0x6A09E667 ≡ 1,779,033,703`
+
+"""
+
+context = ""
+id = "6e5a73a5-10b3-4e7d-a8e0-0e1012305dce"

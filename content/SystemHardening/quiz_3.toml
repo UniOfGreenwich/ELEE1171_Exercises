@@ -1,0 +1,34 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What can you do as a developer, organization, or defender to prevent or mitigate the impact of Denial-of-Service (DoS) attacks? Select all that apply.
+"""
+prompt.distractors = [
+  "Increase the bandwidth indefinitely to absorb any attack.",
+  "Disable all logging to improve performance during high-traffic incidents.",
+  "Block all incoming traffic to eliminate the threat completely.",
+  "Rely solely on on-premises infrastructure to prevent cloud-based attacks.",
+  "Use simple password protection to prevent DoS attacks.",
+  "Manually inspect logs for every single request to detect attacks.",
+  "Ignore small traffic spikes as they are not a security concern."
+]
+answer.answer = [
+  "Use rate limiting and traffic filtering to block excessive requests.",
+  "Implement Web Application Firewalls (WAFs) to filter out malicious traffic.",
+  "Utilize Content Delivery Networks (CDNs) to distribute traffic and absorb attacks.",
+  "Enable anomaly-based intrusion detection systems to identify unusual patterns.",
+  "Ensure redundancy and scalable cloud-based solutions for high availability."
+]
+context = """
+Mitigating DoS attacks requires **proactive measures** such as **rate limiting, WAFs, CDNs, IDS systems, and scalable infrastructure**.
+
+### **Why the distractors are wrong?**
+- **"Increase the bandwidth indefinitely to absorb any attack."** → Expanding bandwidth is costly and does not prevent attacks, just delays their effects.
+- **"Disable all logging to improve performance during high-traffic incidents."** → Logs are essential for attack detection and forensic analysis.
+- **"Block all incoming traffic to eliminate the threat completely."** → This also blocks legitimate users and defeats the purpose of having a service.
+- **"Rely solely on on-premises infrastructure to prevent cloud-based attacks."** → On-premise solutions alone lack the **scalability** to handle large-scale DoS attacks.
+- **"Use simple password protection to prevent DoS attacks."** → Password protection helps against unauthorized access but **does not stop** traffic-based DoS attacks.
+- **"Manually inspect logs for every single request to detect attacks."** → Manual inspection is impractical; automated tools should be used instead.
+- **"Ignore small traffic spikes as they are not a security concern."** → Small spikes could be **early signs** of an evolving attack.
+"""
+id = "29373cc0-82a8-4875-a00d-d291dfd10db8"
