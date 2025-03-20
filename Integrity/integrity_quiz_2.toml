@@ -1,0 +1,21 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the SHA-256 Constant for the cube root of the prime number 7?
+"""
+prompt.distractors = [
+ "`0x6A081187 ≡ 1,778,913,671`",
+ "`0x6A0D5379 ≡ 1,779,258,233`",
+ "`0x6A116BD7 ≡ 1,779,526,615`",
+ "`0x6A0C0DD1 ≡ 1,779,174,865`",
+ "`0x6A1594D5 ≡ 1,779,799,253`"
+]
+answer.answer = """
+
+`0x6A09E667 ≡ 1,779,033,703`
+
+"""
+
+context = ""
+id = "6bb8a8b8-56d0-45d6-8164-0611a40df589"
+

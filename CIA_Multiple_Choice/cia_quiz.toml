@@ -1,0 +1,210 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+
+```python
+import hashlib
+
+data1 = "password123"
+data2 = "password124"
+
+hash1 = hashlib.sha1(data1.encode()).hexdigest()
+hash2 = hashlib.sha1(data2.encode()).hexdigest()
+
+print("Hashes match:", hash1 == hash2)
+```
+"""
+prompt.distractors = [
+    """
+    Hashes match: False
+    """,
+    """
+    Hashes match: cbfdac6008f9cab4083784cbd1874f76618d2a97 2b4bfcc447c3c8726d26c22927a68f511d5e01cc
+    """
+]
+answer.answer = [
+    """
+    Hashes match: True
+    """
+]
+context = """
+This code correctly uses SHA-1 to hash two slightly different inputs. The output should be `False` since a good cryptographic hash function should generate unique hashes for different inputs.
+"""
+id = "29d4c436-77f5-4ac2-9309-3d778e1cb689"
+
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following best describes authentication in cybersecurity?
+"""
+prompt.distractors = [
+  "Ensuring that data remains unchanged during transmission.",
+  "Granting users access to resources based on their identity.",
+  "Encoding information to make it unreadable without a key."
+]
+answer.answer = "Granting users access to resources based on their identity"
+context = """
+Authentication ensures that only authorized users can access a system. It often involves passwords, biometrics, or multi-factor authentication (MFA).
+"""
+id = "e89f8cac-59da-46e2-8f61-9c7addfd8a25"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which security principle ensures that information remains accurate and unaltered?
+"""
+prompt.distractors = [
+  "Availability",
+  "Confidentiality",
+  "Access Control"
+]
+answer.answer = "Integrity"
+context = """
+Integrity protects data from unauthorized changes. This is often achieved using hashing, digital signatures, and checksums.
+"""
+id = "62dc8178-4918-4ab1-83c0-2a08c6fdcb03"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which type of attack involves tricking users into revealing sensitive information?
+"""
+prompt.distractors = [
+  "Denial-of-Service (DoS)",
+  "Brute-force attack",
+  "Man-in-the-Middle (MitM) attack"
+]
+answer.answer = "Phishing"
+context = """
+Phishing attacks often occur via email, fake websites, or messages pretending to be from trusted sources.
+"""
+id = "7ac71190-f69e-41b4-bfee-f19425171c73"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+When the server crashes and is unreachable, this leads to a loss of which leg of the CIA triad?
+"""
+prompt.distractors = [
+  "Integrity.",
+  "Confidentiality",
+  "Denial."
+]
+answer.answer = "Availability"
+context = """
+Availability is maintained when all components of the information system are working properly.
+"""
+id = "7b5bd727-c720-413c-af5a-18adc742c13b"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following best describes a Denial-of-Service (DoS) attack?
+"""
+prompt.distractors = [
+  "An attacker intercepts and modifies communications between two parties.",
+  "An attacker injects malicious code into a website.",
+  "An attacker steals credentials through password guessing."
+]
+answer.answer = "An attacker floods a system with excessive requests, making it unavailable to legitimate users."
+context = """
+Denial-of-Service (DoS) and Distributed Denial-of-Service (DDoS) attacks aim to disrupt services by overwhelming systems with traffic.
+"""
+id = "40178623-99eb-4388-b93c-8e0b3db473ed"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which method ensures that data is only accessible to authorized users?
+"""
+prompt.distractors = [
+  "Hashing",
+  "Public key infrastructure (PKI)",
+  "Authentication"
+]
+answer.answer = "Encryption"
+context = """
+Encryption protects data confidentiality by converting readable data into ciphertext, requiring a decryption key to revert it to its original form.
+"""
+id = "5d65da95-9ba6-4d2f-9764-119a6768b828"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following best describes the role of hashing in data integrity?
+"""
+prompt.distractors = [
+  "It encrypts data to ensure confidentiality.",
+  "It verifies the sender's identity.",
+  "It makes data unreadable without a secret key."
+]
+answer.answer = "It generates a fixed-size output that helps detect unauthorized changes to data."
+context = """
+Hashing ensures integrity by producing a unique hash value for data. If the data changes, the hash also changes, allowing detection of unauthorized modifications.
+"""
+id = "18071b77-be69-494d-8f40-ce9d82328799"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which property of a cryptographic hash function ensures that even a small change in input results in a drastically different output?
+"""
+prompt.distractors = [
+  "Determinism",
+  "Collision resistance",
+  "Reversibility"
+]
+answer.answer = "Avalanche effect."
+context = """
+The avalanche effect ensures that small modifications in data lead to entirely different hash values, making it difficult for attackers to predict or manipulate hashes.
+"""
+id = "e61ccef7-70e0-406b-b50d-5dc329cdfdd7"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What does it mean for a hash function to be "collision-resistant"?
+"""
+prompt.distractors = [
+  "It ensures that a hash value can be reversed to obtain the original input.",
+  "It prevents unauthorized users from accessing hashed data.",
+  "It makes sure that two different inputs always produce identical hash values."
+]
+answer.answer = "It is computationally infeasible to find two different inputs that produce the same hash value."
+context = """
+Collision resistance is crucial for security because if an attacker can find two different messages with the same hash, they could manipulate data undetected.
+"""
+id = "931fe9e0-7d6a-42b3-90c9-65d78729a5ce"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+How does a digital signature help ensure data integrity?
+"""
+prompt.distractors = [
+  "It encrypts the entire message to keep it confidential.",
+  "It authenticates the sender without verifying the data.",
+  "It generates a unique username and password for the recipient."
+]
+answer.answer = "It allows the recipient to verify that the message has not been altered during transmission."
+context = """
+Digital signatures use hash functions and cryptographic keys to verify that a message has not been tampered with. If the signature does not match, the message has been modified.
+"""
+id = "8ebd94ec-d1cc-42a5-8029-347323a20448"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following is a common use case for cryptographic hash functions?
+"""
+prompt.distractors = [
+  "Encoding video files for faster streaming.",
+  "Generating encryption keys for secure communication.",
+  "Compressing files to save disk space."
+]
+answer.answer = "Verifying file integrity by comparing computed hash values before and after transmission."
+context = """
+File integrity checksums (e.g., SHA-256) help detect accidental or malicious modifications by ensuring the computed hash before and after transmission remains the same.
+"""
+id = "615a7c8d-868d-467b-bf7d-54e078358eff"

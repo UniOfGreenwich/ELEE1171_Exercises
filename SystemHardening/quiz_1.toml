@@ -1,0 +1,21 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Looking at the packets sent across all pings, is there a difference between `##(##)` the same??
+"""
+prompt.distractors = [
+    "No",
+    "63"
+]
+answer.answer = "Yes"
+
+context = """
+
+Yes, that is because of the structure of a ping.
+
+28 Bytes, that is because each ping was using ICMP, and the header is a combination of IPv4 (20 Bytes)
+
+   ![](https://1.bp.blogspot.com/-rl07hNsTE-w/Xi2ZmcTSnfI/AAAAAAAAido/558exlKy_0QioprNPaf8ovf6mIfXWMJkgCLcBGAsYHQ/s1600/wiki1.png)
+
+"""
+id = "8656e933-10c6-4792-9c23-f20c6dc35772"

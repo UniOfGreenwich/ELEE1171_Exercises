@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>WK 2 CIA Quiz - Securing Technologies Exercises</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href=".././theme/pagetoc.css">
+        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
+        <link rel="stylesheet" href=".././theme/css/code.css">
+        <link rel="stylesheet" href=".././theme/css/terminal.css">
+        <link rel="stylesheet" href=".././theme/css/output.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="burgundy">Burgundy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ecoFriend">EcoFriend</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="pinkrose">Pinkrose</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="space">Space</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="sustain">Sustain</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="tokyonight">Tokyonight</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Securing Technologies Exercises</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/CIA_Multiple_Choice/CIA_Multiple_Choice.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="cia-multiple-choice-quiz"><a class="header" href="#cia-multiple-choice-quiz">CIA Multiple Choice Quiz</a></h1>
+<p>Test your current knowldege, non-time-based formattive quiz:</p>
+<div class="quiz-placeholder" data-quiz-name="&quot;cia_quiz&quot;" data-quiz-questions="{&quot;questions&quot;:[{&quot;context&quot;:&quot;This code correctly uses SHA-1 to hash two slightly different inputs. The output should be `False` since a good cryptographic hash function should generate unique hashes for different inputs.\n&quot;,&quot;id&quot;:&quot;29d4c436-77f5-4ac2-9309-3d778e1cb689&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:[&quot;    Hashes match: True\n    &quot;]},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;    Hashes match: False\n    &quot;,&quot;    Hashes match: cbfdac6008f9cab4083784cbd1874f76618d2a97 2b4bfcc447c3c8726d26c22927a68f511d5e01cc\n    &quot;],&quot;prompt&quot;:&quot;\n```python\nimport hashlib\n\ndata1 = \&quot;password123\&quot;\ndata2 = \&quot;password124\&quot;\n\nhash1 = hashlib.sha1(data1.encode()).hexdigest()\nhash2 = hashlib.sha1(data2.encode()).hexdigest()\n\nprint(\&quot;Hashes match:\&quot;, hash1 == hash2)\n```\n&quot;}},{&quot;context&quot;:&quot;Authentication ensures that only authorized users can access a system. It often involves passwords, biometrics, or multi-factor authentication (MFA).\n&quot;,&quot;id&quot;:&quot;e89f8cac-59da-46e2-8f61-9c7addfd8a25&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Granting users access to resources based on their identity&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Ensuring that data remains unchanged during transmission.&quot;,&quot;Granting users access to resources based on their identity.&quot;,&quot;Encoding information to make it unreadable without a key.&quot;],&quot;prompt&quot;:&quot;Which of the following best describes authentication in cybersecurity?\n&quot;}},{&quot;context&quot;:&quot;Integrity protects data from unauthorized changes. This is often achieved using hashing, digital signatures, and checksums.\n&quot;,&quot;id&quot;:&quot;62dc8178-4918-4ab1-83c0-2a08c6fdcb03&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Integrity&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Availability&quot;,&quot;Confidentiality&quot;,&quot;Access Control&quot;],&quot;prompt&quot;:&quot;Which security principle ensures that information remains accurate and unaltered?\n&quot;}},{&quot;context&quot;:&quot;Phishing attacks often occur via email, fake websites, or messages pretending to be from trusted sources.\n&quot;,&quot;id&quot;:&quot;7ac71190-f69e-41b4-bfee-f19425171c73&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Phishing&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Denial-of-Service (DoS)&quot;,&quot;Brute-force attack&quot;,&quot;Man-in-the-Middle (MitM) attack&quot;],&quot;prompt&quot;:&quot;Which type of attack involves tricking users into revealing sensitive information?\n&quot;}},{&quot;context&quot;:&quot;Availability is maintained when all components of the information system are working properly.\n&quot;,&quot;id&quot;:&quot;7b5bd727-c720-413c-af5a-18adc742c13b&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Availability&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Integrity.&quot;,&quot;Confidentiality&quot;,&quot;Denial.&quot;],&quot;prompt&quot;:&quot;When the server crashes and is unreachable, this leads to a loss of which leg of the CIA triad?\n&quot;}},{&quot;context&quot;:&quot;Denial-of-Service (DoS) and Distributed Denial-of-Service (DDoS) attacks aim to disrupt services by overwhelming systems with traffic.\n&quot;,&quot;id&quot;:&quot;40178623-99eb-4388-b93c-8e0b3db473ed&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;An attacker floods a system with excessive requests, making it unavailable to legitimate users.&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;An attacker intercepts and modifies communications between two parties.&quot;,&quot;An attacker injects malicious code into a website.&quot;,&quot;An attacker steals credentials through password guessing.&quot;],&quot;prompt&quot;:&quot;Which of the following best describes a Denial-of-Service (DoS) attack?\n&quot;}},{&quot;context&quot;:&quot;Encryption protects data confidentiality by converting readable data into ciphertext, requiring a decryption key to revert it to its original form.\n&quot;,&quot;id&quot;:&quot;5d65da95-9ba6-4d2f-9764-119a6768b828&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Encryption&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Hashing&quot;,&quot;Public key infrastructure (PKI)&quot;,&quot;Authentication&quot;],&quot;prompt&quot;:&quot;Which method ensures that data is only accessible to authorized users?\n&quot;}},{&quot;context&quot;:&quot;Hashing ensures integrity by producing a unique hash value for data. If the data changes, the hash also changes, allowing detection of unauthorized modifications.\n&quot;,&quot;id&quot;:&quot;18071b77-be69-494d-8f40-ce9d82328799&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;It generates a fixed-size output that helps detect unauthorized changes to data.&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;It encrypts data to ensure confidentiality.&quot;,&quot;It verifies the sender's identity.&quot;,&quot;It makes data unreadable without a secret key.&quot;],&quot;prompt&quot;:&quot;Which of the following best describes the role of hashing in data integrity?\n&quot;}},{&quot;context&quot;:&quot;The avalanche effect ensures that small modifications in data lead to entirely different hash values, making it difficult for attackers to predict or manipulate hashes.\n&quot;,&quot;id&quot;:&quot;e61ccef7-70e0-406b-b50d-5dc329cdfdd7&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Avalanche effect.&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Determinism&quot;,&quot;Collision resistance&quot;,&quot;Reversibility&quot;],&quot;prompt&quot;:&quot;Which property of a cryptographic hash function ensures that even a small change in input results in a drastically different output?\n&quot;}},{&quot;context&quot;:&quot;Collision resistance is crucial for security because if an attacker can find two different messages with the same hash, they could manipulate data undetected.\n&quot;,&quot;id&quot;:&quot;931fe9e0-7d6a-42b3-90c9-65d78729a5ce&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;It is computationally infeasible to find two different inputs that produce the same hash value.&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;It ensures that a hash value can be reversed to obtain the original input.&quot;,&quot;It prevents unauthorized users from accessing hashed data.&quot;,&quot;It makes sure that two different inputs always produce identical hash values.&quot;],&quot;prompt&quot;:&quot;What does it mean for a hash function to be \&quot;collision-resistant\&quot;?\n&quot;}},{&quot;context&quot;:&quot;Digital signatures use hash functions and cryptographic keys to verify that a message has not been tampered with. If the signature does not match, the message has been modified.\n&quot;,&quot;id&quot;:&quot;8ebd94ec-d1cc-42a5-8029-347323a20448&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;It allows the recipient to verify that the message has not been altered during transmission.&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;It encrypts the entire message to keep it confidential.&quot;,&quot;It authenticates the sender without verifying the data.&quot;,&quot;It generates a unique username and password for the recipient.&quot;],&quot;prompt&quot;:&quot;How does a digital signature help ensure data integrity?\n&quot;}},{&quot;context&quot;:&quot;File integrity checksums (e.g., SHA-256) help detect accidental or malicious modifications by ensuring the computed hash before and after transmission remains the same.\n&quot;,&quot;id&quot;:&quot;615a7c8d-868d-467b-bf7d-54e078358eff&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:&quot;Verifying file integrity by comparing computed hash values before and after transmission.&quot;},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Encoding video files for faster streaming.&quot;,&quot;Generating encryption keys for secure communication.&quot;,&quot;Compressing files to save disk space.&quot;],&quot;prompt&quot;:&quot;Which of the following is a common use case for cryptographic hash functions?\n&quot;}}]}" data-quiz-show-bug-reporter="&quot;&quot;"></div>
+<script type="text/javascript" src="../quiz/quiz-embed.iife.js"></script><link rel="stylesheet" type="text/css" href="../quiz/style.css">
+                    </main>
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Integrity/Integrity.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../Cryptography/Cryptography.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Integrity/Integrity.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../Cryptography/Cryptography.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src=".././theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

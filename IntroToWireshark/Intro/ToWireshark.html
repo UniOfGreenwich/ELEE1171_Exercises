@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>WK 9 Web Security - Securing Technologies Exercises</title>
+        <title>WK 7 Intro to Wireshark - Securing Technologies Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -12,38 +12,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href=".././theme/pagetoc.css">
-        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
-        <link rel="stylesheet" href=".././theme/css/code.css">
-        <link rel="stylesheet" href=".././theme/css/terminal.css">
-        <link rel="stylesheet" href=".././theme/css/output.css">
+        <link rel="stylesheet" href="../.././theme/pagetoc.css">
+        <link rel="stylesheet" href="../.././theme/css/mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././theme/css/code.css">
+        <link rel="stylesheet" href="../.././theme/css/terminal.css">
+        <link rel="stylesheet" href="../.././theme/css/output.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -95,7 +95,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -139,7 +139,7 @@
                         <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/WebSecurity/WebSecurity.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/IntroToWireshark/Intro/ToWireshark.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -168,84 +168,147 @@
 
                 <div id="content" class="content">
                     <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
-                        <h1 id="web-security"><a class="header" href="#web-security">Web Security</a></h1>
-<div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
-<div class="admonition-title">
-<div id="admonition-note-title">
-<p>Note</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-note"></a>
-</div>
-<div>
-<p>Do not attempt this on machines or targets you are not authorised to!</p>
-<p>You do not want to break the law!</p>
-</div>
-</div>
-<p><strong>Password Capture</strong></p>
-<p>{Lab demo would be done by the instructor - Follow and ask questions as needed}</p>
-<div id="admonition-learning-outcome" class="admonition admonish-note" role="note" aria-labelledby="admonition-learning-outcome-title">
-<div class="admonition-title">
-<div id="admonition-learning-outcome-title">
-<p>Learning outcome:</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-learning-outcome"></a>
-</div>
-<div>
-<p>You will be able to see the importance of traffic encryption, understand sniffing and how to
-protect against them from design phase of any project, understand how HTML components work
-together to present a requested web page and accept input including sensitive information like
-passwords or credit card information. Overall, you will be able to better picture security from
-beyond a theoretical perspective.</p>
-</div>
-</div>
+                        <h1 id="intro-to-wireshark"><a class="header" href="#intro-to-wireshark">Intro to Wireshark</a></h1>
+<p>Securing Tech Lab - Getting acquainted with Wireshark</p>
+<p>In Wireshark, you can use various display filters, which are essentially tags or expressions, to investigate network traffic. When investigating network traffic for potential security incidents, you should look out for Indicators of Compromise (IOCs) and signs of suspicious or malicious activity. Here are some common display filters and IOCs to look for in Wireshark:</p>
+<p><strong>Display Filters in Wireshark:</strong></p>
 <ol>
 <li>
-<p>Start Wireshark and commence capture on the appropriate interface</p>
+<p><strong>Filter by IP Address:</strong></p>
+<ul>
+<li>To filter traffic for a specific IP address, use <code>ip.addr == X.X.X.X</code>.</li>
+</ul>
 </li>
 <li>
-<p>On your machine, visit any of the websites on the target machine that has a login page</p>
+<p><strong>Filter by Port Number:</strong></p>
+<ul>
+<li>To filter traffic on a specific port, use <code>tcp.port == PortNumber</code> or <code>udp.port == PortNumber</code>.</li>
+</ul>
 </li>
 <li>
-<p>You or your team member can enter a random password and username (does not have to be the correct one) and hit enter/submit/login.</p>
+<p><strong>Filter by Protocol:</strong></p>
+<ul>
+<li>To filter traffic by a specific protocol, use <code>http</code> for HTTP traffic, <code>dns</code> for DNS traffic, etc.</li>
+</ul>
 </li>
 <li>
-<p>Go to Wireshark and use the filter to display only HTTP traffic.</p>
+<p><strong>Filter by Source or Destination:</strong></p>
+<ul>
+<li>You can filter by source or destination IP addresses using <code>ip.src == X.X.X.X</code> or <code>ip.dst == X.X.X.X</code>.</li>
+</ul>
 </li>
 <li>
-<p>You will see GET requests and POST packets. We are more interested in the POST packets because that contains submissions that were 'posted' or sent to the website whereas GET is to display what you requested such as the Homepage.</p>
+<p><strong>Filter by Packet Length:</strong></p>
+<ul>
+<li>To filter packets based on length, you can use <code>frame.len == Length</code>.</li>
+</ul>
 </li>
 <li>
-<p>Double click on the POST packet(s) you see and investigate further. See if you can find the password you or your partner submitted.</p>
+<p><strong>Filter by HTTP Host:</strong></p>
+<ul>
+<li>To filter HTTP traffic for a specific host, use <code>http.host == example.com</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Filter by DNS Queries:</strong></p>
+<ul>
+<li>To filter DNS queries, use <code>dns.flags.response == 0</code>.</li>
+</ul>
 </li>
 </ol>
-<div id="admonition-success" class="admonition admonish-success" role="note" aria-labelledby="admonition-success-title">
-<div class="admonition-title">
-<div id="admonition-success-title">
-<p>Success</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-success"></a>
-</div>
-<div>
-<p>Congratulations on achieving your first ethical password sniffing attack!</p>
-</div>
-</div>
-<div id="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext" class="admonition admonish-question" role="note" aria-labelledby="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext-title">
-<div class="admonition-title">
-<div id="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext-title">
-<p>What security measures can be implemented to prevent the capture of the password or to prevent the capture of the password in plaintext?</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext"></a>
-</div>
-<div>
-</div>
-</div>
+<p><strong>Indicators of Compromise (IOCs) and Signs to Look Out For:</strong></p>
+<ol>
+<li>
+<p><strong>Unusual Outbound Traffic:</strong></p>
+<ul>
+<li>Look for unexpected outbound traffic to unknown or suspicious IP addresses.</li>
+</ul>
+</li>
+<li>
+<p><strong>Unusual Protocols or Ports:</strong></p>
+<ul>
+<li>Traffic on uncommon ports or using unusual protocols may indicate a security issue.</li>
+</ul>
+</li>
+<li>
+<p><strong>Large Data Transfers:</strong></p>
+<ul>
+<li>Excessive data transfers might be a sign of data exfiltration.</li>
+</ul>
+</li>
+<li>
+<p><strong>Multiple Failed Login Attempts:</strong></p>
+<ul>
+<li>Repeated failed login attempts may indicate a brute-force attack.</li>
+</ul>
+</li>
+<li>
+<p><strong>DNS Anomalies:</strong></p>
+<ul>
+<li>Look for DNS requests to suspicious domains or unusual query patterns.</li>
+</ul>
+</li>
+<li>
+<p><strong>HTTP Errors and Status Codes:</strong></p>
+<ul>
+<li>Check for HTTP errors (e.g., 404, 500) or suspicious status codes.</li>
+</ul>
+</li>
+<li>
+<p><strong>Unusual Packet Lengths:</strong></p>
+<ul>
+<li>Abnormally large or small packet lengths may indicate network anomalies.</li>
+</ul>
+</li>
+<li>
+<p><strong>TCP RST and FIN Flags:</strong></p>
+<ul>
+<li>Look for abnormal termination flags that could indicate a connection reset.</li>
+</ul>
+</li>
+<li>
+<p><strong>Non-Standard SSL/TLS Versions:</strong></p>
+<ul>
+<li>Use indicators like SSL/TLS versions (e.g., SSLv2, SSLv3) to detect deprecated or insecure protocols.</li>
+</ul>
+</li>
+<li>
+<p><strong>Suspicious Payloads:</strong></p>
+<ul>
+<li>Analyze packet payloads for malicious content or encoded data.</li>
+</ul>
+</li>
+<li>
+<p><strong>Anomalies in DNS Responses:</strong></p>
+<ul>
+<li>Unexpected IP addresses in DNS responses or DNS resolutions to known malicious domains.</li>
+</ul>
+</li>
+<li>
+<p><strong>Unusual User-Agent Strings:</strong></p>
+<ul>
+<li>Look for uncommon or suspicious user-agent strings in HTTP headers.</li>
+</ul>
+</li>
+<li>
+<p><strong>Unusual Traffic Times:</strong></p>
+<ul>
+<li>Traffic at unusual times or irregular patterns may indicate unusual activity.</li>
+</ul>
+</li>
+</ol>
+<p>It's important to note that the effectiveness of your investigation largely depends on your familiarity with network protocols, IOCs, and the specific context of your network. Also, be aware that false positives can occur.</p>
+
                     </main>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../IntroToWireshark/Intro/ToWireshark.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../SystemHardening/SystemHardening.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next prefetch" href="../../WebSecurity/WebSecurity.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -253,10 +316,13 @@ beyond a theoretical perspective.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../IntroToWireshark/Intro/ToWireshark.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../SystemHardening/SystemHardening.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next prefetch" href="../../WebSecurity/WebSecurity.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -269,16 +335,16 @@ beyond a theoretical perspective.</p>
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src=".././theme/pagetoc.js"></script>
+        <script src="../.././theme/pagetoc.js"></script>
 
 
     </div>
