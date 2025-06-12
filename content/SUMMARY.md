@@ -7,26 +7,26 @@
 ------------------------------------------------------
 ------------------------------------------------------
 
-- [WK 1 Integrity](Integrity/Integrity.md)
+- [Integrity](Integrity/Integrity.md)
 
-- [WK 2 CIA Quiz](CIA_Multiple_Choice/CIA_Multiple_Choice.md)
+- [CIA Quiz](CIA_Multiple_Choice/CIA_Multiple_Choice.md)
 
-- [WK 3 Cryptography](Cryptography/Cryptography.md)
+- [Cryptography](Cryptography/Cryptography.md)
 
-- [WK 4 Risk Assessment](RiskAssessment/RiskAssessment.md)
+- [CVE](CVE/CVE.md)
 
-- [WK 5 Threats and Threat Actors | System Hardening](SystemHardening/SystemHardening.md)
+- [Security Risks](Security_Risks/Security_Risks.md)
 
-- [WK 6]()
+- [Threats and Threat Actors](SystemHardening/SystemHardening.md)
 
-- [WK 7 Intro to Wireshark](IntroToWireshark/Intro/ToWireshark.md)
+- [Intro to Wireshark](IntroToWireshark/Intro/ToWireshark.md)
 
-- [WK 8]()
+- [Law and Cybersecurity]()
 
-- [WK 9 Web Security](WebSecurity/WebSecurity.md)
+- [Incident Handling & DTF ]()
 
-- [WK 10]()
+- [Modern Hacking](WebSecurity/WebSecurity.md)
 
-- [WK 11]()
+- [Workshop]()
 
-- [WK 12]()
+- [Revision](Revision/Revision.md)
