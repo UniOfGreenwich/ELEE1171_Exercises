@@ -1,0 +1,637 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Steganography - Securing Technologies Exercises</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href=".././theme/pagetoc.css">
+        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
+        <link rel="stylesheet" href=".././theme/css/code.css">
+        <link rel="stylesheet" href=".././theme/css/terminal.css">
+        <link rel="stylesheet" href=".././theme/css/output.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="burgundy">Burgundy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ecoFriend">EcoFriend</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="pinkrose">Pinkrose</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="space">Space</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="sustain">Sustain</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="tokyonight">Tokyonight</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Securing Technologies Exercises</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/Steganography/Steganography.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="steganography"><a class="header" href="#steganography">Steganography</a></h1>
+<div id="admonition-info" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-title">
+<div class="admonition-title">
+<div id="admonition-info-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info"></a>
+</div>
+<div>
+<p>By the end of this lab you should be able to:</p>
+<ul>
+<li>
+<p>Explain the difference between encryption and steganography</p>
+</li>
+<li>
+<p>Encode and decode messages using LSB image steganography</p>
+</li>
+<li>
+<p>Detect steganography using forensic tools</p>
+</li>
+<li>
+<p>Understand and apply text-based stego techniques</p>
+</li>
+<li>
+<p>Reflect on steganography as a tool for privacy, security, and deception</p>
+</li>
+</ul>
+</div>
+</div>
+<h2 id="part-1-lsb-steganography-with-images"><a class="header" href="#part-1-lsb-steganography-with-images">Part 1: LSB Steganography with Images</a></h2>
+<div id="admonition-info-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-1-title">
+<div class="admonition-title">
+<div id="admonition-info-1-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info-1"></a>
+</div>
+<div>
+<p>Tools: Python (<code>encode.py</code>, <code>decode.py</code>), PNG files</p>
+<ul>
+<li>
+<p>Task 1.1: Encode a message in a PNG using <code>encode.py</code></p>
+</li>
+<li>
+<p>Task 1.2: Decode it with <code>decode.py</code></p>
+</li>
+<li>
+<p>Task 1.3: Change bit plane to b3 — observe impact on image fidelity</p>
+</li>
+<li>
+<p>Task 1.4: Use zsteg to detect hidden content (show it fails above b4)</p>
+</li>
+<li>
+<p>Reflection</p>
+</li>
+</ul>
+</div>
+</div>
+<h3 id="task-11-encode-a-message-in-a-png-using-encodepy"><a class="header" href="#task-11-encode-a-message-in-a-png-using-encodepy">Task 1.1: Encode a message in a PNG using <code>encode.py</code></a></h3>
+<ol>
+<li>
+<p>Firstly, create a script in a new folder called <code>stego/encode.py</code></p>
+ <div id="admonition-terminal" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ mkdir stego &amp;&amp; touch stego/encode.py
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>Open the <code>stego/encode.py</code> in your text editor of choice (I am using <code>vim</code>):</p>
+ <div id="admonition-terminal-1" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-1-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-1-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-1"></a>
+ </div>
+ <div>
+<pre><code>$ cd stego/ 
+$ vim encode.py
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>Reproduce the following code:</p>
+ <details id="admonition-encodepy-53-lines" class="admonition admonish-code" role="note" aria-labelledby="admonition-encodepy-53-lines-title">
+ <summary class="admonition-title">
+ <div id="admonition-encodepy-53-lines-title">
+<p>encode.py, 53 lines</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-encodepy-53-lines"></a>
+ </summary>
+ <div>
+<pre><code class="language-py">from PIL import Image
+import sys
+
+def encode(image_path, output_path, message, bit_plane):
+    if bit_plane &lt; 1 or bit_plane &gt; 7:
+        raise ValueError("Bit plane must be between 1 and 7")
+
+    img = Image.open(image_path)
+    img = img.convert('RGBA')
+    binary_msg = ''.join(f"{ord(c):08b}" for c in message) + '00000000'  # NULL terminator
+
+    pixels = list(img.getdata())
+    encoded_pixels = []
+
+    bit_idx = 0
+    mask = 1 &lt;&lt; (bit_plane - 1)
+    inverse_mask = 255 - mask
+
+    for r, g, b, ain pixels:
+        if bit_idx &lt; len(binary_msg):
+            r = (r &amp; inverse_mask) | (int(binary_msg[bit_idx]) &lt;&lt; (bit_plane - 1))
+            bit_idx += 1
+        if bit_idx &lt; len(binary_msg):           
+            g = (g &amp; inverse_mask) | (int(binary_msg[bit_idx]) &lt;&lt; (bit_plane - 1))
+            bit_idx += 1
+        if bit_idx &lt; len(binary_msg):
+            b = (b &amp; inverse_mask) | (int(binary_msg[bit_idx]) &lt;&lt; (bit_plane - 1))
+            bit_idx += 1
+        encoded_pixels.append((r, g, b, sca))
+
+    img.putdata(encoded_pixels)
+    img.save(output_path)
+    print(f"Message encoded and saved to: {output_path}")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 5:
+        print("Usage: encode.py &lt;input_image&gt; &lt;output_image&gt; &lt;message&gt; &lt;bit_plane&gt;")
+        sys.exit(1)
+
+    input_path = sys.argv[1]
+    output_path = sys.argv[2]
+    message = sys.argv[3]
+    try:
+        bit_plane = int(sys.argv[4])
+    except ValueError:
+        print("Bit plane must be an integer between 1 and 7")
+        sys.exit(1)
+
+    try:
+        encode(input_path, output_path, message, bit_plane)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+</code></pre>
+ </div>
+ </details>
+ <details id="admonition-explanation" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-title">
+ <summary class="admonition-title">
+ <div id="admonition-explanation-title">
+<p>Explanation</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-explanation"></a>
+ </summary>
+ <div>
+<p><strong>Convert the Message to Binary</strong></p>
+<pre><code class="language-py">binary_msg = ''.join(f"{ord(c):08b}" for c in message) + '00000000'
+</code></pre>
+<ul>
+<li>
+<p><code>ord(c)</code> converts each character (e.g., 'A') to its ASCII value (65)</p>
+</li>
+<li>
+<p><code>f"{...:08b}"</code> formats it as 8-bit binary (<code>'01000001'</code>)</p>
+</li>
+<li>
+<p><code>'00000000'</code> is a null terminator, signalling the end of the message</p>
+<ul>
+<li>"This" → <code>01010100 01101000 01101001 01110011</code> + <code>00000000</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Bit Mask Setup</strong></p>
+<pre><code class="language-py">mask = 1 &lt;&lt; (bit_plane - 1)
+inverse_mask = 255 - mask
+</code></pre>
+<ul>
+<li>
+<p>These control which bit of the byte we modify:</p>
+<ul>
+<li><code>1 &lt;&lt; (bit_plane - 1)</code> shifts 1 left to target the desired bit.</li>
+</ul>
+  <br>
+<div class="table-wrapper"><table><thead><tr><th>Bit Plane</th><th>Binary</th><th>Decimal</th></tr></thead><tbody>
+<tr><td>1 (LSB)</td><td>00000001</td><td>1</td></tr>
+<tr><td>2</td><td>00000010</td><td>2</td></tr>
+<tr><td>3</td><td>00000100</td><td>4</td></tr>
+<tr><td>...</td><td>...</td><td>...</td></tr>
+</tbody></table>
+</div></li>
+<li>
+<p><code>mask = 0b00000100</code> (for bit plane 3)</p>
+</li>
+<li>
+<p><code>inverse_mask = 0b11111011</code> — used to clear the target bit</p>
+</li>
+</ul>
+<p><strong>Iterate Through Pixels and Modify Bits</strong></p>
+<pre><code class="language-py">for r, g, b in pixels:
+if bit_idx &lt; len(binary_msg):
+    r = (r &amp; inverse_mask) | (int(binary_msg[bit_idx]) &lt;&lt; (bit_plane - 1))
+</code></pre>
+<ul>
+<li>
+<p>Let’s break this math down:</p>
+<ul>
+<li>
+<p><code>r &amp; inverse_mask</code>: clears the target bit</p>
+<p>e.g., <code>r = 10110110</code>, <code>mask = 11111011</code> → <code>10110010</code></p>
+</li>
+<li>
+<p><code>(int(binary_msg[bit_idx]) &lt;&lt; (bit_plane - 1))</code>:</p>
+<ul>
+<li>
+<p>Converts the current binary digit (<code>0</code> or <code>1</code>) into the correct bit position</p>
+</li>
+<li>
+<p>If <code>bit_plane = 3</code> and bit = <code>1</code>, you shift: <code>1 &lt;&lt; 2 = 0b00000100</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>|</code> (bitwise OR) inserts the bit</p>
+<ul>
+<li>This replaces just 1 bit in the color channel, leaving the rest untouched.</li>
+</ul>
+</li>
+<li>
+<p>The same logic is applied to G and B if more bits remain.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Update the Image and Save</strong></p>
+<pre><code class="language-py">img.putdata(encoded_pixels)
+img.save(output_path)
+</code></pre>
+<ul>
+<li>This writes your modified pixel data back and saves the output image.</li>
+</ul>
+<p><strong>Visual Summary (Example for R = 182, bit_plane = 3, bit = 1)</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Step</th><th>Binary</th><th>Decimal</th></tr></thead><tbody>
+<tr><td>Original R</td><td><code>10110110</code></td><td>182</td></tr>
+<tr><td>Clear bit 3</td><td><code>10110010</code></td><td>178</td></tr>
+<tr><td>Bit to embed (<code>1</code>)</td><td><code>00000100</code></td><td>4</td></tr>
+<tr><td>New R</td><td><code>10110110</code></td><td>182</td></tr>
+</tbody></table>
+</div>
+<p>If bit = <code>0</code>:</p>
+<p>| Clear + 0 → <code>10110010</code> | = 178 (b3 cleared)</p>
+ </div>
+ </details>
+</li>
+<li>
+<p>Copy ,<code>cp</code>, the watefall_image from <code>/opt/gre/steganography_lab/waterfall_image.png</code> to the current directory and then run the program supplying the file name and other arguments as shown here:</p>
+ <div id="admonition-terminal-2" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-2-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-2-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-2"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ cp /opt/gre/steganography_lab/waterfall_image.png .
+$ python3 encode.py waterfall_image.png waterfall_image_stego_1.png "TEST" 1
+$ python3 encode.py waterfall_image.png waterfall_image_stego_2.png "TEST" 2
+$ python3 encode.py waterfall_image.png waterfall_image_stego_3.png "TEST" 3
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>Open images side by side using</p>
+ <div id="admonition-terminal-3" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-3-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-3-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-3"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ feh -i -X -W 1476 -y 350 -E 700 iceland_waterfall*
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-output" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-title">
+ <div class="admonition-title">
+ <div id="admonition-output-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output"></a>
+ </div>
+ <div>
+<p><img src="./figures/iceland_waterfall_feh.png" alt="" /></p>
+<p>Notice how even though we modified the LSB the original file has decreased by 100k.</p>
+ </div>
+ </div>
+</li>
+<li>
+<p>Now use <code>pngcheck</code> to check the integrity of the <code>*.png</code></p>
+ <div id="admonition-terminal-4" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-4-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-4-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-4"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ pngcheck -ts iceland_waterfall*
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-1" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-1-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-1-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-1"></a>
+ </summary>
+ <div>
+<pre><code class="language-sh">OK: iceland_waterfall.png         (499x888, 32-bit RGB+alpha, non-interlaced, 51.1%).
+OK: iceland_waterfall_stego_1.png (499x888, 32-bit RGB+alpha, non-interlaced, 51.3%).
+OK: iceland_waterfall_stego_2.png (499x888, 32-bit RGB+alpha, non-interlaced, 51.3%).
+OK: iceland_waterfall_stego_3.png (499x888, 32-bit RGB+alpha, non-interlaced, 51.3%).
+
+No errors were detected in 4 of the 4 files tested.
+</code></pre>
+<p>The images are structurally valid and pass PNG validation — which demonstrates how well steganography can hide in plain sight, even when tools like <code>pngcheck</code> say 'OK'</p>
+<p>Though we know that because we have the original to compare against, do use the change in non-interlaced by 0.2%.</p>
+ </div>
+ </details>
+</li>
+<li></li>
+</ol>
+<h3 id="task-12-decode-it-with-decodepy"><a class="header" href="#task-12-decode-it-with-decodepy">Task 1.2: Decode it with <code>decode.py</code></a></h3>
+<h3 id="task-13-change-bit-plane-to-b3--observe-impact-on-image-fidelity"><a class="header" href="#task-13-change-bit-plane-to-b3--observe-impact-on-image-fidelity">Task 1.3: Change bit plane to b3 — observe impact on image fidelity</a></h3>
+<h3 id="task-14-use-zsteg-to-detect-hidden-content-show-it-fails-above-b4"><a class="header" href="#task-14-use-zsteg-to-detect-hidden-content-show-it-fails-above-b4">Task 1.4: Use zsteg to detect hidden content (show it fails above b4)</a></h3>
+<h3 id="reflection"><a class="header" href="#reflection">Reflection</a></h3>
+<p>How does bit plane depth affect detectability and capacity?</p>
+<hr />
+<h2 id="part-2-steganalysis-tools"><a class="header" href="#part-2-steganalysis-tools">Part 2: Steganalysis Tools</a></h2>
+<div id="admonition-info-2" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-2-title">
+<div class="admonition-title">
+<div id="admonition-info-2-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info-2"></a>
+</div>
+<div>
+<p>Tools: <code>zsteg</code>, <code>binwalk</code>, <code>exiftool</code>, <code>stegsolve</code></p>
+<ul>
+<li>
+<p>Task 2.1: Analyze a stego image with <code>zsteg</code> and extract message</p>
+</li>
+<li>
+<p>Task 2.2: Use <code>exiftool</code> to check metadata for signs of manipulation</p>
+</li>
+<li>
+<p>Task 2.3: Use <code>binwalk</code> to find polyglot or appended files</p>
+</li>
+<li>
+<p>Task 2.4: Open image in <code>stegsolve</code> and visually inspect bit planes</p>
+</li>
+</ul>
+</div>
+</div>
+<h3 id="task-21-analyze-a-stego-image-with-zsteg-and-extract-message"><a class="header" href="#task-21-analyze-a-stego-image-with-zsteg-and-extract-message">Task 2.1: Analyze a stego image with <code>zsteg</code> and extract message</a></h3>
+<h3 id="task-22-use-exiftool-to-check-metadata-for-signs-of-manipulation"><a class="header" href="#task-22-use-exiftool-to-check-metadata-for-signs-of-manipulation">Task 2.2: Use <code>exiftool</code> to check metadata for signs of manipulation</a></h3>
+<h3 id="task-23-use-binwalk-to-find-polyglot-or-appended-files"><a class="header" href="#task-23-use-binwalk-to-find-polyglot-or-appended-files">Task 2.3: Use <code>binwalk</code> to find polyglot or appended files</a></h3>
+<h3 id="task-24-open-image-in-stegsolve-and-visually-inspect-bit-planes"><a class="header" href="#task-24-open-image-in-stegsolve-and-visually-inspect-bit-planes">Task 2.4: Open image in <code>stegsolve</code> and visually inspect bit planes</a></h3>
+<hr />
+<h2 id="part-3-text-based-steganography"><a class="header" href="#part-3-text-based-steganography">Part 3: Text-Based Steganography</a></h2>
+<div id="admonition-info-3" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-3-title">
+<div class="admonition-title">
+<div id="admonition-info-3-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info-3"></a>
+</div>
+<div>
+<p>Tools: <code>snow</code>, <code>zwsp-steganography</code>, <code>cat -A</code>, <code>hexdump</code></p>
+<ul>
+<li>
+<p>Task 3.1: Use <code>snow</code> to hide a message in a <code>.txt</code> file via whitespace</p>
+</li>
+<li>
+<p>Task 3.2: Extract and decode the message</p>
+</li>
+<li>
+<p>Task 3.3: Try zero-width Unicode stego (<code>U+200B</code>, etc.)</p>
+</li>
+<li>
+<p>Task 3.4: Inspect files with <code>od -c</code> or <code>cat -v</code> to reveal anomalies</p>
+</li>
+<li>
+<p>Challenge</p>
+</li>
+</ul>
+</div>
+</div>
+<h3 id="task-31-use-snow-to-hide-a-message-in-a-txt-file-via-whitespace"><a class="header" href="#task-31-use-snow-to-hide-a-message-in-a-txt-file-via-whitespace">Task 3.1: Use <code>snow</code> to hide a message in a <code>.txt</code> file via whitespace</a></h3>
+<h3 id="task-32-extract-and-decode-the-message"><a class="header" href="#task-32-extract-and-decode-the-message">Task 3.2: Extract and decode the message</a></h3>
+<h3 id="task-33-try-zero-width-unicode-stego-u200b-etc"><a class="header" href="#task-33-try-zero-width-unicode-stego-u200b-etc">Task 3.3: Try zero-width Unicode stego (<code>U+200B</code>, etc.)</a></h3>
+<h3 id="task-34-inspect-files-with-od--c-or-cat--v-to-reveal-anomalies"><a class="header" href="#task-34-inspect-files-with-od--c-or-cat--v-to-reveal-anomalies">Task 3.4: Inspect files with <code>od -c</code> or <code>cat -v</code> to reveal anomalies</a></h3>
+<h3 id="challenge"><a class="header" href="#challenge">Challenge</a></h3>
+
+                    </main>
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Cryptography/Cryptography.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../CVE/CVE.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Cryptography/Cryptography.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../CVE/CVE.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src=".././theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>
