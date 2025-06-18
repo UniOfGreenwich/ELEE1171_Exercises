@@ -12,12 +12,13 @@
 - [CIA Quiz](CIA_Multiple_Choice/CIA_Multiple_Choice.md)
 
 - [Cryptography](Cryptography/Cryptography.md)
+  - [Steganography](Steganography/Steganography.md)
 
 - [CVE](CVE/CVE.md)
 
 - [Security Risks](Security_Risks/Security_Risks.md)
 
-- [Threats and Threat Actors](SystemHardening/SystemHardening.md)
+- [Threats and Threat Actors](Threats_and_Actors/Threats_and_Actors.md)
 
 - [Intro to Wireshark](IntroToWireshark/Intro/ToWireshark.md)
 

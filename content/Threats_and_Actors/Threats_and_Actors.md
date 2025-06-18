@@ -15,7 +15,7 @@ Performing any of the attacks outside of this educational setting, outside of th
 
 ~~~
 
-## Exercises 1
+## Exercise 1
 
 **Basic ping command:**
 
@@ -307,7 +307,7 @@ On your device you need to start your `apache2` server.
 {{#quiz ./quiz_3.toml}}
 
 
-## Execise 3
+## Exercise 3
 
 
 Discovering System Vulnerabilities and Hardening Systems 
