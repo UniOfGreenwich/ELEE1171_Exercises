@@ -198,34 +198,6 @@
 </div>
 </div>
 <h2 id="part-1-lsb-steganography-with-images"><a class="header" href="#part-1-lsb-steganography-with-images">Part 1: LSB Steganography with Images</a></h2>
-<div id="admonition-info-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-1-title">
-<div class="admonition-title">
-<div id="admonition-info-1-title">
-<p>Info</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-info-1"></a>
-</div>
-<div>
-<p>Tools: Python (<code>encode.py</code>, <code>decode.py</code>), PNG files</p>
-<ul>
-<li>
-<p>Task 1.1: Encode a message in a PNG using <code>encode.py</code></p>
-</li>
-<li>
-<p>Task 1.2: Decode it with <code>decode.py</code></p>
-</li>
-<li>
-<p>Task 1.3: Change bit plane to b3 — observe impact on image fidelity</p>
-</li>
-<li>
-<p>Task 1.4: Use zsteg to detect hidden content (show it fails above b4)</p>
-</li>
-<li>
-<p>Reflection</p>
-</li>
-</ul>
-</div>
-</div>
 <h3 id="task-11-encode-a-message-in-a-png-using-encodepy"><a class="header" href="#task-11-encode-a-message-in-a-png-using-encodepy">Task 1.1: Encode a message in a PNG using <code>encode.py</code></a></h3>
 <ol>
 <li>
@@ -510,52 +482,229 @@ No errors were detected in 4 of the 4 files tested.
  </div>
  </details>
 </li>
-<li></li>
+<li>
+<p>Experiment with <code>pngcheck</code>, see <code>pngcheck --help</code> or <code>man pngcheck</code> to see what else you can do?</p>
+</li>
 </ol>
-<h3 id="task-12-decode-it-with-decodepy"><a class="header" href="#task-12-decode-it-with-decodepy">Task 1.2: Decode it with <code>decode.py</code></a></h3>
-<h3 id="task-13-change-bit-plane-to-b3--observe-impact-on-image-fidelity"><a class="header" href="#task-13-change-bit-plane-to-b3--observe-impact-on-image-fidelity">Task 1.3: Change bit plane to b3 — observe impact on image fidelity</a></h3>
-<h3 id="task-14-use-zsteg-to-detect-hidden-content-show-it-fails-above-b4"><a class="header" href="#task-14-use-zsteg-to-detect-hidden-content-show-it-fails-above-b4">Task 1.4: Use zsteg to detect hidden content (show it fails above b4)</a></h3>
 <h3 id="reflection"><a class="header" href="#reflection">Reflection</a></h3>
 <p>How does bit plane depth affect detectability and capacity?</p>
 <hr />
 <h2 id="part-2-steganalysis-tools"><a class="header" href="#part-2-steganalysis-tools">Part 2: Steganalysis Tools</a></h2>
+<div id="admonition-info-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-1-title">
+<div class="admonition-title">
+<div id="admonition-info-1-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info-1"></a>
+</div>
+<div>
+<p>Third party tools: <code>zsteg</code>, <code>binwalk</code>, <code>exiftool</code>, <code>stegsolve</code></p>
+<p>Our tool: <code>decode.py</code></p>
+</div>
+</div>
+<h3 id="task-21-analyze-a-stego-image-with-zsteg-and-extract-message"><a class="header" href="#task-21-analyze-a-stego-image-with-zsteg-and-extract-message">Task 2.1: Analyze a stego image with <code>zsteg</code> and extract message</a></h3>
+<p>So far we have seen the results of enccoding text into images. We should therefore try to extract the text.</p>
+<ol>
+<li>
+<p>Using <code>s</code> to try to extract the message out of bit plane 1, <code>iceland_waterfall_stego_1.png</code></p>
+ <div id="admonition-terminal-5" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-5-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-5-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-5"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ zsteg iceland_waterfall_stego_1.png
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-2" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-2-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-2-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-2"></a>
+ </summary>
+ <div>
+<pre><code></code></pre>
+ </div>
+ </details>
+<ul>
+<li>Repeat for the other two <code>iceland_waterfall_stego_2.png</code> and <code>iceland_waterfall_stego_3.png</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="task-22-decodepy"><a class="header" href="#task-22-decodepy">Task 2.2 <code>decode.py</code></a></h3>
+<ol>
+<li>
+<p>Let's try and decode this ourselves using a python script will be write, Create a new python file called <code>decode.py</code> and reproduce the following</p>
+ <details id="admonition-decodepy-35-lines" class="admonition admonish-code" role="note" aria-labelledby="admonition-decodepy-35-lines-title">
+ <summary class="admonition-title">
+ <div id="admonition-decodepy-35-lines-title">
+<p>decode.py, 35 lines</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-decodepy-35-lines"></a>
+ </summary>
+ <div>
+<pre><code class="language-py">from PIL import Image
+import sys
+
+def decode(image_path, bit_plane):
+    if bit_plane &lt; 1 or bit_plane &gt; 7:
+        raise ValueError("Bit plane must be between 1 and 7")
+
+    img = Image.open(image_path)
+    img = img.convert('RGB')
+    pixels = list(img.getdata())
+
+    bits = []
+    mask = 1 &lt;&lt; (bit_plane - 1)
+
+    for r, g, b in pixels:
+        bits.append(str((r &amp; mask) &gt;&gt; (bit_plane - 1)))
+        bits.append(str((g &amp; mask) &gt;&gt; (bit_plane - 1)))
+        bits.append(str((b &amp; mask) &gt;&gt; (bit_plane - 1)))
+
+    chars = []
+    for i in range(0, len(bits), 8):
+        byte = ''.join(bits[i:i+8])
+        if byte == '00000000':  # NULL terminator
+            break
+        chars.append(chr(int(byte, 2)))
+
+    message = ''.join(chars)
+    print("Decoded message:", message)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: decode.py &lt;image&gt; &lt;bit_plane&gt;")
+        sys.exit(1)
+
+    image_path = sys.argv[1]
+    try:
+        bit_plane = int(sys.argv[2])
+    except ValueError:
+        print("Bit plane must be an integer between 1 and 7")
+        sys.exit(1)
+
+    try:
+        decode(image_path, bit_plane)
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        sys.exit(1)
+</code></pre>
+ </div>
+ </details>
+ <details id="admonition-explanation-1" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-1-title">
+ <summary class="admonition-title">
+ <div id="admonition-explanation-1-title">
+<p>Explanation</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-explanation-1"></a>
+ </summary>
+ <div>
+ </div>
+ </details>
+</li>
+</ol>
+<h3 id="task-23-what-about-file---mime-type"><a class="header" href="#task-23-what-about-file---mime-type">Task 2.3: What about <code>file --mime-type</code>?</a></h3>
+<p>The utility <code>file</code> can tell you what the magic number of the file is. Useful for matching extentsion to the acutal file encoding.</p>
+<div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-note"></a>
+</div>
+<div>
+<p>A magic number is a sequence of bytes at the beginning of a file that allows to identify which is the type of a file</p>
+<p>For instance the magic number for a png is <strong>89 50 4E 47</strong>. Likewise a shell script is <strong>23 21</strong>
+<code>#!</code> is encoded to the <strong>bytes 23 21</strong> which is the <strong>magic number</strong> of an executable script.</p>
+</div>
+</div>
+<ol>
+<li>
+<p>Do this quickly, which will demonstrate the above</p>
+ <div id="admonition-terminal-6" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-6-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-6-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-6"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ cp iceland_watefall.png iceland_watefall.txt 
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>Now you can do two things first run</p>
+ <div id="admonition-terminal-7" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-7-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-7-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-7"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ file --mime-type iceland_waterfall.txt
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-3" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-3-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-3-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-3"></a>
+ </summary>
+ <div>
+<pre><code>iceland_waterfall.txt: image/png
+</code></pre>
+<p>Still recognised as a png, despite the extension change.</p>
+ </div>
+ </details>
+</li>
+<li>
+<p>We can look at hex with <code>xxd</code> tool.</p>
+ <div id="admonition-terminal-8" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-8-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-8-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-8"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ xxd iceland_waterfall.txt | head -n1
+</code></pre>
+ </div>
+ </div>
+ <details id="admonition-output-4" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-4-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-4-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-4"></a>
+ </summary>
+ <div>
+<pre><code>00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+</code></pre>
+<p>See how the magic number is 89504E47... it is still a png!</p>
+ </div>
+ </details>
+</li>
+</ol>
+<h3 id="task-24-open-image-in-stegsolve-and-visually-inspect-bit-planes"><a class="header" href="#task-24-open-image-in-stegsolve-and-visually-inspect-bit-planes">Task 2.4: Open image in <code>stegsolve</code> and visually inspect bit planes</a></h3>
+<hr />
+<h2 id="part-3-text-based-steganography"><a class="header" href="#part-3-text-based-steganography">Part 3: Text-Based Steganography</a></h2>
 <div id="admonition-info-2" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-2-title">
 <div class="admonition-title">
 <div id="admonition-info-2-title">
 <p>Info</p>
 </div>
 <a class="admonition-anchor-link" href="#admonition-info-2"></a>
-</div>
-<div>
-<p>Tools: <code>zsteg</code>, <code>binwalk</code>, <code>exiftool</code>, <code>stegsolve</code></p>
-<ul>
-<li>
-<p>Task 2.1: Analyze a stego image with <code>zsteg</code> and extract message</p>
-</li>
-<li>
-<p>Task 2.2: Use <code>exiftool</code> to check metadata for signs of manipulation</p>
-</li>
-<li>
-<p>Task 2.3: Use <code>binwalk</code> to find polyglot or appended files</p>
-</li>
-<li>
-<p>Task 2.4: Open image in <code>stegsolve</code> and visually inspect bit planes</p>
-</li>
-</ul>
-</div>
-</div>
-<h3 id="task-21-analyze-a-stego-image-with-zsteg-and-extract-message"><a class="header" href="#task-21-analyze-a-stego-image-with-zsteg-and-extract-message">Task 2.1: Analyze a stego image with <code>zsteg</code> and extract message</a></h3>
-<h3 id="task-22-use-exiftool-to-check-metadata-for-signs-of-manipulation"><a class="header" href="#task-22-use-exiftool-to-check-metadata-for-signs-of-manipulation">Task 2.2: Use <code>exiftool</code> to check metadata for signs of manipulation</a></h3>
-<h3 id="task-23-use-binwalk-to-find-polyglot-or-appended-files"><a class="header" href="#task-23-use-binwalk-to-find-polyglot-or-appended-files">Task 2.3: Use <code>binwalk</code> to find polyglot or appended files</a></h3>
-<h3 id="task-24-open-image-in-stegsolve-and-visually-inspect-bit-planes"><a class="header" href="#task-24-open-image-in-stegsolve-and-visually-inspect-bit-planes">Task 2.4: Open image in <code>stegsolve</code> and visually inspect bit planes</a></h3>
-<hr />
-<h2 id="part-3-text-based-steganography"><a class="header" href="#part-3-text-based-steganography">Part 3: Text-Based Steganography</a></h2>
-<div id="admonition-info-3" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-3-title">
-<div class="admonition-title">
-<div id="admonition-info-3-title">
-<p>Info</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-info-3"></a>
 </div>
 <div>
 <p>Tools: <code>snow</code>, <code>zwsp-steganography</code>, <code>cat -A</code>, <code>hexdump</code></p>
@@ -578,12 +727,20 @@ No errors were detected in 4 of the 4 files tested.
 </ul>
 </div>
 </div>
-<h3 id="task-31-use-snow-to-hide-a-message-in-a-txt-file-via-whitespace"><a class="header" href="#task-31-use-snow-to-hide-a-message-in-a-txt-file-via-whitespace">Task 3.1: Use <code>snow</code> to hide a message in a <code>.txt</code> file via whitespace</a></h3>
-<h3 id="task-32-extract-and-decode-the-message"><a class="header" href="#task-32-extract-and-decode-the-message">Task 3.2: Extract and decode the message</a></h3>
-<h3 id="task-33-try-zero-width-unicode-stego-u200b-etc"><a class="header" href="#task-33-try-zero-width-unicode-stego-u200b-etc">Task 3.3: Try zero-width Unicode stego (<code>U+200B</code>, etc.)</a></h3>
-<h3 id="task-34-inspect-files-with-od--c-or-cat--v-to-reveal-anomalies"><a class="header" href="#task-34-inspect-files-with-od--c-or-cat--v-to-reveal-anomalies">Task 3.4: Inspect files with <code>od -c</code> or <code>cat -v</code> to reveal anomalies</a></h3>
 <h3 id="challenge"><a class="header" href="#challenge">Challenge</a></h3>
-
+<p>Try and encode/decode messages to each other</p>
+<div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+<div class="admonition-title">
+<div id="admonition-warning-title">
+<p>Warning</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-warning"></a>
+</div>
+<div>
+<p>Do <strong>not</strong> embed payloads and any messge must be clean of defamatory marks and must not cause offense</p>
+<p>Legal concerns, the skills/knowledge you are gaining/demonstrating here are for education purposes and should not be used in a way to break the law.</p>
+</div>
+</div>
                     </main>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
