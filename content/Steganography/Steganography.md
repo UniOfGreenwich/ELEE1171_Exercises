@@ -18,22 +18,6 @@ By the end of this lab you should be able to:
 
 ## Part 1: LSB Steganography with Images
 
-~~~admonish info
-
-Tools: Python (`encode.py`, `decode.py`), PNG files
-
-- Task 1.1: Encode a message in a PNG using `encode.py`
-
-- Task 1.2: Decode it with `decode.py`
-
-- Task 1.3: Change bit plane to b3 — observe impact on image fidelity
-
-- Task 1.4: Use zsteg to detect hidden content (show it fails above b4)
-
-- Reflection
-
-~~~
-
 ### Task 1.1: Encode a message in a PNG using `encode.py`
 
 1. Firstly, create a script in a new folder called `stego/encode.py`
@@ -258,13 +242,8 @@ Tools: Python (`encode.py`, `decode.py`), PNG files
 
     ~~~
 
-7.
+7. Experiment with `pngcheck`, see `pngcheck --help` or `man pngcheck` to see what else you can do?
 
-### Task 1.2: Decode it with `decode.py`
-
-### Task 1.3: Change bit plane to b3 — observe impact on image fidelity
-
-### Task 1.4: Use zsteg to detect hidden content (show it fails above b4)
 
 ### Reflection
 
@@ -276,25 +255,164 @@ How does bit plane depth affect detectability and capacity?
 
 ~~~admonish info
 
-Tools: `zsteg`, `binwalk`, `exiftool`, `stegsolve`
+Third party tools: `zsteg`, `binwalk`, `exiftool`, `stegsolve`
 
-- Task 2.1: Analyze a stego image with `zsteg` and extract message
-
-- Task 2.2: Use `exiftool` to check metadata for signs of manipulation
-
-- Task 2.3: Use `binwalk` to find polyglot or appended files
-
-- Task 2.4: Open image in `stegsolve` and visually inspect bit planes
+Our tool: `decode.py`
 
 ~~~
 
 ### Task 2.1: Analyze a stego image with `zsteg` and extract message
 
-### Task 2.2: Use `exiftool` to check metadata for signs of manipulation
 
-### Task 2.3: Use `binwalk` to find polyglot or appended files
+So far we have seen the results of enccoding text into images. We should therefore try to extract the text.
+ 
+1. Using `s` to try to extract the message out of bit plane 1, `iceland_waterfall_stego_1.png`
+
+    ~~~admonish terminal
+    
+    ```sh
+    $ zsteg iceland_waterfall_stego_1.png
+    ```
+    
+    ~~~
+
+    ~~~admonish output collapsible=true
+    
+    ```
+    ```
+
+    ~~~
+
+    - Repeat for the other two `iceland_waterfall_stego_2.png` and `iceland_waterfall_stego_3.png`
+  
+### Task 2.2 `decode.py`
+
+1. Let's try and decode this ourselves using a python script will be write, Create a new python file called `decode.py` and reproduce the following
+
+    ~~~admonish code title="decode.py, 35 lines" collapsible=true
+    
+    ```py
+    from PIL import Image
+    import sys
+
+    def decode(image_path, bit_plane):
+        if bit_plane < 1 or bit_plane > 7:
+            raise ValueError("Bit plane must be between 1 and 7")
+
+        img = Image.open(image_path)
+        img = img.convert('RGB')
+        pixels = list(img.getdata())
+
+        bits = []
+        mask = 1 << (bit_plane - 1)
+
+        for r, g, b in pixels:
+            bits.append(str((r & mask) >> (bit_plane - 1)))
+            bits.append(str((g & mask) >> (bit_plane - 1)))
+            bits.append(str((b & mask) >> (bit_plane - 1)))
+
+        chars = []
+        for i in range(0, len(bits), 8):
+            byte = ''.join(bits[i:i+8])
+            if byte == '00000000':  # NULL terminator
+                break
+            chars.append(chr(int(byte, 2)))
+
+        message = ''.join(chars)
+        print("Decoded message:", message)
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 3:
+            print("Usage: decode.py <image> <bit_plane>")
+            sys.exit(1)
+
+        image_path = sys.argv[1]
+        try:
+            bit_plane = int(sys.argv[2])
+        except ValueError:
+            print("Bit plane must be an integer between 1 and 7")
+            sys.exit(1)
+
+        try:
+            decode(image_path, bit_plane)
+        except Exception as e:
+            print(f"❌ Error: {e}")
+            sys.exit(1)
+    ```
+
+    ~~~
+
+    ~~~admonish example title="Explanation" collapsible=true
+    
+
+
+    ~~~
+
+### Task 2.3: What about `file --mime-type`?
+
+The utility `file` can tell you what the magic number of the file is. Useful for matching extentsion to the acutal file encoding.
+
+~~~admonish note
+
+A magic number is a sequence of bytes at the beginning of a file that allows to identify which is the type of a file
+
+For instance the magic number for a png is **89 50 4E 47**. Likewise a shell script is **23 21**
+`#!` is encoded to the **bytes 23 21** which is the **magic number** of an executable script. 
+
+~~~
+
+
+1. Do this quickly, which will demonstrate the above
+
+    ~~~admonish terminal
+
+    ```sh
+    $ cp iceland_watefall.png iceland_watefall.txt 
+    ```
+
+    ~~~
+
+2. Now you can do two things first run
+
+    ~~~admonish terminal
+
+    ```sh
+    $ file --mime-type iceland_waterfall.txt
+    ```
+
+    ~~~
+
+    ~~~admonish output collapsible=true
+
+    ```
+    iceland_waterfall.txt: image/png
+    ```
+    Still recognised as a png, despite the extension change.   
+    ~~~
+
+3. We can look at hex with `xxd` tool.
+
+    ~~~admonish terminal
+    
+    ```sh
+    $ xxd iceland_waterfall.txt | head -n1
+    ```
+
+    ~~~
+
+    ~~~admonish output collapsible=true
+    
+    ```
+    00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
+    ```
+
+    See how the magic number is 89504E47... it is still a png!
+
+    ~~~
+
 
 ### Task 2.4: Open image in `stegsolve` and visually inspect bit planes
+
 
 ------
 
@@ -316,13 +434,14 @@ Tools: `snow`, `zwsp-steganography`, `cat -A`, `hexdump`
 
 ~~~
 
-### Task 3.1: Use `snow` to hide a message in a `.txt` file via whitespace
-
-### Task 3.2: Extract and decode the message
-
-### Task 3.3: Try zero-width Unicode stego (`U+200B`, etc.)
-
-### Task 3.4: Inspect files with `od -c` or `cat -v` to reveal anomalies
-
 ### Challenge
 
+Try and encode/decode messages to each other
+
+~~~admonish warning    
+
+Do **not** embed payloads and any messge must be clean of defamatory marks and must not cause offense
+
+Legal concerns, the skills/knowledge you are gaining/demonstrating here are for education purposes and should not be used in a way to break the law.
+
+~~~
