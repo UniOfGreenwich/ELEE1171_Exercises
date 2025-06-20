@@ -33,6 +33,7 @@
         <link rel="stylesheet" href=".././theme/css/code.css">
         <link rel="stylesheet" href=".././theme/css/terminal.css">
         <link rel="stylesheet" href=".././theme/css/output.css">
+        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -116,16 +117,16 @@
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="burgundy">Burgundy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ecoFriend">EcoFriend</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappé</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="kanagawa">Knagawa</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="pinkrose">Pinkrose</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="space">Space</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="sustain">Sustain</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="tender">Tender</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="tokyonight">Tokyonight</button></li>
                         </ul>
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
@@ -478,7 +479,7 @@ OK: iceland_waterfall_stego_3.png (499x888, 32-bit RGB+alpha, non-interlaced, 51
 No errors were detected in 4 of the 4 files tested.
 </code></pre>
 <p>The images are structurally valid and pass PNG validation — which demonstrates how well steganography can hide in plain sight, even when tools like <code>pngcheck</code> say 'OK'</p>
-<p>Though we know that because we have the original to compare against, do use the change in non-interlaced by 0.2%.</p>
+<p>Though we know that because we have the original to compare against, we do use the change in non-interlaced by 0.2%.</p>
  </div>
  </details>
 </li>
@@ -486,8 +487,81 @@ No errors were detected in 4 of the 4 files tested.
 <p>Experiment with <code>pngcheck</code>, see <code>pngcheck --help</code> or <code>man pngcheck</code> to see what else you can do?</p>
 </li>
 </ol>
-<h3 id="reflection"><a class="header" href="#reflection">Reflection</a></h3>
+<h3 id="task-12-reflection"><a class="header" href="#task-12-reflection">Task 1.2: Reflection</a></h3>
+<details id="admonition-how-does-bit-plane-depth-affect-detectability-and-capacity" class="admonition admonish-question" role="note" aria-labelledby="admonition-how-does-bit-plane-depth-affect-detectability-and-capacity-title">
+<summary class="admonition-title">
+<div id="admonition-how-does-bit-plane-depth-affect-detectability-and-capacity-title">
 <p>How does bit plane depth affect detectability and capacity?</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-how-does-bit-plane-depth-affect-detectability-and-capacity"></a>
+</summary>
+<div>
+<p><strong>Bit Plane = Position Within a Byte</strong></p>
+<p>Each pixel color channel (Red, Green, Blue) is stored as an 8-bit number:</p>
+<pre><code>Bit positions: [7][6][5][4][3][2][1][0]  ← Bit plane
+               MSB                  LSB
+</code></pre>
+<ul>
+<li>
+<p><strong>b1 (LSB)</strong>: smallest visual impact</p>
+</li>
+<li>
+<p><strong>b8 (MSB)</strong>: largest impact — most noticeable</p>
+</li>
+</ul>
+<p><strong>Impact breakdown</strong></p>
+<div class="table-wrapper"><table><thead><tr><th><strong>Bit Plane</strong></th><th><strong>Capacity</strong></th><th><strong>Image Impact</strong></th><th><strong>Detectability</strong></th></tr></thead><tbody>
+<tr><td><strong>b1 (LSB)</strong></td><td>Low</td><td>Imperceptible</td><td>Hard</td></tr>
+<tr><td><strong>b2</strong></td><td>Medium</td><td>Barely visible</td><td>Medium</td></tr>
+<tr><td><strong>b3</strong></td><td>Higher</td><td>Slight noise</td><td>Detectable</td></tr>
+<tr><td><strong>b4–b7</strong></td><td>Very High</td><td>Noticeable artifacts</td><td>Easy</td></tr>
+</tbody></table>
+</div>
+<p><strong>Capacity vs. Quality Trade-off</strong></p>
+<ul>
+<li>
+<p>Each pixel has 3 channels (RGB) → up to <strong>3 bits per pixel</strong> at b1</p>
+</li>
+<li>
+<p>Want more capacity? → use <code>b2</code>, <code>b3</code>, etc.</p>
+</li>
+<li>
+<p>But: Each jump doubles the impact</p>
+<div class="table-wrapper"><table><thead><tr><th>Bits Used</th><th>Max Data (in a 500×500 image)</th><th>Typical Use</th></tr></thead><tbody>
+<tr><td>b1 only</td><td>~93 KB</td><td>Safe/secret</td></tr>
+<tr><td>b1+b2</td><td>~187 KB</td><td>Higher cap</td></tr>
+<tr><td>b1–b3</td><td>~281 KB</td><td>Noticeable</td></tr>
+</tbody></table>
+</div></li>
+</ul>
+<p><strong>Detectability:</strong></p>
+<p>Detection tools like <code>zsteg</code>, <code>stegdetect</code>, and statistical methods (e.g. chi-square, RS analysis):</p>
+<ul>
+<li>
+<p>Are <strong>tuned to spot unnatural patterns</strong> in LSBs</p>
+</li>
+<li>
+<p>Higher bit planes (b3–b5) introduce more noise → easier to detect</p>
+</li>
+<li>
+<p>Even <strong>visual diffing</strong> can expose b3 or b4 usage</p>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<p>Think of it like whispering into a noisy room:</p>
+<ul>
+<li>
+<p>b1 = whisper (hard to detect)</p>
+</li>
+<li>
+<p>b3 = speaking clearly (someone might hear)</p>
+</li>
+<li>
+<p>b6+ = shouting (anyone can spot it)</p>
+</li>
+</ul>
+</div>
+</details>
 <hr />
 <h2 id="part-2-steganalysis-tools"><a class="header" href="#part-2-steganalysis-tools">Part 2: Steganalysis Tools</a></h2>
 <div id="admonition-info-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-1-title">
@@ -741,6 +815,8 @@ if __name__ == "__main__":
 <p>Legal concerns, the skills/knowledge you are gaining/demonstrating here are for education purposes and should not be used in a way to break the law.</p>
 </div>
 </div>
+<p>---------------------<style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () =&gt; window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () =&gt; { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY &lt;200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer></p>
+
                     </main>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->

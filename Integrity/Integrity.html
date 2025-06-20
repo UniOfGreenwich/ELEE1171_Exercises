@@ -33,6 +33,7 @@
         <link rel="stylesheet" href=".././theme/css/code.css">
         <link rel="stylesheet" href=".././theme/css/terminal.css">
         <link rel="stylesheet" href=".././theme/css/output.css">
+        <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -116,16 +117,16 @@
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="burgundy">Burgundy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ecoFriend">EcoFriend</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="frappe">Frappé</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="kanagawa">Knagawa</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mocha">Mocha</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="pinkrose">Pinkrose</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="space">Space</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="sustain">Sustain</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="tender">Tender</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="tokyonight">Tokyonight</button></li>
                         </ul>
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
@@ -469,7 +470,6 @@ SHA256          E052877AA48CB6A49FE83EF9798EA1AFF9332A2A33128189C479144E84CB7C52
 </div>
 <div>
 <pre><code class="language-ps1">$ Compare-Object (Get-Content integrity_test_hash_1.txt) (Get-Content integrity_test_hash_2.txt)
-
 </code></pre>
 </div>
 </div>
@@ -1128,7 +1128,8 @@ def message_schedule(chunk):
 <div>
 <pre><code class="language-py">...
 
-# SHA-256 Constants: First 32 bits of the fractional parts of the cube roots of the first 64 primes
+# SHA-256 Constants: First 32 bits of the fractional 
+# parts of the cube roots of the first 64 primes
 K = [
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
     0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -1148,7 +1149,8 @@ K = [
     0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 ]
 
-# Initial Hash Values (First 32 bits of the fractional parts of the square roots of the first 8 primes)
+# Initial Hash Values (First 32 bits of the fractional 
+# parts of the square roots of the first 8 primes)
 H = [
     0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
     0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
@@ -1235,6 +1237,99 @@ print(f"{sha256(input_data)}")
 </code></pre>
 </div>
 </div>
+<details id="admonition-mysha256sumpy-81-lines" class="admonition admonish-code" role="note" aria-labelledby="admonition-mysha256sumpy-81-lines-title">
+<summary class="admonition-title">
+<div id="admonition-mysha256sumpy-81-lines-title">
+<p>mysha256sum.py, 81 lines</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-mysha256sumpy-81-lines"></a>
+</summary>
+<div>
+<pre><code class="language-py">import struct
+
+# SHA-256 Constants: First 32 bits of the fractional 
+# parts of the cube roots of the first 64 primes
+K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+    0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+    0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+    0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+    0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+    0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+    0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+    0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+    0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+]
+
+# Initial Hash Values (First 32 bits of the fractional 
+# parts of the square roots of the first 8 primes)
+H = [
+    0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+    0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+]
+
+def pad_message(message):
+    """Pads the message to fit SHA-256 specifications."""
+    message = bytearray(message, 'utf-8')
+    original_length = len(message) * 8  # Message length in bits
+    message.append(0x80)  # Append '1' bit
+    while (len(message) * 8 + 64) % 512 != 0:
+        message.append(0)  # Append '0' bits
+    message += struct.pack('&gt;Q', original_length)  # Append length as 64-bit integer
+    return message
+
+def right_rotate(value, bits):
+    """Right rotate (circular shift) a 32-bit integer."""
+    return (value &gt;&gt; bits) | (value &lt;&lt; (32 - bits)) &amp; 0xFFFFFFFF
+
+def message_schedule(chunk):
+    """Expands 16 words into 64 words for SHA-256 processing."""
+    w = [0] * 64
+    for i in range(16):
+        w[i] = struct.unpack('&gt;I', chunk[i * 4:(i + 1) * 4])[0]
+    for i in range(16, 64):
+        s0 = right_rotate(w[i - 15], 7) ^ right_rotate(w[i - 15], 18) ^ (w[i - 15] &gt;&gt; 3)
+        s1 = right_rotate(w[i - 2], 17) ^ right_rotate(w[i - 2], 19) ^ (w[i - 2] &gt;&gt; 10)
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) &amp; 0xFFFFFFFF
+    return w
+
+def sha256_process_chunk(chunk, H):
+    """Processes a 512-bit chunk using SHA-256 compression rounds."""
+    w = message_schedule(chunk)
+    a, b, c, d, e, f, g, h = H
+
+    for i in range(64):
+        S1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25)
+        ch = (e &amp; f) ^ (~e &amp; g)
+        temp1 = (h + S1 + ch + K[i] + w[i]) &amp; 0xFFFFFFFF
+        S0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22)
+        maj = (a &amp; b) ^ (a &amp; c) ^ (b &amp; c)
+        temp2 = (S0 + maj) &amp; 0xFFFFFFFF
+
+        h, g, f, e, d, c, b, a = g, f, e, (d + temp1) &amp; 0xFFFFFFFF, c, b, a, (temp1 + temp2) &amp; 0xFFFFFFFF
+
+    return [(x + y) &amp; 0xFFFFFFFF for x, y in zip(H, [a, b, c, d, e, f, g, h])]
+
+def sha256(data):
+    """Full implementation of SHA-256."""
+    data = pad_message(data)
+    hash_values = H.copy()
+    for chunk_start in range(0, len(data), 64):
+        hash_values = sha256_process_chunk(data[chunk_start:chunk_start + 64], hash_values)
+    return ''.join(f"{h:08x}" for h in hash_values)
+
+input_data = input("Enter text to hash: ")
+print(f"{sha256(input_data)}")
+</code></pre>
+</div>
+</details>
 </li>
 </ol>
 <h3 id="35-running-and-verify-it-works"><a class="header" href="#35-running-and-verify-it-works">3.5 Running and verify it works</a></h3>
@@ -1326,7 +1421,7 @@ Enter text to hash: test
 </div>
 </li>
 </ol>
-<script type="text/javascript" src="../quiz/quiz-embed.iife.js"></script><link rel="stylesheet" type="text/css" href="../quiz/style.css">
+<script type="text/javascript" src="../quiz/quiz-embed.iife.js"></script><link rel="stylesheet" type="text/css" href="../quiz/style.css"><style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () => window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () => { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY <200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer>
                     </main>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
