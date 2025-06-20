@@ -238,16 +238,75 @@ By the end of this lab you should be able to:
     
     The images are structurally valid and pass PNG validation — which demonstrates how well steganography can hide in plain sight, even when tools like `pngcheck` say 'OK'
 
-    Though we know that because we have the original to compare against, do use the change in non-interlaced by 0.2%. 
+    Though we know that because we have the original to compare against, we do use the change in non-interlaced by 0.2%. 
 
     ~~~
 
 7. Experiment with `pngcheck`, see `pngcheck --help` or `man pngcheck` to see what else you can do?
 
 
-### Reflection
+### Task 1.2: Reflection
 
-How does bit plane depth affect detectability and capacity?
+~~~admonish question title="How does bit plane depth affect detectability and capacity?" collapsible=true
+
+**Bit Plane = Position Within a Byte**
+
+Each pixel color channel (Red, Green, Blue) is stored as an 8-bit number:
+
+```
+Bit positions: [7][6][5][4][3][2][1][0]  ← Bit plane
+               MSB                  LSB
+```
+
+- **b1 (LSB)**: smallest visual impact
+
+- **b8 (MSB)**: largest impact — most noticeable
+
+**Impact breakdown**
+
+| **Bit Plane** | **Capacity** | **Image Impact**     | **Detectability** |
+| ------------- | ------------ | -------------------- | ----------------- |
+| **b1 (LSB)**  | Low          | Imperceptible        | Hard              |
+| **b2**        | Medium       | Barely visible       | Medium            |
+| **b3**        | Higher       | Slight noise         | Detectable        |
+| **b4–b7**     | Very High    | Noticeable artifacts | Easy              |
+
+
+**Capacity vs. Quality Trade-off**
+
+- Each pixel has 3 channels (RGB) → up to **3 bits per pixel** at b1
+
+- Want more capacity? → use `b2`, `b3`, etc.
+
+- But: Each jump doubles the impact
+
+    | Bits Used | Max Data (in a 500×500 image) | Typical Use |
+    | --------- | ----------------------------- | ----------- |
+    | b1 only   | \~93 KB                       | Safe/secret |
+    | b1+b2     | \~187 KB                      | Higher cap  |
+    | b1–b3     | \~281 KB                      | Noticeable  |
+
+**Detectability:**
+
+Detection tools like `zsteg`, `stegdetect`, and statistical methods (e.g. chi-square, RS analysis):
+
+- Are **tuned to spot unnatural patterns** in LSBs
+
+- Higher bit planes (b3–b5) introduce more noise → easier to detect
+
+- Even **visual diffing** can expose b3 or b4 usage
+
+**Summary**
+
+Think of it like whispering into a noisy room:
+
+- b1 = whisper (hard to detect)
+
+- b3 = speaking clearly (someone might hear)
+
+- b6+ = shouting (anyone can spot it)
+
+~~~
 
 -----
 
@@ -445,3 +504,5 @@ Do **not** embed payloads and any messge must be clean of defamatory marks and m
 Legal concerns, the skills/knowledge you are gaining/demonstrating here are for education purposes and should not be used in a way to break the law.
 
 ~~~
+
+---------------------
