@@ -196,6 +196,8 @@ By the end of this lab you should be able to:
     $ python3 encode.py waterfall_image.png waterfall_image_stego_3.png "TEST" 3
     ```
 
+    - `python3 encode.py input_file output_file message bit_plane`
+
     ~~~
 
 5. Open images side by side using 
@@ -465,7 +467,7 @@ For instance the magic number for a png is **89 50 4E 47**. Likewise a shell scr
     00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
     ```
 
-    See how the magic number is 89504E47... it is still a png!
+    See how the magic number is `8950 4E47`... it is still encoded as a png!
 
     ~~~
 
@@ -479,23 +481,155 @@ For instance the magic number for a png is **89 50 4E 47**. Likewise a shell scr
 
 ~~~admonish info
 
-Tools: `snow`, `zwsp-steganography`, `cat -A`, `hexdump`
-
-- Task 3.1: Use `snow` to hide a message in a `.txt` file via whitespace
-
-- Task 3.2: Extract and decode the message
-
-- Task 3.3: Try zero-width Unicode stego (`U+200B`, etc.)
-
-- Task 3.4: Inspect files with `od -c` or `cat -v` to reveal anomalies
-
-- Challenge
+Tools: `snow`, `cat` and `od`
 
 ~~~
 
+### Task 3.1: Use `snow` to hide a message in a `.txt` file via whitespace
+
+~~~admonish note
+
+- `snow` has been packaged and deployed from here [https://github.com/CompEng0001/snow](https://github.com/CompEng0001/snow)
+    
+    - The program is used to conceal messages in ASCII text by appending whitespace to the end of lines. Because spaces and tabs are generally not visible in text viewers, the message is effectively hidden from casual observers. And if the built-in encryption is used, the message cannot be read even if it is detected.
+
+    - SNOW exploits the Steganographic Nature Of Whitespace. Locating trailing whitespace in text is like finding a polar bear in a snowstorm (which, by the way, explains the logo). And it uses the ICE encryption algorithm, so the name is thematically consistent.
+
+~~~
+
+1. Let's look at `snow`'s man page, read to understand how it works.
+   
+   ~~~admonish terminal
+   
+   ```sh
+   $ man snow
+   ```
+
+   ~~~
+
+2. Create a file called `snow_in.txt` and fill it with the following:
+
+    ~~~admonish code
+
+    ```
+    Lorem Ipsum comes from a latin text written in 45BC by Roman statesman, lawyer, scholar, and philosopher, Marcus Tullius Cicero.
+
+    The text is titled "de Finibus Bonorum et Malorum" which means "The Extremes of Good and Evil". The most common form of Lorem ipsum is the following:
+
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    ```
+
+    ~~~
+
+3. Now use `snow` to encode `TEST` into the file `snow_in.txt` to `snow_out.txt`:
+
+    ~~~admonish terminal
+    
+    ```sh
+    $ snow -C -m "TEST" snow_in.txt snow_out.txt
+    ```
+
+    ~~~
+
+    ~~~admonish terminal
+    
+    ```
+    Compressed by 0.00%
+    Message used approximately 34.41% of available space.
+    ```
+
+    ~~~
+
+### Task 3.2: Extract and decode the message
+
+1. Now we try to extract the hidden text from `snow_out.txt` file using `snow`
+    ~~~admonish terminal
+
+    ```sh
+    $ snow -C snow_out.txt
+    ```
+
+    ~~~
+
+    ~~~admonish output
+
+    ```sh
+    $ TEST
+    ```
+
+    ~~~
+
+### Task 3.3: Inspect files with `cat`, and `od` to reveal anomalies
+
+1. Let's see how detectable stegnography in text is, we will use `od` and `cat` to see what is going on. Find a way to use `cat` to determine the content of the file, hint you may need to pass in arguments to `cat` (see `man cat`)
+
+    ~~~admonish terminal collapsible=true
+
+    ```
+    $ cat -A snow_out.txt
+    ```
+
+    ~~~
+
+    ~~~admonish output collapsible=true
+    
+    ```
+    Lorem Ipsum comes from a latin text written in 45BC by Roman statesman, lawyer, scholar, and philosopher, Marcus Tullius Cicero.$
+    ^I     ^I      ^I ^I  ^I    ^I  ^I ^I ^I     $
+    The text is titled "de Finibus Bonorum et Malorum" which means "The Extremes of Good and Evil". The most common form of Lorem ipsum is the following:$
+        ^I $
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.$
+    $
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.$
+    $
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.$
+    ```
+
+    We can see that there are  extra whitespace and `^I` indicating tabs embedded after the first line. This is the encoded message.
+
+    ~~~
+
+
+2. If you compare this to the original file `snow_in.txt`
+
+    ~~~admonish terminal collapsible=true
+
+    ```
+    $ cat -A snow_in.txt
+    ```
+
+    ~~~
+
+    ~~~admonish output collapsible=true
+    
+    ```
+    Lorem Ipsum comes from a latin text written in 45BC by Roman statesman, lawyer, scholar, and philosopher, Marcus Tullius Cicero. $
+    $
+    The text is titled "de Finibus Bonorum et Malorum" which means "The Extremes of Good and Evil". The most common form of Lorem ipsum is the following:$
+    $
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.$
+    $
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. $
+    $
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.$
+    ```
+
+    ~~~
+
+
 ### Challenge
 
-Try and encode/decode messages to each other
+~~~admonish todo
+
+1. Try and encode/decode messages to each other using just `encode/decode{.py}`
+
+2. Try to experiment with `snow`
+
+3. combine snow with encode... could you encode some text as the messsage that is embedded in the each pixel of an image?
+
+~~~
 
 ~~~admonish warning    
 
@@ -504,5 +638,3 @@ Do **not** embed payloads and any messge must be clean of defamatory marks and m
 Legal concerns, the skills/knowledge you are gaining/demonstrating here are for education purposes and should not be used in a way to break the law.
 
 ~~~
-
----------------------
