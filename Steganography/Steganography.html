@@ -419,6 +419,9 @@ $ python3 encode.py waterfall_image.png waterfall_image_stego_1.png "TEST" 1
 $ python3 encode.py waterfall_image.png waterfall_image_stego_2.png "TEST" 2
 $ python3 encode.py waterfall_image.png waterfall_image_stego_3.png "TEST" 3
 </code></pre>
+<ul>
+<li><code>python3 encode.py input_file output_file message bit_plane</code></li>
+</ul>
  </div>
  </div>
 </li>
@@ -765,7 +768,7 @@ if __name__ == "__main__":
  <div>
 <pre><code>00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR
 </code></pre>
-<p>See how the magic number is 89504E47... it is still a png!</p>
+<p>See how the magic number is <code>8950 4E47</code>... it is still encoded as a png!</p>
  </div>
  </details>
 </li>
@@ -781,28 +784,225 @@ if __name__ == "__main__":
 <a class="admonition-anchor-link" href="#admonition-info-2"></a>
 </div>
 <div>
-<p>Tools: <code>snow</code>, <code>zwsp-steganography</code>, <code>cat -A</code>, <code>hexdump</code></p>
+<p>Tools: <code>snow</code>, <code>cat</code> and <code>od</code></p>
+</div>
+</div>
+<h3 id="task-31-use-snow-to-hide-a-message-in-a-txt-file-via-whitespace"><a class="header" href="#task-31-use-snow-to-hide-a-message-in-a-txt-file-via-whitespace">Task 3.1: Use <code>snow</code> to hide a message in a <code>.txt</code> file via whitespace</a></h3>
+<div id="admonition-note-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-1-title">
+<div class="admonition-title">
+<div id="admonition-note-1-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-note-1"></a>
+</div>
+<div>
 <ul>
 <li>
-<p>Task 3.1: Use <code>snow</code> to hide a message in a <code>.txt</code> file via whitespace</p>
+<p><code>snow</code> has been packaged and deployed from here <a href="https://github.com/CompEng0001/snow">https://github.com/CompEng0001/snow</a></p>
+<ul>
+<li>
+<p>The program is used to conceal messages in ASCII text by appending whitespace to the end of lines. Because spaces and tabs are generally not visible in text viewers, the message is effectively hidden from casual observers. And if the built-in encryption is used, the message cannot be read even if it is detected.</p>
 </li>
 <li>
-<p>Task 3.2: Extract and decode the message</p>
+<p>SNOW exploits the Steganographic Nature Of Whitespace. Locating trailing whitespace in text is like finding a polar bear in a snowstorm (which, by the way, explains the logo). And it uses the ICE encryption algorithm, so the name is thematically consistent.</p>
 </li>
-<li>
-<p>Task 3.3: Try zero-width Unicode stego (<code>U+200B</code>, etc.)</p>
-</li>
-<li>
-<p>Task 3.4: Inspect files with <code>od -c</code> or <code>cat -v</code> to reveal anomalies</p>
-</li>
-<li>
-<p>Challenge</p>
+</ul>
 </li>
 </ul>
 </div>
 </div>
+<ol>
+<li>
+<p>Let's look at <code>snow</code>'s man page, read to understand how it works.</p>
+<div id="admonition-terminal-9" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-9-title">
+<div class="admonition-title">
+<div id="admonition-terminal-9-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal-9"></a>
+</div>
+<div>
+<pre><code class="language-sh">$ man snow
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a file called <code>snow_in.txt</code> and fill it with the following:</p>
+ <div id="admonition-code" class="admonition admonish-code" role="note" aria-labelledby="admonition-code-title">
+ <div class="admonition-title">
+ <div id="admonition-code-title">
+<p>Code</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-code"></a>
+ </div>
+ <div>
+<pre><code>Lorem Ipsum comes from a latin text written in 45BC by Roman statesman, lawyer, scholar, and philosopher, Marcus Tullius Cicero.
+
+The text is titled "de Finibus Bonorum et Malorum" which means "The Extremes of Good and Evil". The most common form of Lorem ipsum is the following:
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>Now use <code>snow</code> to encode <code>TEST</code> into the file <code>snow_in.txt</code> to <code>snow_out.txt</code>:</p>
+ <div id="admonition-terminal-10" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-10-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-10-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-10"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ snow -C -m "TEST" snow_in.txt snow_out.txt
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-terminal-11" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-11-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-11-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-11"></a>
+ </div>
+ <div>
+<pre><code>Compressed by 0.00%
+Message used approximately 34.41% of available space.
+</code></pre>
+ </div>
+ </div>
+</li>
+</ol>
+<h3 id="task-32-extract-and-decode-the-message"><a class="header" href="#task-32-extract-and-decode-the-message">Task 3.2: Extract and decode the message</a></h3>
+<ol>
+<li>
+<p>Now we try to extract the hidden text from <code>snow_out.txt</code> file using <code>snow</code></p>
+ <div id="admonition-terminal-12" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-12-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-12-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-12"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ snow -C snow_out.txt
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-output-5" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-5-title">
+ <div class="admonition-title">
+ <div id="admonition-output-5-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-5"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ TEST
+</code></pre>
+ </div>
+ </div>
+</li>
+</ol>
+<h3 id="task-33-inspect-files-with-cat-and-od-to-reveal-anomalies"><a class="header" href="#task-33-inspect-files-with-cat-and-od-to-reveal-anomalies">Task 3.3: Inspect files with <code>cat</code>, and <code>od</code> to reveal anomalies</a></h3>
+<ol>
+<li>
+<p>Let's see how detectable stegnography in text is, we will use <code>od</code> and <code>cat</code> to see what is going on. Find a way to use <code>cat</code> to determine the content of the file, hint you may need to pass in arguments to <code>cat</code> (see <code>man cat</code>)</p>
+ <details id="admonition-terminal-13" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-13-title">
+ <summary class="admonition-title">
+ <div id="admonition-terminal-13-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-13"></a>
+ </summary>
+ <div>
+<pre><code>$ cat -A snow_out.txt
+</code></pre>
+ </div>
+ </details>
+ <details id="admonition-output-6" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-6-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-6-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-6"></a>
+ </summary>
+ <div>
+<pre><code>Lorem Ipsum comes from a latin text written in 45BC by Roman statesman, lawyer, scholar, and philosopher, Marcus Tullius Cicero.$
+^I     ^I      ^I ^I  ^I    ^I  ^I ^I ^I     $
+The text is titled "de Finibus Bonorum et Malorum" which means "The Extremes of Good and Evil". The most common form of Lorem ipsum is the following:$
+    ^I $
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.$
+$
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.$
+$
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.$
+</code></pre>
+<p>We can see that there are  extra whitespace and <code>^I</code> indicating tabs embedded after the first line. This is the encoded message.</p>
+ </div>
+ </details>
+</li>
+<li>
+<p>If you compare this to the original file <code>snow_in.txt</code></p>
+ <details id="admonition-terminal-14" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-14-title">
+ <summary class="admonition-title">
+ <div id="admonition-terminal-14-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-14"></a>
+ </summary>
+ <div>
+<pre><code>$ cat -A snow_in.txt
+</code></pre>
+ </div>
+ </details>
+ <details id="admonition-output-7" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-7-title">
+ <summary class="admonition-title">
+ <div id="admonition-output-7-title">
+<p>Output</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-output-7"></a>
+ </summary>
+ <div>
+<pre><code>Lorem Ipsum comes from a latin text written in 45BC by Roman statesman, lawyer, scholar, and philosopher, Marcus Tullius Cicero. $
+$
+The text is titled "de Finibus Bonorum et Malorum" which means "The Extremes of Good and Evil". The most common form of Lorem ipsum is the following:$
+$
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.$
+$
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. $
+$
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.$
+</code></pre>
+ </div>
+ </details>
+</li>
+</ol>
 <h3 id="challenge"><a class="header" href="#challenge">Challenge</a></h3>
-<p>Try and encode/decode messages to each other</p>
+<div id="admonition-todo" class="admonition admonish-info" role="note" aria-labelledby="admonition-todo-title">
+<div class="admonition-title">
+<div id="admonition-todo-title">
+<p>Todo</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-todo"></a>
+</div>
+<div>
+<ol>
+<li>
+<p>Try and encode/decode messages to each other using just <code>encode/decode{.py}</code></p>
+</li>
+<li>
+<p>Try to experiment with <code>snow</code></p>
+</li>
+<li>
+<p>combine snow with encode... could you encode some text as the messsage that is embedded in the each pixel of an image?</p>
+</li>
+</ol>
+</div>
+</div>
 <div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
 <div class="admonition-title">
 <div id="admonition-warning-title">
@@ -815,8 +1015,7 @@ if __name__ == "__main__":
 <p>Legal concerns, the skills/knowledge you are gaining/demonstrating here are for education purposes and should not be used in a way to break the law.</p>
 </div>
 </div>
-<p>---------------------<style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () =&gt; window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () =&gt; { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY &lt;200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer></p>
-
+<style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () => window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () => { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY <200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer>
                     </main>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->

@@ -1,6 +1,7 @@
 [[questions]]
 type = "MultipleChoice"
 prompt.prompt = """
+What is the output of this script?
 
 ```python
 import hashlib
@@ -16,7 +17,7 @@ print("Hashes match:", hash1 == hash2)
 """
 prompt.distractors = [
     """
-    Hashes match: False
+    Hashes match: True
     """,
     """
     Hashes match: cbfdac6008f9cab4083784cbd1874f76618d2a97 2b4bfcc447c3c8726d26c22927a68f511d5e01cc
@@ -24,7 +25,7 @@ prompt.distractors = [
 ]
 answer.answer = [
     """
-    Hashes match: True
+    Hashes match: False
     """
 ]
 context = """
