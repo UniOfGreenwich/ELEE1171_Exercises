@@ -152,10 +152,10 @@
                     <h1 class="menu-title">Securing Technologies Exercises</h1>
 
                     <div class="right-buttons">
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/CVE/CVE.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises/edit/main/content/CVE/CVE.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -190,8 +190,683 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="cve"><a class="header" href="#cve">CVE</a></h1>
+<div id="admonition-info" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-title">
+<div class="admonition-title">
+<div id="admonition-info-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info"></a>
+</div>
+<div>
+<p>By the end of this lab you should be able to:</p>
+<ul>
+<li>
+<p>Identify how improperly handled user input can lead to command and SQL injection vulnerabilities</p>
+</li>
+<li>
+<p>Explain the underlying mechanics of CVE-2009-1151 (SQL Injection) and CVE-2014-6271 (Shellshock)</p>
+</li>
+<li>
+<p>Exploit both vulnerabilities in a controlled lab environment using crafted inputs</p>
+</li>
+<li>
+<p>Compare vulnerable vs. sanitised/secured implementations of user input handling</p>
+</li>
+<li>
+<p>Describe mitigation strategies for each vulnerability (e.g., prepared statements, input sanitisation, environment variable handling)</p>
+</li>
+<li>
+<p>Reflect on the impact of these vulnerabilities in real-world systems and software supply chains</p>
+</li>
+</ul>
+</div>
+</div>
+<h2 id="part-1-sql-injection"><a class="header" href="#part-1-sql-injection">Part 1: SQL-Injection</a></h2>
+<div id="admonition-info-1" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-1-title">
+<div class="admonition-title">
+<div id="admonition-info-1-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-info-1"></a>
+</div>
+<div>
+<p>In this section you are going to see how to perform a SQL-Injection (sqli) based on the <a href="https://cve.circl.lu/cve/CVE-2009-1151">CVE-2009-1151</a>. We will be using the Raspberry Pi 5 with the provided Kali image.</p>
+</div>
+</div>
+<h3 id="task-11-setup"><a class="header" href="#task-11-setup">Task 1.1 Setup</a></h3>
+<ol>
+<li>
+<p>Create a new folder in the home directory called <code>sqli-demo</code></p>
+<div id="admonition-terminal" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-title">
+<div class="admonition-title">
+<div id="admonition-terminal-title">
+<p>Terminal</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-terminal"></a>
+</div>
+<div>
+<pre><code>$ mkdir sqli-demo
+</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inside that directory we need to create an <code>init.sql</code> to create a database and initialise a table</p>
+ <div id="admonition-code" class="admonition admonish-code" role="note" aria-labelledby="admonition-code-title">
+ <div class="admonition-title">
+ <div id="admonition-code-title">
+<p>Code</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-code"></a>
+ </div>
+ <div>
+<pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS demo;
+USE demo;
+CREATE TABLE users (id INT, username VARCHAR(100), password VARCHAR(100));
+INSERT INTO users VALUES(1, 'admin', 'admin123');
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-explanation" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-title">
+ <div class="admonition-title">
+ <div id="admonition-explanation-title">
+<p>Explanation!</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-explanation"></a>
+ </div>
+ <div>
+<p>This SQL script sets up the database environment for the injection lab:</p>
+<ul>
+<li>
+<p><code>CREATE DATABASE IF NOT EXISTS demo;</code><br />
+Ensures a database called <code>demo</code> is available. If it already exists, no error is thrown.</p>
+</li>
+<li>
+<p><code>USE demo;</code><br />
+Switches the active database context to <code>demo</code> so subsequent commands apply to it.</p>
+</li>
+<li>
+<p><code>CREATE TABLE users (id INT, username VARCHAR(100), password VARCHAR(100));</code><br />
+Creates a <code>users</code> table with three columns: an integer ID, a username (up to 100 characters), and a password (also up to 100 characters).</p>
+</li>
+<li>
+<p><code>INSERT INTO users VALUES(1, 'admin', 'admin123');</code><br />
+Inserts a single admin user with a known password. This allows you to test both valid login attempts and SQL injection attacks.</p>
+</li>
+</ul>
+ </div>
+ </div>
+</li>
+<li>
+<p>Now we can create an isolated environment, you should always do this for security reasons, <code>Dockerfile</code></p>
+ <div id="admonition-code-1" class="admonition admonish-code" role="note" aria-labelledby="admonition-code-1-title">
+ <div class="admonition-title">
+ <div id="admonition-code-1-title">
+<p>Code</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-code-1"></a>
+ </div>
+ <div>
+<pre><code class="language-Dockerfile">FROM: php:8.1-apache
+RUN: docker-php-ext-install mysqli
+COPY index.php /var/www/html/index.php
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-explanation-1" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-1-title">
+ <div class="admonition-title">
+ <div id="admonition-explanation-1-title">
+<p>Explanation!</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-explanation-1"></a>
+ </div>
+ <div>
+<p>This <code>Dockerfile</code> builds a simple web server environment for the SQL injection lab:</p>
+<ul>
+<li>
+<p><code>FROM php:8.1-apache</code><br />
+Uses an official Docker image that bundles PHP 8.1 with Apache. This provides a fully functional web server ready to run PHP applications.</p>
+</li>
+<li>
+<p><code>RUN docker-php-ext-install mysqli</code><br />
+Installs the <code>mysqli</code> extension, which is required for PHP to interact with MySQL databases. Without this, your PHP code wouldn’t be able to use <code>new mysqli(...)</code>.</p>
+</li>
+<li>
+<p><code>COPY index.php /var/www/html/index.php</code><br />
+Copies our PHP login script (<em>does not exist yet</em>) into the default Apache web root directory. This makes it accessible at <code>http://localhost/index.php</code>.</p>
+</li>
+</ul>
+ </div>
+ </div>
+</li>
+<li>
+<p>Of course we do not want to be writing out a really long command to launch our docker image...  so instead we will create a <code>docker-compose.yml</code></p>
+ <div id="admonition-code-2" class="admonition admonish-code" role="note" aria-labelledby="admonition-code-2-title">
+ <div class="admonition-title">
+ <div id="admonition-code-2-title">
+<p>Code</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-code-2"></a>
+ </div>
+ <div>
+<pre><code class="language-docker">version: '3'
+services:
+web:
+    build: .
+    ports:
+    - "8080:80"
+    volumes:
+    - ./index.php:/var/www/html/index.php
+    depends_on:
+    - db
+db:
+    image: arm64v8/mysql:8.0.42
+    environment:
+    MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-explanation-2" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-2-title">
+ <div class="admonition-title">
+ <div id="admonition-explanation-2-title">
+<p>Explanation!</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-explanation-2"></a>
+ </div>
+ <div>
+<p>This <code>docker-compose.yml</code> file defines a two-container environment: a web server (<code>web</code>) and a MySQL database (<code>db</code>).</p>
+<ul>
+<li>
+<p>Specifies the Compose file format version. Version 3 is widely supported and suitable for most setups.</p>
+<pre><code class="language-yml">version: '3'
+</code></pre>
+</li>
+<li>
+<p>Declares the list of containers to be managed.</p>
+<pre><code class="language-yml">services:
+    ...
+</code></pre>
+</li>
+<li>
+<p>Builds a custom image from the local <code>Dockerfile</code> in the current directory.</p>
+<pre><code class="language-yaml">web:
+    build: .
+</code></pre>
+</li>
+<li>
+<p>Maps port <code>8080</code> on the host to port <code>80</code> in the container (Apache default), so your PHP app is accessible at <code>http://localhost:8080</code>.</p>
+<pre><code class="language-yml">ports:
+  - "8080:80"
+</code></pre>
+</li>
+<li>
+<p>Mounts the local <code>index.php</code> into the container's web root. This allows you to edit the file on the host and see changes immediately.</p>
+<pre><code>volumes:
+ - ./index.php:/var/www/html/index.php
+</code></pre>
+</li>
+<li>
+<p>Ensures the database container (<code>db</code>) starts before the web service. This helps prevent connection errors during startup.</p>
+<pre><code class="language-yml">depends_on:
+  - db
+</code></pre>
+</li>
+<li>
+<p>Use an ARM64-compatible MySQL 8 image — necessary for running on Raspberry Pi or other ARM-based systems.</p>
+<pre><code class="language-yml">db:
+  image: arm64v8/mysql:8.0.42
+</code></pre>
+</li>
+<li>
+<p>Sets the root password for the MySQL server to <code>root</code>. This is used in your PHP script to connect as the <code>root</code> user.</p>
+<pre><code class="language-yml">environment:
+MYSQL_ROOT_PASSWORD: root
+</code></pre>
+</li>
+<li>
+<p>A special directory inside the MySQL container. When the MySQL container starts for the first time, it automatically executes any <code>.sql</code> files found in this directory.</p>
+<pre><code class="language-yml">volumes:
+  - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+</code></pre>
+</li>
+</ul>
+ </div>
+ </div>
+</li>
+<li>
+<p>copy the <code>index.php</code> from <code>/opt/gre/sqli-demo/index.php</code> to the current directory:</p>
+ <div id="admonition-terminal-1" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-1-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-1-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-1"></a>
+ </div>
+ <div>
+<pre><code class="language-sh">$ cp /opt/gre/sqli-demo/index.php .
+</code></pre>
+ </div>
+ </div>
+ <div align=center>
+<p><img src="./figures/SQL_CVE.png" alt="alt=&quot;webpage&quot;" /></p>
+ </div>
+</li>
+</ol>
+<h3 id="task-12-running-docker"><a class="header" href="#task-12-running-docker">Task 1.2 Running Docker</a></h3>
+<ol start="6">
+<li>
+<p>Check that <code>docker</code> and <code>docker-compose</code> are part of your <code>$PATH</code>, you should get the same as below</p>
+ <div id="admonition-terminal-2" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-2-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-2-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-2"></a>
+ </div>
+ <div>
+<pre><code>$ command -v docker docker-compose
+/usr/bin/docker
+/usr/bin/docker-compose
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-error" class="admonition admonish-danger" role="note" aria-labelledby="admonition-error-title">
+ <div class="admonition-title">
+ <div id="admonition-error-title">
+<p>Error</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-error"></a>
+ </div>
+ <div>
+<p>If missing you need to install <code>docker</code> and <code>docker-compose</code></p>
+ </div>
+ </div>
+</li>
+<li>
+<p>Ensure no instance of <code>docker</code> is running, you should only get the headings back.</p>
+ <div id="admonition-terminal-3" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-3-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-3-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-3"></a>
+ </div>
+ <div>
+<pre><code>$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</code></pre>
+ </div>
+ </div>
+</li>
+<li>
+<p>Now you can run <code>docker-compose</code></p>
+ <div id="admonition-terminal-4" class="admonition admonish-terminal" role="note" aria-labelledby="admonition-terminal-4-title">
+ <div class="admonition-title">
+ <div id="admonition-terminal-4-title">
+<p>Terminal</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-terminal-4"></a>
+ </div>
+ <div>
+<pre><code>$ sudo docker-compose up --build
+</code></pre>
+ </div>
+ </div>
+ <div id="admonition-warning" class="admonition admonish-warning" role="note" aria-labelledby="admonition-warning-title">
+ <div class="admonition-title">
+ <div id="admonition-warning-title">
+<p>Warning</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-warning"></a>
+ </div>
+ <div>
+<p>This could take a few of minutes for the first time as docker needs to acquire and install what we have specified in <code>Dockerfile</code></p>
+ </div>
+ </div>
+</li>
+<li>
+<p>Essentially what you should see is something like this:</p>
+ <div align=center>
+<p><img src="./figures/docker-compose-up.png" alt="" /></p>
+ </div>
+</li>
+<li>
+<p>Open a browser and you should see and in the URL go to <code>localhost:8080</code></p>
+<div align=center>
+<p><img src="./figures/sqli-demo-web.png" alt="" /></p>
+</div>
+</li>
+</ol>
+<h3 id="task-13-validating-the-login-process"><a class="header" href="#task-13-validating-the-login-process">Task 1.3 Validating the login process</a></h3>
+<ol start="11">
+<li>
+<p>Select the <code>Run as Vulnerable</code> link at bottom of the screen, notice how the URL has changed to <code>localhost:8080/?mode=vulnerable</code>. Let's first try to login with valid credentials</p>
+<ul>
+<li>
+<p>username: <code>admin</code></p>
+</li>
+<li>
+<p>password: <code>admin123</code></p>
+  <div align=center>
+<p><img src="./figures/sqli-demo-web-2.png" alt="" /></p>
+  </div>
+</li>
+</ul>
+<p>... then try with...</p>
+<ul>
+<li>
+<p>username: <code>admin</code></p>
+</li>
+<li>
+<p>password: <code>as</code></p>
+  <div align=center>
+<p><img src="./figures/sqli-demo-web-3.png" alt="" /></p>
+  </div>
+</li>
+</ul>
+<div id="admonition-explanation-3" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-3-title">
+<div class="admonition-title">
+<div id="admonition-explanation-3-title">
+<p>Explanation!</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-explanation-3"></a>
+</div>
+<div>
+<p>The following two SQL queries illustrate how user credentials are checked during login:</p>
+<ul>
+<li>
+<p>Successful Login Attempt</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE username='admin' AND password='admin123';
+</code></pre>
+<ul>
+<li>
+<p>This query matches the entry inserted into the database:</p>
+<pre><code class="language-sql">INSERT INTO users VALUES (1, 'admin', 'admin123');
+</code></pre>
+</li>
+<li>
+<p>Since both the username and password match exactly, the query returns one row.</p>
+<ul>
+<li>Result: <code>Login successful!</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Failed Login Attempt</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE username='admin' AND password='as';
+</code></pre>
+<ul>
+<li>
+<p>The username <code>admin</code> exists, but the password as does not match the stored password <code>admin123</code>.</p>
+</li>
+<li>
+<p>Therefore, the query returns zero rows.</p>
+<ul>
+<li>Result: <code>Login failed!</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</li>
+</ol>
+<h3 id="task-14-injecting-insecure"><a class="header" href="#task-14-injecting-insecure">Task 1.4 Injecting Insecure</a></h3>
+<ol start="12">
+<li>
+<p>Lets try logging in by injecting some sql statements into the username field:</p>
+<ul>
+<li>
+<p>username: <code>admin' --</code></p>
+</li>
+<li>
+<p>password: <code>' --</code></p>
+  <div align=center>
+<p><img src="./figures/sqli-demo-web-4.png" alt="" /></p>
+  </div>
+  <div id="admonition-explanation-4" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-4-title">
+  <div class="admonition-title">
+  <div id="admonition-explanation-4-title">
+<p>Explanation!</p>
+  </div>
+  <a class="admonition-anchor-link" href="#admonition-explanation-4"></a>
+  </div>
+  <div>
+<p>The input values:</p>
+<ul>
+<li>
+<p><strong>Username</strong>: <code>admin' --</code></p>
+</li>
+<li>
+<p><strong>Password</strong>: <code>' --</code></p>
+<ul>
+<li>
+<p>Result in the following SQL query after substitution:</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE username='admin' --' AND password='' --'
+</code></pre>
+<ul>
+<li>
+<p>The -- sequence begins a comment in SQL.</p>
+</li>
+<li>
+<p>Everything after -- is ignored by the SQL engine.</p>
+</li>
+<li>
+<p>So the effective query becomes:</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE username='admin'
+</code></pre>
+<ul>
+<li>
+<p>The password check is completely bypassed.</p>
+</li>
+<li>
+<p>If the user admin exists in the database, the query will return that user.</p>
+</li>
+<li>
+<p>The attacker logs in without knowing the password.</p>
+</li>
+<li>
+<p>This is a classic authentication bypass via SQL injection.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </div>
+  </div>
+</li>
+</ul>
+<p>... then try with...</p>
+<ul>
+<li>
+<p>username: <code>admin</code></p>
+</li>
+<li>
+<p>password: <code>' OR '1'='1</code></p>
+  <div align=center>
+<p><img src="./figures/sqli-demo-web-5.png" alt="" /></p>
+  </div>
+  <div id="admonition-explanation-5" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-5-title">
+  <div class="admonition-title">
+  <div id="admonition-explanation-5-title">
+<p>Explanation!</p>
+  </div>
+  <a class="admonition-anchor-link" href="#admonition-explanation-5"></a>
+  </div>
+  <div>
+<p>The input values:</p>
+<ul>
+<li>
+<p><strong>Username</strong>: <code>admin</code></p>
+</li>
+<li>
+<p><strong>Password</strong>: <code>' OR '1'='1</code></p>
+<ul>
+<li>
+<p>Result in the following SQL query after substitution:</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE username='admin' AND password='' OR '1'='1'
+</code></pre>
+<ul>
+<li>
+<p>Let’s break down the <code>WHERE</code> clause:</p>
+<pre><code class="language-sql">WHERE username='admin' AND password='' OR '1'='1'
+</code></pre>
+<ul>
+<li>
+<p>This evaluates in SQL as:</p>
+<pre><code>(TRUE AND FALSE) OR TRUE
+</code></pre>
+</li>
+<li>
+<p>Which simplifies to:</p>
+<pre><code>FALSE OR TRUE → TRUE
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>Even though the actual password check fails, the final condition returns <code>TRUE</code> because <code>'1'='1'</code> is always <code>true</code>.</p>
+</li>
+<li>
+<p>This tricks the database into returning a valid user row — effectively bypassing authentication.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </div>
+  </div>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="task-15-anti-injecting"><a class="header" href="#task-15-anti-injecting">Task 1.5 Anti-injecting</a></h3>
+<ol start="13">
+<li>
+<p>Select the Run as Secure link at bottom of the screen, notice how the URL has changed to <code>localhost:8080/?mode=secure</code>.</p>
+</li>
+<li>
+<p>Try to use the same credentials as last time:</p>
+<ul>
+<li>username = <code>admin</code></li>
+<li>password = <code>admin123</code></li>
+</ul>
+<div id="admonition-explanation-6" class="admonition admonish-example" role="note" aria-labelledby="admonition-explanation-6-title">
+<div class="admonition-title">
+<div id="admonition-explanation-6-title">
+<p>Explanation!</p>
+</div>
+<a class="admonition-anchor-link" href="#admonition-explanation-6"></a>
+</div>
+<div>
+<ul>
+<li>
+<p>If you submit:</p>
+<ul>
+<li>
+<p><strong>Username</strong>: <code>admin</code></p>
+</li>
+<li>
+<p><strong>Password</strong>: <code>admin123</code></p>
+</li>
+<li>
+<p>The following secure code is executed, revisit look at <code>index.php</code>:</p>
+<pre><code class="language-php">$stmt = $conn-&gt;prepare("SELECT * FROM users WHERE username=? AND password=?");
+$stmt-&gt;bind_param("ss", $user, $pass);
+$stmt-&gt;execute();
+$result = $stmt-&gt;get_result();
+</code></pre>
+<ul>
+<li>
+<p>The <code>$stmt</code> object in PHP represents a <strong>prepared statement</strong> created using MySQLi. It is used to securely execute parameterized SQL queries.</p>
+<pre><code class="language-php">$stmt = $conn-&gt;prepare("SELECT * FROM users WHERE username=? AND password=?");
+</code></pre>
+<ul>
+<li>
+<p>This prepares a SQL query with placeholders (<code>?</code>) instead of raw values.</p>
+</li>
+<li>
+<p>The query is sent to the database immediately to be compiled, before any user input is included.</p>
+</li>
+<li>
+<p>This separates SQL logic from user data, blocking injection attempts.</p>
+</li>
+</ul>
+<pre><code class="language-php">$stmt-&gt;bind_param("ss", $user, $pass);
+</code></pre>
+<ul>
+<li>
+<p><code>"ss"</code> indicates the types of the inputs (<code>s = string</code>, <code>i = integer</code>, etc.).</p>
+</li>
+<li>
+<p><code>$user</code> and <code>$pass</code> are bound to the placeholders in the prepared query.</p>
+</li>
+<li>
+<p>These values are treated as raw data — even if they contain quotes, semicolons, or SQL code.</p>
+</li>
+</ul>
+<pre><code class="language-php">$stmt-&gt;execute();
+$result = $stmt-&gt;get_result();
+</code></pre>
+<ul>
+<li>
+<p>The server runs the already-prepared SQL logic with the bound inputs.</p>
+</li>
+<li>
+<p>The query is immune to SQL injection, even with malicious input like <code>' OR '1'='1</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li>
+<p>Lets try logging in by injecting some sql statements into the username field:</p>
+<ul>
+<li>
+<p>username: <code>admin' --</code></p>
+</li>
+<li>
+<p>password: <code>' --</code></p>
+  <div align=center>
+<p><img src="./figures/sqli-demo-web-6.png" alt="" /></p>
+  </div>
+</li>
+</ul>
+</li>
+<li>
+<p>Lets try logging in by injecting some sql statements into the username field:</p>
+<ul>
+<li>
+<p>username: <code>admin</code></p>
+</li>
+<li>
+<p>password: <code>' OR '1'='1</code></p>
+  <div align=center>
+<p><img src="./figures/sqli-demo-web-7.png" alt="" /></p>
+  </div>
+</li>
+</ul>
+</li>
+<li>
+<p>Return to the insecure mode and investigate online other ways to inject, can you find other injections that get you in?!</p>
+</li>
+</ol>
 <style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () => window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () => { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY <200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer>
-<footer><span class="gitinfo-footer" style="font-size:0.8em;padding:4px;margin:0.5em 0;text-align:right;display:block;">Page last updated: Thursday 03 July 2025 @ 13:48:12 | Commit: 3c4453a</span></footer>
+<footer><span class="gitinfo-footer" style="font-size:0.8em;padding:4px;margin:0.5em 0;text-align:right;display:block;">Page last updated: Monday 14 July 2025 @ 10:45:45 | Commit: e2cf15d</span></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

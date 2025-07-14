@@ -152,10 +152,10 @@
                     <h1 class="menu-title">Securing Technologies Exercises</h1>
 
                     <div class="right-buttons">
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Execises/edit/main/content/Threats_and_Actors/Threats_and_Actors.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises/edit/main/content/Threats_and_Actors/Threats_and_Actors.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -600,8 +600,8 @@
 <div class="quiz-placeholder" data-quiz-name="&quot;quiz_3&quot;" data-quiz-questions="{&quot;questions&quot;:[{&quot;context&quot;:&quot;Mitigating DoS attacks requires **proactive measures** such as **rate limiting, WAFs, CDNs, IDS systems, and scalable infrastructure**.\n\n### **Why the distractors are wrong?**\n- **\&quot;Increase the bandwidth indefinitely to absorb any attack.\&quot;** → Expanding bandwidth is costly and does not prevent attacks, just delays their effects.\n- **\&quot;Disable all logging to improve performance during high-traffic incidents.\&quot;** → Logs are essential for attack detection and forensic analysis.\n- **\&quot;Block all incoming traffic to eliminate the threat completely.\&quot;** → This also blocks legitimate users and defeats the purpose of having a service.\n- **\&quot;Rely solely on on-premises infrastructure to prevent cloud-based attacks.\&quot;** → On-premise solutions alone lack the **scalability** to handle large-scale DoS attacks.\n- **\&quot;Use simple password protection to prevent DoS attacks.\&quot;** → Password protection helps against unauthorized access but **does not stop** traffic-based DoS attacks.\n- **\&quot;Manually inspect logs for every single request to detect attacks.\&quot;** → Manual inspection is impractical; automated tools should be used instead.\n- **\&quot;Ignore small traffic spikes as they are not a security concern.\&quot;** → Small spikes could be **early signs** of an evolving attack.\n&quot;,&quot;id&quot;:&quot;29373cc0-82a8-4875-a00d-d291dfd10db8&quot;,&quot;type&quot;:&quot;MultipleChoice&quot;,&quot;answer&quot;:{&quot;answer&quot;:[&quot;Use rate limiting and traffic filtering to block excessive requests.&quot;,&quot;Implement Web Application Firewalls (WAFs) to filter out malicious traffic.&quot;,&quot;Utilize Content Delivery Networks (CDNs) to distribute traffic and absorb attacks.&quot;,&quot;Enable anomaly-based intrusion detection systems to identify unusual patterns.&quot;,&quot;Ensure redundancy and scalable cloud-based solutions for high availability.&quot;]},&quot;prompt&quot;:{&quot;distractors&quot;:[&quot;Increase the bandwidth indefinitely to absorb any attack.&quot;,&quot;Disable all logging to improve performance during high-traffic incidents.&quot;,&quot;Block all incoming traffic to eliminate the threat completely.&quot;,&quot;Rely solely on on-premises infrastructure to prevent cloud-based attacks.&quot;,&quot;Use simple password protection to prevent DoS attacks.&quot;,&quot;Manually inspect logs for every single request to detect attacks.&quot;,&quot;Ignore small traffic spikes as they are not a security concern.&quot;],&quot;prompt&quot;:&quot;What can you do as a developer, organization, or defender to prevent or mitigate the impact of Denial-of-Service (DoS) attacks? Select all that apply.\n&quot;}}]}" data-quiz-show-bug-reporter="&quot;&quot;"></div>
 <h2 id="exercise-3"><a class="header" href="#exercise-3">Exercise 3</a></h2>
 <p>Discovering System Vulnerabilities and Hardening Systems</p>
-<p>[Target IP: Provided in the lab]
-[Target NW: Provided in the lab]</p>
+<p>[Target IP: Provided in the lab]</p>
+<p>[Target NW: Provided in the lab]</p>
 <ol>
 <li>
 <p>Using <code>Nmap</code> [network scanning tool]</p>
@@ -613,11 +613,11 @@
  <a class="admonition-anchor-link" href="#admonition-terminal-8"></a>
  </div>
  <div>
-<p>**Replace the IP addresses here with the appropriate IP address/Network address of your target.</p>
-<p>//Perform a Ping Scan (Ping Sweep or Network Scan or Discovery Scan)</p>
-<p>*this will scan the entire network for live hosts</p>
 <pre><code>nmap -sn  192.168.0.0/24 
 </code></pre>
+<p>Replace the IP addresses here with the appropriate IP address/Network address of your target.</p>
+<p>Perform a Ping Scan (Ping Sweep or Network Scan or Discovery Scan)</p>
+<p>this will scan the entire network for live hosts</p>
  </div>
  </div>
  <details id="admonition-output-12" class="admonition admonish-output" role="note" aria-labelledby="admonition-output-12-title">
@@ -855,7 +855,7 @@ comparison to Linux that does not respond.</p>
 </li>
 </ol>
 <script type="text/javascript" src="../quiz/quiz-embed.iife.js"></script><link rel="stylesheet" type="text/css" href="../quiz/style.css"><style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () => window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () => { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY <200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer>
-<footer><span class="gitinfo-footer" style="font-size:0.8em;padding:4px;margin:0.5em 0;text-align:right;display:block;">Page last updated: Thursday 03 July 2025 @ 13:48:12 | Commit: 3c4453a</span></footer>
+<footer><span class="gitinfo-footer" style="font-size:0.8em;padding:4px;margin:0.5em 0;text-align:right;display:block;">Page last updated: Monday 14 July 2025 @ 10:45:45 | Commit: e2cf15d</span></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
