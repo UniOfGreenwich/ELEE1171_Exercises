@@ -73,7 +73,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
     ~~~
 
 
-    ~~~admonish tip
+    ~~~admonish video
 
     ![](./figures/integrity_test_1.gif)
 
@@ -131,7 +131,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
 
     ~~~
 
-    ~~~admonish tip
+    ~~~admonish video
 
     ![](./figures/integrity_test_2.gif)
 
@@ -249,7 +249,7 @@ If you see a `$` in the a terminal alert box, then the line is a command, do not
 
     ~~~
 
-    ~~~admonish tip
+    ~~~admonish video
 
     ![](./figures/integrity_test_ps1.gif)
 
@@ -300,7 +300,7 @@ In a later exercise, will explore public and private keys. For now we only need 
 
     ~~~
 
-    ~~~admonish tip
+    ~~~admonish video
 
     ![](./figures/gpg_key.gif)
     
@@ -324,7 +324,7 @@ In a later exercise, will explore public and private keys. For now we only need 
 
     ~~~
 
-    ~~~admonish tip
+    ~~~admonish video
 
     ![](./figures/gpg_key_sig.gif)
 

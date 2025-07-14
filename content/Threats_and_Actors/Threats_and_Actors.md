@@ -313,21 +313,22 @@ On your device you need to start your `apache2` server.
 Discovering System Vulnerabilities and Hardening Systems 
 
 [Target IP: Provided in the lab] 
+
 [Target NW: Provided in the lab]
 
 1. Using `Nmap` [network scanning tool] 
 
     ~~~admonish terminal
     
-    **Replace the IP addresses here with the appropriate IP address/Network address of your target. 
-
-    //Perform a Ping Scan (Ping Sweep or Network Scan or Discovery Scan) 
-
-    *this will scan the entire network for live hosts 
-    
     ```
     nmap -sn  192.168.0.0/24 
     ```
+
+    Replace the IP addresses here with the appropriate IP address/Network address of your target. 
+
+    Perform a Ping Scan (Ping Sweep or Network Scan or Discovery Scan) 
+
+    this will scan the entire network for live hosts 
 
     ~~~
 
