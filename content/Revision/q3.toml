@@ -1,0 +1,178 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+<table style="border-collapse: collapse; border: none;">
+<tr style="border: none;">
+  <td style="border: none; padding-right: 1em;">
+    What tool produced this output?
+  </td>
+  <td style="border: none;">
+    <img src="./figures/Nmap.png" alt="Nmap output" width="380px">
+  </td>
+</tr>
+</table>
+"""
+prompt.distractors = [
+  "Wireshark",
+  "Burp Suite",
+  "Metasploit"
+]
+answer.answer = "Nmap"
+context = """
+This output is from Nmap, a network scanning and host discovery tool, showing open TCP ports and OS fingerprinting results.
+"""
+id = "7a4b1696-c82f-4d9a-a35a-b8f948b4a1c9"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+<table style="border-collapse: collapse; border: none;">
+<tr style="border: none;">
+  <td style="border: none; padding-right: 1em;">
+   What is the MAC address of the target system?
+  </td>
+  <td style="border: none;">
+    <img src="./figures/Nmap.png" alt="Nmap output" width="380px">
+  </td>
+</tr>
+</table>
+"""
+prompt.distractors = [
+  "00:0C:29:AA:BB:CC",
+  "00:0D:3A:11:22:33",
+  "08:00:27:DE:AD:BE"
+]
+answer.answer = "00:0C:29:4A:A4:DF"
+context = """
+The MAC address uniquely identifies the physical interface of the system, and in this case it indicates a VMware virtual NIC.
+"""
+id = "7c9095e7-62d2-4970-8274-9f014773610e"
+
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+<table style="border-collapse: collapse; border: none;">
+<tr style="border: none;">
+  <td style="border: none; padding-right: 1em;">
+   What operating system is most likely running on <br> the target based on the scan?
+  </td>
+  <td style="border: none;">
+    <img src="./figures/Nmap.png" alt="Nmap output" width="380px">
+  </td>
+</tr>
+</table>
+"""
+prompt.distractors = [
+  "Windows Server 2016",
+  "macOS Monterey",
+  "FreeBSD 13.0"
+]
+answer.answer = "Linux 2.6.9 – 2.6.33"
+context = """
+Nmap uses TCP/IP fingerprinting to estimate OS versions; here it identifies a legacy Linux 2.6.x kernel range.
+"""
+id = "210b0991-620a-454f-95f2-b793ac99cd6b"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+<table style="border-collapse: collapse; border: none;">
+<tr style="border: none;">
+  <td style="border: none; padding-right: 1em;">
+   Which of the following are valid <span style="font-weight: bold;">security concerns</span> based on the Nmap scan output? <br> <br> *(Select all that apply)*
+  </td>
+  <td style="border: none;">
+    <img src="./figures/Nmap.png" alt="Nmap output" width="580px">
+  </td>
+</tr>
+</table>
+"""
+prompt.distractors = [
+  "Closed TCP ports visible in the report",
+  "System uses cloud storage by default",
+  "The OS is patched with the latest kernel"
+]
+answer.answer = "Multiple insecure services exposed (e.g., Telnet, FTP, Exec), Legacy OS, No firewall restrictions"
+context = """
+The scan reveals a large attack surface with many open ports, legacy kernel (2.6.x), and insecure services like Telnet and RPC—violating the principle of least privilege.
+"""
+id = "990236c7-ae06-4f4a-841b-74dacfc4a4f7"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which authentication type is **most expensive to implement** and **hardest to change if compromised**?
+"""
+prompt.distractors = [
+  "Type 1: Something you know (e.g., password)",
+  "Type 2: Something you have (e.g., keycard)"
+]
+answer.answer = "Type 3: Something you are (e.g., biometrics)"
+context = """
+Biometric data (fingerprints, iris scans) is expensive to implement securely, and cannot be changed if compromised—unlike passwords or tokens.
+"""
+id = "f3c4e3a1-7046-48b8-8663-1cba15130497"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+How does **Mandatory Access Control (MAC)** differ from **Discretionary Access Control (DAC)**?
+"""
+prompt.distractors = [
+  "MAC allows users to assign permissions freely",
+  "DAC enforces fixed government-level security labels",
+  "MAC relies on user discretion for file access"
+]
+answer.answer = "MAC enforces system-level rules; DAC allows users to assign permissions"
+context = """
+In MAC, access is enforced by policy defined by the system; in DAC, the data owner determines access—making it more flexible but potentially less secure.
+"""
+id = "09a517e2-7a1e-4c42-83c9-2ae095102f4f"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the subnet mask for IP `192.168.20.130/17`?
+"""
+prompt.distractors = [
+  "255.255.255.0",
+  "255.255.255.128",
+  "255.255.240.0"
+]
+answer.answer = "255.255.128.0"
+context = """
+A /17 subnet uses 17 bits for the network, resulting in 255.255.128.0.
+"""
+id = "4c56b130-4f72-41c7-811e-4d8a960cbd93"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the subnet mask for IP `192.168.10.127/26`?
+"""
+prompt.distractors = [
+  "255.255.255.0",
+  "255.255.255.192",
+  "255.255.255.248"
+]
+answer.answer = "255.255.255.192"
+context = """
+A /26 subnet mask corresponds to 255.255.255.192 (i.e. 64 addresses per subnet).
+"""
+id = "aa621201-d5aa-4075-9489-655c923584ee"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following encryption algorithms are **asymmetric**? *(Select all that apply)*
+"""
+prompt.distractors = [
+  "3DES",
+  "AES"
+]
+answer.answer = "RSA, ECC"
+context = """
+RSA and ECC are asymmetric (public-key) algorithms. 3DES and AES are symmetric block ciphers.
+"""
+id = "d994e58a-52ad-4a34-aa29-ee551a3d4414"

@@ -1,0 +1,143 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which sections of the Computer Misuse Act 1990 are most relevant to the incident involving unauthorised access and defacement by a former employee?
+"""
+prompt.distractors = [
+  "Section 2: Forgery and impersonation",
+  "Section 4: Fraudulent use of company assets",
+  "Section 6: Use of encryption to conceal intent"
+]
+answer.answer = "Section 1 (Unauthorised access) and Section 3 (Unauthorised acts with intent to impair)"
+context = """
+Section 1 addresses gaining access without permission (e.g., bypassing authentication). Section 3 involves actions like data theft and web defacement that impair system integrity or reliability.
+"""
+id = "ddc146da-ae69-48af-a36b-763c52cdb4f5"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What are possible legal penalties under the Computer Misuse Act 1990 for unauthorised access and malicious damage?
+"""
+prompt.distractors = [
+  "Community service and removal of access rights only",
+  "£1,000 fine and internet suspension",
+  "Reassignment to non-technical roles"
+]
+answer.answer = "Fines and up to 10 years imprisonment depending on severity and intent"
+context = """
+Penalties range based on the section: Section 1 offences can lead to 2 years' imprisonment; Section 3 offences up to 10 years, especially for serious damage or public risk.
+"""
+id = "53b3a144-9179-43d7-8c73-b5c588151309"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What information does the `ping` command reveal?
+"""
+prompt.distractors = [
+  "List of open ports on the target system",
+  "MAC address of the router",
+  "Firewall rules of the remote host"
+]
+answer.answer = "Target host's availability and response time (latency)"
+context = """
+Ping uses ICMP Echo Requests to check whether a host is reachable and how long it takes to respond.
+"""
+id = "a1be32fc-c02f-414c-bd1f-9ff8a0e31df1"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Why can frequent or automated ping requests pose a security risk?
+"""
+prompt.distractors = [
+  "They bypass VPN tunnels",
+  "They cause the system to reboot",
+  "They expose usernames over ICMP"
+]
+answer.answer = "They can be used in denial-of-service (DoS) attacks by overwhelming the system"
+context = """
+Ping floods or automated ICMP scans can degrade system/network performance and be part of reconnaissance or DoS campaigns.
+"""
+id = "c3b615e5-319c-42b4-80b0-764c79895fd3"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following is an inherent vulnerability in the ARP protocol that makes ARP poisoning possible?
+"""
+prompt.distractors = [
+  "ARP uses end-to-end encryption",
+  "ARP uses TCP over port 80",
+  "ARP checks MAC addresses against digital signatures"
+]
+answer.answer = "ARP lacks authentication, so any device can claim to own an IP address"
+context = """
+ARP operates by trusting all replies. Attackers exploit this by sending spoofed replies that map their MAC address to legitimate IPs, intercepting traffic.
+"""
+id = "fde3b808-3356-45e3-baaf-b625cec61f5d"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the default service associated with port 80?
+"""
+prompt.distractors = [
+  "HTTPS",
+  "DNS",
+  "FTP"
+]
+answer.answer = "HTTP (Hypertext Transfer Protocol)"
+context = """
+Port 80 is used for unencrypted web traffic via HTTP.
+"""
+id = "503a2c2c-b327-4fcd-97ce-f9c6afb55ff1"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the default service associated with port 443?
+"""
+prompt.distractors = [
+  "Remote Desktop Protocol",
+  "SMTP email delivery",
+  "Telnet terminal access"
+]
+answer.answer = "HTTPS (secure web communication)"
+context = """
+Port 443 handles encrypted HTTP traffic over TLS/SSL, commonly used for secure websites.
+"""
+id = "51c05547-0e35-44f5-9d1e-88ed7ff66551"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is a security **benefit** of disabling port 80 in a corporate environment?
+"""
+prompt.distractors = [
+  "Faster DNS propagation",
+  "Improved password hashing",
+  "Prevention of encrypted malware delivery"
+]
+answer.answer = "Prevents users and attackers from accessing insecure HTTP endpoints"
+context = """
+HTTP transmits data in plaintext. Disabling port 80 forces the use of encrypted HTTPS connections (port 443), enhancing data privacy.
+"""
+id = "78810bf6-258f-4edd-a9f4-70e3d2c034fd"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is a potential risk of **disabling port 53** (DNS) on a corporate firewall?
+"""
+prompt.distractors = [
+  "Users cannot send emails",
+  "File transfers will stop",
+  "Printers will reboot"
+]
+answer.answer = "Users and systems may be unable to resolve domain names to IP addresses"
+context = """
+Port 53 is essential for DNS. Blocking it prevents domain lookups, affecting web access, updates, and remote services.
+"""
+id = "977b9766-5a94-4890-a141-d4b6b4bf5478"

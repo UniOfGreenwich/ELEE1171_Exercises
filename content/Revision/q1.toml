@@ -1,0 +1,225 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the primary goal of the philosophy of security in system design?
+"""
+prompt.distractors = [
+  "To improve user experience through faster interfaces.",
+  "To reduce power consumption in embedded systems.",
+  "To maximize economic return from AI applications."
+]
+answer.answer = "To establish principles that guide the protection of assets and users"
+context = """
+The philosophy of security defines foundational beliefs about threats, trust, and protection that guide the design of secure systems.
+"""
+id = "ea78a5a9-24f9-464e-bb26-8237116be2e7"
+
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+How does the philosophy of security influence the design of intelligent systems?
+"""
+prompt.distractors = [
+  "It enforces strict centralised control over all components.",
+  "It ensures that all decisions are made by machine learning models.",
+  "It requires all data to be stored in encrypted form, regardless of context."
+]
+answer.answer = "It guides the integration of security controls from the design phase onward"
+context = """
+Security philosophy emphasizes proactive, rather than reactive, approaches to system design—such as 'security by design' and 'zero trust' principles.
+"""
+id = "6d95373a-68a1-46ed-8671-bac74b79be7e"
+
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which term aligns best with a security philosophy that assumes no part of a system is inherently trustworthy?
+"""
+prompt.distractors = [
+  "Defense in depth",
+  "Security through obscurity",
+  "Layered access control"
+]
+answer.answer = "Zero trust"
+context = """
+Zero trust is a modern security philosophy assuming all actors—inside or outside the system—must be verified and authenticated continuously.
+"""
+id = "1bd74477-f2bb-4e33-852d-d0479463e49e"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following is a key principle in the philosophy of cybersecurity?
+"""
+prompt.distractors = [
+  "Optimizing all code for speed over accuracy.",
+  "Trusting internal network users by default.",
+  "Delaying implementation of security until deployment."
+]
+answer.answer = "Designing systems with the assumption that breaches will occur"
+context = """
+Assuming compromise and planning for resilience is a foundational idea in modern security thinking—shifting focus to detection, response, and recovery.
+"""
+id = "7dc3cefd-9ea3-4a55-8e6b-ec2a5fe82af2"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is a key security threat associated with autonomous AI agents in intelligent systems?
+"""
+prompt.distractors = [
+  "Excessive GPU usage in low-power environments",
+  "Inability to access open-source libraries",
+  "Lack of personalization for user interfaces"
+]
+answer.answer = "Unintended autonomous decisions that can be exploited by adversarial inputs"
+context = """
+AI agents can make decisions without human oversight. If adversarial inputs are not anticipated during design, this creates major vulnerabilities.
+"""
+id = "623f1bbb-b8e5-4f45-97ae-26a2014dd565"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+From a design perspective, how can we mitigate adversarial input threats in AI agents?
+"""
+prompt.distractors = [
+  "Restricting AI systems to only operate offline",
+  "Allowing unrestricted API access to improve adaptability",
+  "Disabling user input entirely during AI decision-making"
+]
+answer.answer = "Incorporating adversarial training and input sanitization at the model design stage"
+context = """
+Designing AI systems with robustness against adversarial examples involves proactive training and validation against malicious input variations.
+"""
+id = "0a12672c-106e-462c-806a-b815cde527d8"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following is a realistic security threat specific to brain-computer interfaces (BCIs)?
+"""
+prompt.distractors = [
+  "Data loss due to electromagnetic interference",
+  "Physical damage to the interface chip",
+  "Inability to collect high-resolution brain data"
+]
+answer.answer = "Interception or manipulation of neural signals leading to privacy or control concerns"
+context = """
+BCIs transmit sensitive neural data that could be intercepted or spoofed. This introduces risks of behavioural manipulation or data leakage.
+"""
+id = "ded622d0-83d6-4d15-8bb0-93d1b8bb0354"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is a suitable mitigation strategy for protecting the integrity of brain-computer interface (BCI) data?
+"""
+prompt.distractors = [
+  "Encrypting all output using public blockchain technology",
+  "Allowing third-party apps to manage neural data",
+  "Restricting usage to academic research labs only"
+]
+answer.answer = "Encrypting signal transmission and implementing neural data access controls at hardware and OS levels"
+context = """
+Designing BCIs with secure transmission protocols and fine-grained access control helps ensure user autonomy and data privacy.
+"""
+id = "b03ea94d-da72-476d-8ad5-7850b23965b7"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following represents a valid cybersecurity concern for autonomous vehicles?
+"""
+prompt.distractors = [
+  "Overcharging the vehicle battery via solar panels",
+  "Malfunction due to poor GPS signal quality",
+  "Inability to self-diagnose hardware failures"
+]
+answer.answer = "Remote exploitation of vehicle control systems via unsecured communication channels"
+context = """
+Autonomous vehicles rely on wireless communication (e.g. V2X), which can be targeted to gain control over braking, steering, or navigation systems.
+"""
+id = "5fd13f7f-91ea-4c27-a41e-1cf750c5616f"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is a key design-level mitigation for preventing exploitation of autonomous vehicle control systems?
+"""
+prompt.distractors = [
+  "Reducing the car's speed in all environments",
+  "Relying solely on GPS-based navigation",
+  "Disabling automatic updates"
+]
+answer.answer = "Implementing secure communication protocols and isolation between safety-critical subsystems"
+context = """
+By isolating core systems (e.g. braking) from infotainment or external comms modules, and using secure authentication protocols, risks can be minimized.
+"""
+id = "9ec23695-4d77-4138-831f-310384c5da71"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following is a major ethical concern when designing autonomous technologies?
+"""
+prompt.distractors = [
+  "Ensuring the system can operate without requiring any sensors",
+  "Designing all systems to function offline only",
+  "Minimizing hardware cost regardless of implications"
+]
+answer.answer = "Deciding how autonomous systems should act in morally ambiguous situations"
+context = """
+Engineers must consider how autonomous systems make decisions in life-critical contexts (e.g. crash scenarios), raising questions about moral agency and accountability.
+"""
+id = "36dce21a-1081-4e8d-af70-7b91ccf8d969"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+In the context of autonomous systems, what ethical challenge does the question of accountability present?
+"""
+prompt.distractors = [
+  "Identifying how to build faster processors for real-time decision making",
+  "Ensuring the AI system is capable of emotion recognition",
+  "Training all users to understand source code"
+]
+answer.answer = "Determining who is responsible when the autonomous system causes harm"
+context = """
+When autonomous systems make decisions, it becomes difficult to assign blame. Responsibility could lie with designers, manufacturers, or even the AI itself.
+"""
+id = "5c8cdb60-3aa8-48ab-a35a-1d0fe91e20d1"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which ethical principle is most relevant when designing AI systems that affect human lives?
+"""
+prompt.distractors = [
+  "Utility maximisation for shareholders",
+  "Obedience to system default settings",
+  "Market competitiveness"
+]
+answer.answer = "Respect for human autonomy and dignity"
+context = """
+Systems should preserve user agency and not coerce, deceive, or manipulate users. Human dignity is a cornerstone of responsible AI ethics.
+"""
+id = "5330cf7f-00ba-4a0c-b7ca-b24d4265ed53"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following best describes a philosophical concern related to bias in autonomous systems?
+"""
+prompt.distractors = [
+  "Using too many training epochs in model development",
+  "Allocating more RAM to AI processes than storage",
+  "Optimising the system for edge devices"
+]
+answer.answer = "AI may reinforce existing social inequalities if trained on biased data"
+context = """
+Bias in training data can result in unfair outcomes, such as discrimination in hiring, policing, or healthcare systems — a key ethical concern in system design.
+"""
+id = "cab846ca-2516-4c4f-939c-0877110ffa85"

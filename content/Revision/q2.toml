@@ -1,0 +1,175 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+In the context of STRIDE, what is a spoofing threat in a smart home hub?
+"""
+prompt.distractors = [
+  "Overcharging the battery via solar input",
+  "Failing to log the user's device activity",
+  "Sending energy usage data to cloud services"
+]
+answer.answer = "An attacker impersonates a legitimate user to unlock doors or disable alarms"
+context = """
+Spoofing relates to identity attacks—if the smart hub cannot verify user identity properly, it may allow unauthorized access to critical systems like locks or alarms.
+"""
+id = "68b1783b-5457-4a0c-8a86-7a6ae10cb8ed"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which scenario represents a **tampering** threat in a smart home context?
+"""
+prompt.distractors = [
+  "A user remotely turns off the lights via app",
+  "The hub sends routine status updates to the cloud",
+  "A device forgets to cache its Wi-Fi password"
+]
+answer.answer = "An attacker alters firmware or messages to change how lighting and security systems behave"
+context = """
+Tampering is about unauthorized modification of data or code. Compromising device firmware or network commands can disrupt the safe operation of smart home features.
+"""
+id = "b412d52e-7be4-410d-925a-b2b50c54a11e"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following would be considered an **information disclosure** risk in a smart home system?
+"""
+prompt.distractors = [
+  "The system loses Wi-Fi temporarily during an update",
+  "A sensor fails to calibrate its temperature reading",
+  "A user manually disables lighting automation"
+]
+answer.answer = "Unencrypted transmissions expose occupant schedules and routines"
+context = """
+Information disclosure concerns unauthorized access to sensitive data. In smart homes, leaked schedules or energy usage patterns can pose privacy and physical risks.
+"""
+id = "5f733580-625c-48f1-8226-79b88d830fb2"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What would be an example of a **denial of service (DoS)** threat in a smart home hub?
+"""
+prompt.distractors = [
+  "An unauthorized user sets a new thermostat schedule",
+  "A camera's video feed is too dark",
+  "The home runs out of internet data"
+]
+answer.answer = "An attacker floods the hub with requests, causing failure of lighting or alarm functions"
+context = """
+DoS attacks prevent valid users from accessing services. In smart homes, this could stop lighting, alarms, or energy-saving features from operating during critical times.
+"""
+id = "087081ca-86b9-4747-9679-90a45fb6dd95"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the main purpose of the Cyber Kill Chain in cybersecurity defence?
+"""
+prompt.distractors = [
+  "To outline incident reporting procedures for regulators",
+  "To define roles and responsibilities in SOC teams",
+  "To manage recovery and business continuity post-attack"
+]
+answer.answer = "To model the stages of a cyber attack and identify opportunities to stop or detect it"
+context = """
+The Cyber Kill Chain breaks down an attack into stages like Reconnaissance, Delivery, Exploitation, and more, helping defenders apply layered controls at each step.
+"""
+id = "0d3ae13c-b70a-4b0e-908f-5aedd6c05086"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+How does the Cyber Kill Chain support defence-in-depth strategies?
+"""
+prompt.distractors = [
+  "By replacing the need for internal network segmentation",
+  "By automating all threat response activities",
+  "By eliminating false positives from intrusion detection systems"
+]
+answer.answer = "By mapping security controls to each stage of an attack to reduce risk across layers"
+context = """
+Defence-in-depth involves multiple layers of defence. The Kill Chain helps map appropriate controls (e.g. firewalls, EDR, user training) to disrupt attacks at different stages.
+"""
+id = "914da3b6-60da-4f9d-a94d-bac7e59b7872"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is a key technical risk of deploying biometric authentication for remote users?
+"""
+prompt.distractors = [
+  "Users forgetting their credentials",
+  "Latency from high network traffic",
+  "Difficulty scheduling virtual meetings"
+]
+answer.answer = "Spoofing or replay of biometric data during transmission"
+context = """
+Biometric data, if not encrypted and validated correctly, can be intercepted or replayed—especially in remote settings.
+"""
+id = "45121efa-5468-473e-a506-a28873b0049a"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which of the following is a significant privacy concern related to biometric authentication?
+"""
+prompt.distractors = [
+  "Too many password resets",
+  "Excessive screen time during login",
+  "Difficulties syncing calendars"
+]
+answer.answer = "Biometric data, once compromised, cannot be changed like a password"
+context = """
+Unlike passwords, biometric identifiers (like fingerprints or facial data) are immutable. A breach could result in permanent identity risks.
+"""
+id = "595e8c3b-d5c2-46cf-afbd-8a0d172a5054"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is an appropriate mitigation strategy for both biometric security and privacy risks?
+"""
+prompt.distractors = [
+  "Storing biometric data on public cloud servers",
+  "Hashing biometric data using MD5",
+  "Using static biometric templates across all users"
+]
+answer.answer = "Encrypting biometric data in transit and using secure, local template storage"
+context = """
+Templates should be encrypted and stored securely, preferably on-device. Remote transmission must use end-to-end encryption to prevent interception.
+"""
+id = "65f6d860-2684-4873-9e0c-c30069eda767"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the primary objective of Red Teaming in cybersecurity?
+"""
+prompt.distractors = [
+  "To train employees in using firewalls",
+  "To deploy automated patch management tools",
+  "To provide continuous vulnerability scanning"
+]
+answer.answer = "To simulate real-world adversaries and test detection, response, and resilience"
+context = """
+Red Teaming mimics threat actors with full attack chains—often covertly—to evaluate how well people, processes, and technology can detect and respond.
+"""
+id = "22349139-2879-4f12-95cc-d87b27243b87"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+How does Red Teaming differ from traditional penetration testing?
+"""
+prompt.distractors = [
+  "Red teaming focuses only on physical infrastructure",
+  "Penetration testing uses AI while red teams do not",
+  "Penetration tests take longer and cost more"
+]
+answer.answer = "Penetration tests identify vulnerabilities; red teams test the organisation’s full defence by emulating attackers"
+context = """
+Penetration testing is scoped and technical. Red Teaming assesses real-world readiness by testing detection, incident response, and decision-making under simulated threats.
+"""
+id = "c272bf03-bc21-484a-9ca6-21901be3b51a"

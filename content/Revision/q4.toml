@@ -1,0 +1,111 @@
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+How many **cryptographic keys** are required in total for secure two-way communication between Person A and Person B using Public Key Infrastructure (PKI)?
+"""
+prompt.distractors = [
+  "2 keys (one public and one private)",
+  "3 keys (one public, one private, and one shared)",
+  "1 key shared between them"
+]
+answer.answer = "4 keys (each person needs a public and private key)"
+context = """
+Each participant in PKI has their own key pair. Two users communicating securely with PKI require 2 key pairs = 4 total keys.
+"""
+id = "6ed076f7-e93e-4d66-8c08-58bc57b2fe21"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+In PKI, which key does **Person A** use to encrypt a message so that only **Person B** can read it?
+"""
+prompt.distractors = [
+  "Person A's private key",
+  "Person A's public key",
+  "Person B's private key"
+]
+answer.answer = "Person B's public key"
+context = """
+Encrypting with B's public key ensures only B can decrypt it using their private key. This provides confidentiality.
+"""
+id = "cd75f4bd-e46f-4a74-b533-6174b039b17a"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Person B replies to Person A by encrypting a **hash** of their message using their **private key**. What is the purpose of this action?
+"""
+prompt.distractors = [
+  "It provides confidentiality of the message",
+  "It protects against Denial of Service attacks",
+  "It prevents IP spoofing"
+]
+answer.answer = "It proves authenticity and integrity through a digital signature"
+context = """
+Encrypting the hash with a private key enables receivers to verify the sender and detect tampering — a core principle of digital signatures.
+"""
+id = "50d7ccaa-9ecb-4adf-a714-77e102e8d95b"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Decrypt the word **ROTAD** using a Caesar cipher with a backward shift of 6.
+"""
+prompt.distractors = [
+  "LIOUX",
+  "JINWD",
+  "PLNUB"
+]
+answer.answer = "LINUX"
+context = """
+Each letter is shifted back by 6: R→L, O→I, T→N, A→U, D→X → Result: **LINUX**
+"""
+id = "03d57547-df1e-42bd-824f-02228350491f"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which statement best describes the **columnar transposition cipher**?
+"""
+prompt.distractors = [
+  "It replaces each letter with another based on a shift value",
+  "It converts text to binary and XORs it with a key",
+  "It encrypts text by reversing word order"
+]
+answer.answer = "It rearranges the plaintext letters based on column ordering defined by a key"
+context = """
+Columnar transposition involves writing text into columns and reading them out in a rearranged order defined by a key sequence.
+"""
+id = "3c110e7c-d421-41ed-924b-5dbe549b4b29"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+What is the best classification for this item: **Outdated firmware on a router**?
+"""
+prompt.distractors = [
+  "Threat",
+  "Risk",
+  "Threat Actor"
+]
+answer.answer = "Vulnerability"
+context = """
+Vulnerabilities are weaknesses in systems—like outdated firmware—that can be exploited by threats.
+"""
+id = "03786f09-c2e1-4275-befc-e90c0fb710e3"
+
+[[questions]]
+type = "MultipleChoice"
+prompt.prompt = """
+Which authentication method is most suitable for a **budget-constrained smart home platform** designed for mass deployment?
+"""
+prompt.distractors = [
+  "Biometric authentication",
+  "Smart cards with hardware tokens",
+  "Challenge-response with HSMs"
+]
+answer.answer = "Password-based authentication"
+context = """
+Passwords are inexpensive and widely supported, making them suitable for cost-sensitive IoT platforms. However, they are susceptible to brute-force or weak password attacks.
+"""
+id = "681b5450-80ee-4510-9ec7-4969f21914cc"
