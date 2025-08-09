@@ -1,0 +1,32 @@
+# access_log.txt
+# Simulated access log from core Linux system
+# Format: [timestamp] [username] [source_ip] [action]
+
+[2025-08-04 08:01:13] jsmith 10.0.0.24 login
+[2025-08-04 08:03:45] jsmith 10.0.0.24 accessed /home/jsmith/Documents/Budget2025.xlsx
+[2025-08-04 08:55:32] intern1 10.0.0.102 login failed (wrong password)
+[2025-08-04 08:56:01] intern1 10.0.0.102 login
+[2025-08-04 08:57:12] intern1 10.0.0.102 accessed /srv/public/onboarding_guide.pdf
+[2025-08-04 09:01:00] root 127.0.0.1 ran scheduled backup.sh
+[2025-08-04 09:05:14] dbadmin 10.0.0.12 login
+[2025-08-04 09:06:30] dbadmin 10.0.0.12 accessed /var/lib/postgresql/data/db_config.sql
+[2025-08-04 10:32:49] jsmith 10.0.0.24 accessed /home/jsmith/Documents/Q3-Notes.docx
+[2025-08-04 11:12:03] intern1 10.0.0.102 logout
+[2025-08-04 11:45:28] jsmith 10.0.0.24 logout
+[2025-08-04 14:00:00] root 127.0.0.1 ran scheduled backup.sh
+[2025-08-04 16:32:55] dbadmin 10.0.0.12 logout
+[2025-08-04 18:10:41] mark 10.0.0.35 login
+[2025-08-04 18:12:12] mark 10.0.0.35 accessed /srv/share/restructure_notes.txt
+[2025-08-04 18:34:00] mark 10.0.0.35 logout
+[2025-08-05 02:50:12] unknown_user 203.0.113.50 login failed
+[2025-08-05 02:51:00] unknown_user 203.0.113.50 login failed
+[2025-08-05 03:15:42] admin 192.168.88.42 SSH login
+[2025-08-05 03:16:01] admin 192.168.88.42 sudo su -
+[2025-08-05 03:16:47] admin 192.168.88.42 accessed /srv/share/financials/Q2-Projections.zip
+[2025-08-05 03:17:13] admin 192.168.88.42 downloaded /srv/share/clients/ClientList.zip
+[2025-08-05 03:17:42] admin 192.168.88.42 logout
+[2025-08-05 07:55:10] jsmith 10.0.0.24 login
+[2025-08-05 08:00:03] jsmith 10.0.0.24 accessed /home/jsmith/Documents/DailyLog.txt
+[2025-08-05 08:01:55] intern1 10.0.0.102 login
+[2025-08-05 08:04:21] intern1 10.0.0.102 accessed /srv/public/team_schedule.pdf
+[2025-08-05 08:20:32] jsmith 10.0.0.24 accessed /srv/share/clients/ClientList.zip

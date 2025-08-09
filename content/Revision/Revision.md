@@ -14,6 +14,10 @@ Answers are reinforced with context to help clarify not just what is correct, bu
 
 ~~~
 
+~~~admonish example
+You can download last years question paper from here <a href="https://portal.gre.ac.uk/exam-papers/esc/elee1171/ELEE1171_2024_JAN.pdf" target="_blank">ELEE1171_Jan_2024.pdf</a>
+~~~
+
 ## Section 1
 
 {{#quiz ./q1.toml}}

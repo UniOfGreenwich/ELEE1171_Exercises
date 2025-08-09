@@ -22,12 +22,9 @@
 
 - [Intro to Wireshark](IntroToWireshark/Intro/ToWireshark.md)
 
-- [Law and Cybersecurity]()
+- [Law and Cybersecurity](Law/Law.md)
+  - [CMA Reference](Law/CMA_Reference.md)
 
-- [Incident Handling & DTF ]()
-
-- [Modern Hacking](WebSecurity/WebSecurity.md)
-
-- [Workshop]()
+- [Incident Handling & DFS ](IH_DFS/IH_DFS.md)
 
 - [Revision](Revision/Revision.md)

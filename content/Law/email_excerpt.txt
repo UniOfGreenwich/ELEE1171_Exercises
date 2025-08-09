@@ -1,0 +1,19 @@
+# email_excerpt.txt
+From: mark.j@company.local
+To: hr@company.local
+CC: security@company.local
+Subject: Concerns about privileged access outside office hours
+
+Hi HR,
+
+Apologies if this is not the right channel, but I wanted to formally raise a concern that I also mentioned informally last week.
+
+Over the past two weekends, I noticed system access logs showing privileged activity outside our normal working hours — particularly late at night or early morning on Sundays. I know we’ve recently changed some roles and that admin credentials may be shared in some cases, but I find the timing odd.
+
+While I can't confirm if this is misuse, I suggest checking whether any audit or usage reviews are already underway. I’m flagging it purely out of caution, not accusation.
+
+Let me know if you’d like me to forward the log excerpts I reviewed.
+
+Regards,  
+Mark Jackson  
+Systems Analyst  
