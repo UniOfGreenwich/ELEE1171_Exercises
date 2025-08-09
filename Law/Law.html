@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Modern Hacking - Securing Technologies Exercises</title>
+        <title>Law and Cybersecurity - Securing Technologies Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -34,6 +34,7 @@
         <link rel="stylesheet" href=".././theme/css/terminal.css">
         <link rel="stylesheet" href=".././theme/css/output.css">
         <link rel="stylesheet" href=".././theme/css/film.css">
+        <link rel="stylesheet" href=".././theme/css/bullseye.css">
         <link rel="stylesheet" href=".././theme/css/mdbook-admonish.css">
 
         <!-- MathJax -->
@@ -160,7 +161,7 @@
                         <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises/edit/main/content/WebSecurity/WebSecurity.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/uniofgreenwich/ELEE1171_Exercises/edit/main/content/Law/Law.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -194,7 +195,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="web-security"><a class="header" href="#web-security">Web Security</a></h1>
+                        <h1 id="law-and-cybersecurity"><a class="header" href="#law-and-cybersecurity">Law and Cybersecurity</a></h1>
+<p>In today's interconnected digital environments, organisations rely heavily on secure authentication, system monitoring, and access control policies. Despite these safeguards, internal breaches remain one of the most difficult threats to detect and mitigate — especially when they involve privileged accounts and trusted employees.</p>
+<p>In this lab, you will take on the role of a cybersecurity analyst working in partnership with legal and compliance teams to investigate a suspected internal data breach.</p>
+<hr />
+<h2 id="1-scenario-brief"><a class="header" href="#1-scenario-brief">1. Scenario Brief</a></h2>
+<p>On Sunday morning at 03:15, a security monitoring system triggered an alert: a privileged <code>admin</code> account had logged in from a non-standard IP address outside business hours. This session involved multiple file accesses and downloads of <code>.zip</code> files containing potentially sensitive data.</p>
+<p>The login was not authorised or logged as scheduled maintenance. No change tickets were open at the time. Within hours, questions were raised by staff about suspicious activity, and an internal tip-off prompted further scrutiny.</p>
 <div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
 <div class="admonition-title">
 <div id="admonition-note-title">
@@ -203,69 +210,220 @@
 <a class="admonition-anchor-link" href="#admonition-note"></a>
 </div>
 <div>
-<p>Do not attempt this on machines or targets you are not authorised to!</p>
-<p>You do not want to break the law!</p>
+<p>You can download the following files:</p>
+<ul>
+<li>
+<p><a href="./access_log.txt">access_log.txt</a> user logins and file access patterns</p>
+</li>
+<li>
+<p><a href="./email_excerpt.txt">email_excerpt.txt</a> raising concerns from a colleague</p>
+</li>
+<li>
+<p><a href="./alert.json">alert.json</a> related to the suspicious file download</p>
+</li>
+<li>
+<p><a href="./ClientList.zip">ClientList.zip</a> possibly containing misleading file names</p>
+</li>
+</ul>
 </div>
 </div>
-<p><strong>Password Capture</strong></p>
-<p>{Lab demo would be done by the instructor - Follow and ask questions as needed}</p>
-<div id="admonition-learning-outcome" class="admonition admonish-note" role="note" aria-labelledby="admonition-learning-outcome-title">
-<div class="admonition-title">
-<div id="admonition-learning-outcome-title">
-<p>Learning outcome:</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-learning-outcome"></a>
-</div>
-<div>
-<p>You will be able to see the importance of traffic encryption, understand sniffing and how to
-protect against them from design phase of any project, understand how HTML components work
-together to present a requested web page and accept input including sensitive information like
-passwords or credit card information. Overall, you will be able to better picture security from
-beyond a theoretical perspective.</p>
-</div>
-</div>
+<h3 id="11--your-objectives"><a class="header" href="#11--your-objectives">1.1  Your Objectives</a></h3>
+<ul>
+<li>
+<p>Reconstruct the timeline of events using the artefacts provided</p>
+</li>
+<li>
+<p>Assess whether a breach has occurred and what data may be affected</p>
+</li>
+<li>
+<p>Identify applicable UK laws (e.g., Computer Misuse Act, GDPR)</p>
+</li>
+<li>
+<p>Recommend next steps from both a technical and legal perspective</p>
+</li>
+<li>
+<p>Reflect on challenges such as attribution, data privacy, and evidence handling</p>
+</li>
+</ul>
+<h2 id="2-technical-artefact-analysis"><a class="header" href="#2-technical-artefact-analysis">2. Technical Artefact Analysis</a></h2>
+<p>In this section, you will perform a preliminary forensic review using simplified artefacts that simulate what would be available during the early stages of an internal security investigation.</p>
+<h3 id="21-what-you-have"><a class="header" href="#21-what-you-have">2.1 What You Have</a></h3>
+<p>You’ve been provided with a small set of technical artefacts drawn from internal systems:</p>
+<ul>
+<li>
+<p>Access Log: Contains timestamps, usernames, source IPs, and activity types (e.g., login, file access).</p>
+</li>
+<li>
+<p>ZIP File: A suspicious .zip archive downloaded during the flagged session. The filenames inside may be misleading.</p>
+</li>
+<li>
+<p>Internal Email: A message from a concerned employee, sent days before the alert, referencing unusual admin behaviour.</p>
+</li>
+<li>
+<p>Alert JSON: A structured log entry generated by the monitoring system, capturing metadata about the file downloads.</p>
+</li>
+</ul>
+<h3 id="22--your-task"><a class="header" href="#22--your-task">2.2  Your Task</a></h3>
 <ol>
 <li>
-<p>Start Wireshark and commence capture on the appropriate interface</p>
+<p><strong>Review the access log</strong></p>
+<ul>
+<li>
+<p>Identify:</p>
+<ul>
+<li>
+<p>Which user accounts were active around the time of the incident</p>
 </li>
 <li>
-<p>On your machine, visit any of the websites on the target machine that has a login page</p>
+<p>Any off-hours or anomalous behaviour</p>
 </li>
 <li>
-<p>You or your team member can enter a random password and username (does not have to be the correct one) and hit enter/submit/login.</p>
+<p>The IP addresses and actions that stand out</p>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
-<p>Go to Wireshark and use the filter to display only HTTP traffic.</p>
+<p><strong>Inspect the alert file</strong></p>
+<ul>
+<li>
+<p>What file was accessed or downloaded?</p>
 </li>
 <li>
-<p>You will see GET requests and POST packets. We are more interested in the POST packets because that contains submissions that were 'posted' or sent to the website whereas GET is to display what you requested such as the Homepage.</p>
+<p>Was this action expected for a privileged account?</p>
 </li>
 <li>
-<p>Double click on the POST packet(s) you see and investigate further. See if you can find the password you or your partner submitted.</p>
+<p>Are there any risk tags (e.g., off_hours, sensitive)?</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Interpret the internal email</strong></p>
+<ul>
+<li>
+<p>What warning signs did the employee raise?</p>
+</li>
+<li>
+<p>Is there a clear reference to the current incident?</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Examine the <code>.zip</code> archive</strong></p>
+<ul>
+<li>
+<p>What file names are used?</p>
+</li>
+<li>
+<p>Do they match the download event in the logs?</p>
+</li>
+<li>
+<p>Are the contents clearly sensitive or disguised?</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Build an Incident Timeline</strong></p>
+<ul>
+<li>
+<p>Using the downloaded artefacts, reconstruct a brief timeline (bullet points or table) showing:</p>
+<ul>
+<li>
+<p>When key actions occurred</p>
+</li>
+<li>
+<p>Which users were involved</p>
+</li>
+<li>
+<p>What data was accessed</p>
+</li>
+<li>
+<p>Any indicators of suspicious behaviour</p>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ol>
-<div id="admonition-success" class="admonition admonish-success" role="note" aria-labelledby="admonition-success-title">
+<h2 id="3-legal-application-cma--gdpr"><a class="header" href="#3-legal-application-cma--gdpr">3. Legal Application: CMA + GDPR</a></h2>
+<div id="admonition-goal" class="admonition admonish-bullseye" role="note" aria-labelledby="admonition-goal-title">
 <div class="admonition-title">
-<div id="admonition-success-title">
-<p>Success</p>
+<div id="admonition-goal-title">
+<p>Goal</p>
 </div>
-<a class="admonition-anchor-link" href="#admonition-success"></a>
+<a class="admonition-anchor-link" href="#admonition-goal"></a>
 </div>
 <div>
-<p>Congratulations on achieving your first ethical password sniffing attack!</p>
+<p>Your goal is to determine:</p>
+<ul>
+<li>
+<p>What laws may have been broken?</p>
+</li>
+<li>
+<p>What <strong>legal responsibilities</strong> the organisation now holds?</p>
+</li>
+<li>
+<p>How evidence should be handled to support future action?</p>
+</li>
+</ul>
 </div>
 </div>
-<div id="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext" class="admonition admonish-question" role="note" aria-labelledby="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext-title">
-<div class="admonition-title">
-<div id="admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext-title">
-<p>What security measures can be implemented to prevent the capture of the password or to prevent the capture of the password in plaintext?</p>
-</div>
-<a class="admonition-anchor-link" href="#admonition-what-security-measures-can-be-implemented-to-prevent-the-capture-of-the-password-or-to-prevent-the-capture-of-the-password-in-plaintext"></a>
-</div>
-<div>
-</div>
-</div><style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () => window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () => { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY <200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Copyright © 2025 • Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer>
-<footer><span class="gitinfo-footer" style="font-size:0.8em;padding:4px;margin:0.5em 0;text-align:right;display:block;">Page last updated: Friday 14 March 2025 @ 19:06:19 | Commit: ca41816</span></footer>
+<p>Now that you’ve reviewed the technical artefacts and built an incident timeline, it’s time to assess the legal implications of what has occurred.</p>
+<ol>
+<li>
+<p>Which sections of the Computer Misuse Act 1990 (CMA) may apply?
+Review the incident and consider:</p>
+<ul>
+<li>
+<p>Was access to a system gained without proper authorisation? (Section 1)</p>
+</li>
+<li>
+<p>Was the access used with intent to extract or modify data? (Section 2 or 3)</p>
+</li>
+<li>
+<p>Were actions taken that could impair the system or disrupt data integrity? (Section 3)</p>
+</li>
+</ul>
+ <details id="admonition-hint" class="admonition admonish-tip" role="note" aria-labelledby="admonition-hint-title">
+ <summary class="admonition-title">
+ <div id="admonition-hint-title">
+<p>Hint</p>
+ </div>
+ <a class="admonition-anchor-link" href="#admonition-hint"></a>
+ </summary>
+ <div>
+<p>Note whether the intent appears malicious, opportunistic, or accidental.</p>
+<ul>
+<li>
+<p>Refer to the legal reference sheet provided:</p>
+<ul>
+<li><a href="./CMA_Reference.html">CMA Reference</a></li>
+</ul>
+</li>
+</ul>
+ </div>
+ </details>
+</li>
+</ol>
+<h2 id="4-ethics--attribution-challenge"><a class="header" href="#4-ethics--attribution-challenge">4. Ethics &amp; Attribution Challenge</a></h2>
+<p>In groups discuss the personal grievance email from a recently disciplined employee. Is this enough to assign blame?
+Discuss:</p>
+<ul>
+<li>Attribution pitfalls</li>
+<li>Chain of custody</li>
+<li>Defamation risk</li>
+</ul>
+<h2 id="5-mini-report"><a class="header" href="#5-mini-report">5. Mini Report</a></h2>
+<p>Students draft a one-page internal briefing answering:</p>
+<ul>
+<li>What happened?</li>
+<li>What laws apply?</li>
+<li>What’s our immediate legal/technical risk?</li>
+<li>What should we do next?</li>
+</ul>
+<style>.scroll-to-top { font-size: 2.5rem; width: 3.2rem; height: 3.2rem; display: none; align-items: center; justify-content: center; position: fixed; padding: 0.75rem; bottom: 4rem; right: calc(1.25rem + 90px + var(--page-padding)); z-index: 999; cursor: pointer; border: none; color: var(--bg); background: var(--fg); border-radius: 50%; } .scroll-to-top.hidden { display: none; } .scroll-to-top i { transform: translateY(-2px); } @media (min-width: 1080px) { .scroll-to-top { display: flex; } }</style><button type="button" aria-label="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()"> <i class="fa fa-angle-up"></i></button><script>const scrollToTop = () => window.scroll({ top: 0, behavior: "smooth" }); window.addEventListener("scroll", () => { const button = document.querySelector(".scroll-to-top"); button.classList.toggle("hidden", window.scrollY <200); });</script><style>footer { text-align: center; text-wrap: balance; margin-top: 5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; } footer p { margin: 0; }</style><footer><p>Created with ❤️ by <a href="https://github.com/CompEng0001">CompEng0001</a></p></footer>
+<footer><span class="gitinfo-footer" style="font-size:0.8em;padding:4px;margin:0.5em 0;text-align:right;display:block;">Page last updated: Saturday 09 August 2025 @ 08:55:10 | Branch: main | Commit: ace9c13</span></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -274,7 +432,7 @@ beyond a theoretical perspective.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../Revision/Revision.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../Law/CMA_Reference.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -288,7 +446,7 @@ beyond a theoretical perspective.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../Revision/Revision.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../Law/CMA_Reference.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -1,0 +1,37 @@
+[
+  {
+    "timestamp": "2025-08-05T03:17:15Z",
+    "event": "file_download",
+    "username": "admin",
+    "file": "ClientList.zip",
+    "source": "srv-share01",
+    "destination_ip": "192.168.88.42",
+    "tags": ["anomaly", "sensitive", "off_hours"]
+  },
+  {
+    "timestamp": "2025-08-05T03:17:10Z",
+    "event": "file_access",
+    "username": "admin",
+    "file": "Q2-Projections.zip",
+    "source": "srv-share01",
+    "destination_ip": "192.168.88.42",
+    "tags": ["sensitive", "finance", "out_of_hours"]
+  },
+  {
+    "timestamp": "2025-08-05T03:16:50Z",
+    "event": "privilege_escalation",
+    "username": "admin",
+    "method": "sudo su -",
+    "source": "srv-core01",
+    "destination_ip": "192.168.88.42",
+    "tags": ["privileged", "escalation", "ssh_session"]
+  },
+  {
+    "timestamp": "2025-08-05T02:50:12Z",
+    "event": "login_attempt",
+    "username": "unknown_user",
+    "source_ip": "203.0.113.50",
+    "status": "failed",
+    "tags": ["unauthorised", "external", "brute_force"]
+  }
+]
